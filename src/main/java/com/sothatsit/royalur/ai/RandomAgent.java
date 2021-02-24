@@ -19,7 +19,12 @@ public class RandomAgent extends Agent {
     }
 
     @Override
-    public int generateMove(Game game, int roll, MoveList legalMoves) {
+    public RandomAgent clone() {
+        return new RandomAgent();
+    }
+
+    @Override
+    public int determineMove(Game game, int roll, MoveList legalMoves) {
         return legalMoves.positions[RAND.nextInt(legalMoves.count)];
     }
 }

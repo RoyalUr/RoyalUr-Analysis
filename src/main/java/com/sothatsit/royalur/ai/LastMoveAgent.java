@@ -17,7 +17,12 @@ public class LastMoveAgent extends Agent {
     }
 
     @Override
-    public int generateMove(Game game, int roll, MoveList legalMoves) {
+    public LastMoveAgent clone() {
+        return new LastMoveAgent();
+    }
+
+    @Override
+    public int determineMove(Game game, int roll, MoveList legalMoves) {
         return legalMoves.positions[legalMoves.count - 1];
     }
 }

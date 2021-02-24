@@ -39,6 +39,12 @@ public class Player {
         this.score = 0;
     }
 
+    /** Copies the tiles and score from {@param player} into this player. **/
+    public void copyFrom(Player player) {
+        this.tiles = player.tiles;
+        this.score = player.score;
+    }
+
     @Override
     public String toString() {
         return name + "(" + tiles + ", " + score + ")";

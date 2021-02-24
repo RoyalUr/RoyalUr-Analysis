@@ -20,7 +20,12 @@ public class GreedyAgent extends Agent {
     }
 
     @Override
-    public int generateMove(Game game, int roll, MoveList legalMoves) {
+    public GreedyAgent clone() {
+        return new GreedyAgent();
+    }
+
+    @Override
+    public int determineMove(Game game, int roll, MoveList legalMoves) {
         Board board = game.board;
 
         // Check if there are any capturing moves.

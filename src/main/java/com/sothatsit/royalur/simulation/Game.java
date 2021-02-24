@@ -2,8 +2,6 @@ package com.sothatsit.royalur.simulation;
 
 import com.sothatsit.royalur.ai.Agent;
 
-import java.util.function.Consumer;
-
 /**
  * Represents a game of The Royal Game of Ur.
  *
@@ -29,6 +27,14 @@ public class Game {
         state = GameState.LIGHT_TURN;
     }
 
+    /** Copies the state of {@param game} into this game object. **/
+    public void copyFrom(Game game) {
+        board.copyFrom(game.board);
+        light.copyFrom(game.light);
+        dark.copyFrom(game.dark);
+        state = game.state;
+    }
+
     /** @return the currently active player. **/
     public Player getActivePlayer() {
         return state.isLightActive ? light : dark;
@@ -39,6 +45,16 @@ public class Game {
         return state.isLightActive ? dark : light;
     }
 
+    /** Populates {@param moves} with all of the possible moves from the current state. **/
+    public void findPossibleMoves(int roll, MoveList moves) {
+        board.findPossibleMoves(getActivePlayer(), roll, moves);
+    }
+
+    /** Advances this game to the next turn. **/
+    public void nextTurn() {
+        state = state.nextTurn();
+    }
+
     /**
      * Simulates a whole game between the two agents given.
      */
@@ -46,17 +62,16 @@ public class Game {
         MoveList legalMoves = new MoveList();
 
         while (!state.finished) {
-            Player activePlayer = getActivePlayer();
             Agent activeAgent = (state.isLightActive ? light : dark);
 
             int roll = Roll.next();
-            board.findPossibleMoves(activePlayer, roll, legalMoves);
+            findPossibleMoves(roll, legalMoves);
             if (legalMoves.count == 0) {
-                state = state.nextTurn();
+                nextTurn();
                 continue;
             }
 
-            int move = activeAgent.generateMove(this, roll, legalMoves);
+            int move = activeAgent.determineMove(this, roll, legalMoves);
             if (!legalMoves.contains(move))
                 throw new IllegalStateException(activeAgent.name + " made an illegal move");
 
@@ -101,7 +116,7 @@ public class Game {
 
         // If the destination tile isn't a rosette, advance to the next move.
         if (!Tile.isRosette(dest)) {
-            state = state.nextTurn();
+            nextTurn();
         }
     }
 

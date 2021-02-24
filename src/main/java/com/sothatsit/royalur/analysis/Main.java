@@ -14,9 +14,13 @@ public class Main {
                 new RandomAgent(),
                 new FirstMoveAgent(),
                 new LastMoveAgent(),
-                new GreedyAgent()
+                new GreedyAgent(),
+                new ExpectimaxAgent(3),
+                new ExpectimaxAgent(5)
         });
-        analysis.simulateGames(10_000);
+        analysis.simulateGames(1000, 5);
+        System.out.println();
         analysis.printReport();
+        analysis.shutdown();
     }
 }

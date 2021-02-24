@@ -52,6 +52,11 @@ public final class Board {
         state = 0;
     }
 
+    /** Copies the state of {@param board} into this board object. **/
+    public void copyFrom(Board board) {
+        state = board.state;
+    }
+
     /** Clears and adds all the possible moves to {@param moves}. **/
     public void findPossibleMoves(Player player, int roll, MoveList moves) {
         if (roll == 0) {

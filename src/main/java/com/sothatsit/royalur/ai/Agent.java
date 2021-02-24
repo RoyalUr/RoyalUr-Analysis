@@ -16,5 +16,11 @@ public abstract class Agent {
         this.name = name;
     }
 
-    public abstract int generateMove(Game game, int roll, MoveList legalMoves);
+    /**
+     * Cloning is used to avoid multi-threading issues with agents.
+     */
+    @Override
+    public abstract Agent clone();
+
+    public abstract int determineMove(Game game, int roll, MoveList legalMoves);
 }

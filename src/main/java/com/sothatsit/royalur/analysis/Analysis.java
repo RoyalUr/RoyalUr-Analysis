@@ -5,7 +5,8 @@ import com.sothatsit.royalur.simulation.Game;
 import com.sothatsit.royalur.simulation.GameState;
 
 import java.util.Arrays;
-import java.util.Comparator;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A class dedicated to performing the analysis of The Royal Game of Ur.
@@ -14,6 +15,7 @@ import java.util.Comparator;
  */
 public class Analysis {
 
+    private final GameSimulator simulator = new GameSimulator();
     private final AgentStats[] agents;
 
     public Analysis(Agent[] agents) {
@@ -21,6 +23,13 @@ public class Analysis {
         for (int index = 0; index < agents.length; ++index) {
             this.agents[index] = new AgentStats(agents[index]);
         }
+    }
+
+    /**
+     * Shuts down the game simulator.
+     */
+    public void shutdown() {
+        simulator.shutdown();
     }
 
     /** Prints out a report of all of the agents and their performance. **/
@@ -32,18 +41,18 @@ public class Analysis {
 
         Arrays.sort(agents, (one, two) -> Double.compare(two.getWinPercentage(), one.getWinPercentage()));
         for (AgentStats stats : agents) {
-            String agentName = pad(stats.agent.name, ' ', maxNameLength);
+            String agentName = pad(stats.agent.name, maxNameLength);
             System.out.println(agentName + "  -  won " + (int) stats.getWinPercentage() + "%");
         }
     }
 
-    private static String pad(String name, char padChar, int length) {
+    private static String pad(String name, int length) {
         if (name.length() >= length)
             return name;
 
         StringBuilder builder = new StringBuilder(name);
         while (builder.length() < length) {
-            builder.append(padChar);
+            builder.append(' ');
         }
         return builder.toString();
     }
@@ -51,40 +60,41 @@ public class Analysis {
     /**
      * Simulates all possible game pairings between agents {@param games} times.
      */
-    public void simulateGames(int iterations) {
+    public void simulateGames(int iterations, int reportIntervalSeconds) {
         for (int iteration = 0; iteration < iterations; ++iteration) {
-            simulateAllGames();
+            addOneIterationOfGameTasks();
         }
-    }
 
-    /**
-     * Simulates a single game between the given agents,
-     * and records the results.
-     */
-    private void simulateGame(Game game, AgentStats light, AgentStats dark) {
-        game.reset();
-        game.simulateGame(light.agent, dark.agent);
-        if (game.state == GameState.LIGHT_WON) {
-            light.markWin();
-            dark.markLoss();
-        } else {
-            dark.markWin();
-            light.markLoss();
+        int totalGames = simulator.countOutstandingGames();
+        CountDownLatch latch = simulator.simulateGames();
+
+        while (latch.getCount() > 0) {
+            try {
+                if (latch.await(reportIntervalSeconds, TimeUnit.SECONDS))
+                    break;
+            } catch (InterruptedException e) {
+                System.err.println("simulateGames was interrupted");
+                return;
+            }
+
+            int complete = totalGames - ((int) latch.getCount());
+            int percent = (100 * complete) / totalGames;
+            System.out.println(" .. " + complete + " / " + totalGames + " (" + percent + "%) games completed");
         }
+        System.out.println("Done!");
     }
 
     /**
      * Simulates one game for every agent pairing, and with each agent as light and dark.
      */
-    private void simulateAllGames() {
-        Game game = new Game();
+    private void addOneIterationOfGameTasks() {
         for (int first = 0; first < agents.length; ++first) {
             for (int second = first + 1; second < agents.length; ++second) {
                 AgentStats firstAgent = agents[first];
                 AgentStats secondAgent = agents[second];
 
-                simulateGame(game, firstAgent, secondAgent);
-                simulateGame(game, secondAgent, firstAgent);
+                simulator.addGame(firstAgent, secondAgent);
+                simulator.addGame(secondAgent, firstAgent);
             }
         }
     }

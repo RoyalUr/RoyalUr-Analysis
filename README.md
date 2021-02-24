@@ -17,12 +17,14 @@ The game dates back to **over 4000 years ago**, and is considered by many to be 
 There are currently only a few agents implemented to play the game, but regardless
 here are there current rankings:
 
-| Agent Name     | Win Percentage |
-| -------------- | -------------- |
-| [Greedy](src/main/java/com/sothatsit/royalur/ai/GreedyAgent.java)        | 85% |
-| [Last-Move](src/main/java/com/sothatsit/royalur/ai/LastMoveAgent.java)   | 75% |
-| [Random](src/main/java/com/sothatsit/royalur/ai/RandomAgent.java)        | 38% |
-| [First-Move](src/main/java/com/sothatsit/royalur/ai/FirstMoveAgent.java) | 0%  |
+| Agent Name | Win Percentage |
+| ---------- | -------------- |
+| [Expectimax](src/main/java/com/sothatsit/royalur/ai/ExpectimaxAgent.java) (Depth 5)  | 87% |
+| [Expectimax](src/main/java/com/sothatsit/royalur/ai/ExpectimaxAgent.java) (Depth 3)  | 76% |
+| [Greedy](src/main/java/com/sothatsit/royalur/ai/GreedyAgent.java)                    | 60% |
+| [Last-Move](src/main/java/com/sothatsit/royalur/ai/LastMoveAgent.java)               | 51% |
+| [Random](src/main/java/com/sothatsit/royalur/ai/RandomAgent.java)                    | 23% |
+| [First-Move](src/main/java/com/sothatsit/royalur/ai/FirstMoveAgent.java)             | 0%  |
 
 These results may not show us the best way to play the game yet, but they definitely
 tell us the worst. If you want to lose every game you play, there is no better
