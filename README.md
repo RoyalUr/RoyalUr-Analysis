@@ -1,8 +1,11 @@
 # 🎲 The Royal Game of Ur Analysis
-This repository is dedicated to the technical analysis of [The Royal Game of Ur](https://en.wikipedia.org/wiki/Royal_Game_of_Ur).
+This repository is dedicated to the technical analysis of
+[The Royal Game of Ur](https://en.wikipedia.org/wiki/Royal_Game_of_Ur).
 
-The Royal Game of Ur is an ancient Sumerian board game discovered by Sir Leonard Woolley in a tomb in ancient Ur in 1922.
-The game dates back to **over 4000 years ago**, and is considered by many to be the oldest board game in the world.
+The Royal Game of Ur is an ancient Sumerian board game discovered by Sir Leonard Woolley in a
+tomb in ancient Ur in 1922. The game dates back to **over 4000 years ago**, and is considered
+by many to be the oldest board game in the world. This repository contains code with the goal
+of analysing this old game, and determining how much of the game is luck, and how much is skill.
 
 **Learn the rules** at https://royalur.net/rules, or **play the game** at https://royalur.net.
 
@@ -17,8 +20,8 @@ The game dates back to **over 4000 years ago**, and is considered by many to be 
 There are currently only a few agents implemented to play the game, but regardless
 here are there current rankings:
 
-| Agent Name | Win Percentage |
-| ---------- | -------------- |
+| Agent | Win Percentage |
+| ----- | -------------- |
 | [Expectimax](src/main/java/com/sothatsit/royalur/ai/ExpectimaxAgent.java) (Depth 5)  | 87% |
 | [Expectimax](src/main/java/com/sothatsit/royalur/ai/ExpectimaxAgent.java) (Depth 3)  | 76% |
 | [Greedy](src/main/java/com/sothatsit/royalur/ai/GreedyAgent.java)                    | 60% |
