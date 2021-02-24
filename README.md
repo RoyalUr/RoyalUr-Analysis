@@ -4,7 +4,7 @@ This repository is dedicated to the technical analysis of [The Royal Game of Ur]
 The Royal Game of Ur is an ancient Sumerian board game discovered by Sir Leonard Woolley in a tomb in ancient Ur in 1922.
 The game dates back to **over 4000 years ago**, and is considered by many to be the oldest board game in the world.
 
-**Learn the rules** at https://royalur.net/rules, or **play a game** at https://royalur.net.
+**Learn the rules** at https://royalur.net/rules, or **play the game** at https://royalur.net.
 
 ## 🏆 Goals
 **Ultimate Goal:** Determine the best possible strategy to use to win at The Royal Game of Ur.
