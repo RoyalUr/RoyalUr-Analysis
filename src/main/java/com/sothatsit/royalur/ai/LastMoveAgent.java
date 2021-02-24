@@ -6,20 +6,18 @@ import com.sothatsit.royalur.simulation.MoveList;
 import java.util.Random;
 
 /**
- * An agent that selects random moves.
+ * An agent that always selects the last legal move.
  *
  * @author Paddy Lamont
  */
-public class RandomAgent extends Agent {
+public class LastMoveAgent extends Agent {
 
-    private static final Random RAND = new Random();
-
-    public RandomAgent() {
-        super("Random");
+    public LastMoveAgent() {
+        super("Last-Move");
     }
 
     @Override
     public int generateMove(Game game, int roll, MoveList legalMoves) {
-        return legalMoves.positions[RAND.nextInt(legalMoves.count)];
+        return legalMoves.positions[legalMoves.count - 1];
     }
 }

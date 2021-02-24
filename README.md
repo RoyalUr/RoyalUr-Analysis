@@ -6,10 +6,28 @@ The game dates back to **over 4000 years ago**, and is considered by many to be 
 
 **Learn the rules** at https://royalur.net/rules, or **play the game** at https://royalur.net.
 
-## 🏆 Goals
+
+# 🏆 Goals
 **Ultimate Goal:** Determine the best possible strategy to use to win at The Royal Game of Ur.
 
 **Side Goal:** Gain new insights into the strategy of the game.
+
+# 📈 Current Rankings
+
+There are currently only a few agents implemented to play the game, but regardless
+here are there current rankings:
+
+| Agent Name     | Win Percentage |
+| -------------- | -------------- |
+| [Greedy](src/main/java/com/sothatsit/royalur/ai/GreedyAgent.java)        | 85% |
+| [Last-Move](src/main/java/com/sothatsit/royalur/ai/LastMoveAgent.java)   | 75% |
+| [Random](src/main/java/com/sothatsit/royalur/ai/RandomAgent.java)        | 38% |
+| [First-Move](src/main/java/com/sothatsit/royalur/ai/FirstMoveAgent.java) | 0%  |
+
+These results may not show us the best way to play the game yet, but they definitely
+tell us the worst. If you want to lose every game you play, there is no better
+strategy than always playing the first possible move you can!
+
 
 # 📝 License
 This program is free software: you can redistribute it and/or modify

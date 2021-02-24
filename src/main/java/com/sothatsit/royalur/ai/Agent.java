@@ -1,6 +1,7 @@
 package com.sothatsit.royalur.ai;
 
 import com.sothatsit.royalur.simulation.Game;
+import com.sothatsit.royalur.simulation.MoveList;
 
 /**
  * An agent that is able to generate its own moves.
@@ -15,5 +16,5 @@ public abstract class Agent {
         this.name = name;
     }
 
-    public abstract int generateMove(Game game, int roll);
+    public abstract int generateMove(Game game, int roll, MoveList legalMoves);
 }

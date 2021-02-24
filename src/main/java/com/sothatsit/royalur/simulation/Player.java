@@ -33,6 +33,12 @@ public class Player {
         this.score = 0;
     }
 
+    /** Resets this player back to its default state. **/
+    public void reset() {
+        this.tiles = MAX_TILES;
+        this.score = 0;
+    }
+
     @Override
     public String toString() {
         return name + "(" + tiles + ", " + score + ")";

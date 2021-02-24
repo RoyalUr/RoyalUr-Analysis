@@ -21,6 +21,14 @@ public class Game {
     /** The current state of this game. **/
     public GameState state = GameState.LIGHT_TURN;
 
+    /** Resets to the default game state. **/
+    public void reset() {
+        board.clear();
+        light.reset();
+        dark.reset();
+        state = GameState.LIGHT_TURN;
+    }
+
     /** @return the currently active player. **/
     public Player getActivePlayer() {
         return state.isLightActive ? light : dark;
@@ -48,7 +56,7 @@ public class Game {
                 continue;
             }
 
-            int move = activeAgent.generateMove(this, roll);
+            int move = activeAgent.generateMove(this, roll, legalMoves);
             if (!legalMoves.contains(move))
                 throw new IllegalStateException(activeAgent.name + " made an illegal move");
 
