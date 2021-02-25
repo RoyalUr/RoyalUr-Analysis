@@ -26,7 +26,11 @@ public class ExpectimaxAgent extends Agent {
     private final MoveList[] moveLists;
 
     public ExpectimaxAgent(int depth) {
-        super("Expectimax-" + depth);
+        this("Expectimax", depth);
+    }
+
+    protected ExpectimaxAgent(String name, int depth) {
+        super(name + "-" + depth);
         this.depth = depth;
         this.games = new Game[depth + 1];
         this.moveLists = new MoveList[depth + 1];

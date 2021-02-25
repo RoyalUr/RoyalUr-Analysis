@@ -18,7 +18,7 @@ public class Main {
                 new ExpectimaxAgent(3),
                 new ExpectimaxAgent(5)
         });
-        analysis.simulateGames(1000, 5);
+        analysis.simulateGames(100, 5);
         System.out.println();
         analysis.printReport();
         analysis.shutdown();
