@@ -56,12 +56,12 @@ and here are there current rankings:
 
 | Agent | Win Percentage |
 | ----- | -------------- |
-| [Expectimax](/docs/Agents.md#-the-expectimax-agent) (Depth 5)  | 87.5% |
-| [Expectimax](/docs/Agents.md#-the-expectimax-agent) (Depth 3)  | 77.6% |
-| [Greedy](/docs/Agents.md#-the-greedy-agent)                    | 61.3% |
-| [Last-Move](/docs/Agents.md#-the-last-move-agent)              | 50.0% |
-| [Random](/docs/Agents.md#-the-random-agent)                    | 23.5% |
-| [First-Move](/docs/Agents.md#-the-first-move-agent)            | 0.1%  |
+| [Expectimax](/docs/Agents.md#-the-expectimax-agent-) (Depth 5)  | 87.5% |
+| [Expectimax](/docs/Agents.md#-the-expectimax-agent-) (Depth 3)  | 77.6% |
+| [Greedy](/docs/Agents.md#-the-greedy-agent-)                    | 61.3% |
+| [Last-Move](/docs/Agents.md#-the-last-move-agent-)              | 50.0% |
+| [Random](/docs/Agents.md#-the-random-agent-)                    | 23.5% |
+| [First-Move](/docs/Agents.md#-the-first-move-agent-)            | 0.1%  |
 
 These results may not show us the best way to play the game yet, but they definitely
 tell us the worst. If you want to lose every game you play, there is no better
