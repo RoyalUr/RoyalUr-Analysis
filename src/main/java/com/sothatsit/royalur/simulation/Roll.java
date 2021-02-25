@@ -12,6 +12,15 @@ public class Roll {
     /** Used to generate random rolls. **/
     private static final Random RAND = new Random();
 
+    /** The probability of each of the rolls of the dice happening. **/
+    public static final float[] PROBABILITIES = {
+            1.0f / 16.0f,
+            4.0f / 16.0f,
+            6.0f / 16.0f,
+            4.0f / 16.0f,
+            1.0f / 16.0f,
+    };
+
     /** The maximum possible roll. **/
     public static final int MAX = 4;
 
@@ -22,6 +31,6 @@ public class Roll {
         if (num < 5) return 1;
         if (num < 11) return 2;
         if (num < 15) return 3;
-        return 4;
+        else return 4;
     }
 }

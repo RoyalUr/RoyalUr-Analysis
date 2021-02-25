@@ -41,12 +41,10 @@ public class Analysis {
             maxNameLength = Math.max(maxNameLength, stats.agent.name.length());
         }
 
-        NumberFormat percentageFormatter = new DecimalFormat("#0.0");
         Arrays.sort(agents, (one, two) -> Double.compare(two.getWinPercentage(), one.getWinPercentage()));
         for (AgentStats stats : agents) {
             String agentName = pad(stats.agent.name, maxNameLength);
-            String winRate = percentageFormatter.format(stats.getWinPercentage()) + "%";
-            System.out.println(agentName + "  -  won " + winRate);
+            System.out.println(agentName + "  - " + stats.summarise());
         }
     }
 

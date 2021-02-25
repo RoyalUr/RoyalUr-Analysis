@@ -90,11 +90,11 @@ public class GameSimulator {
                 game.reset();
                 game.simulateGame(light, dark);
                 if (game.state == GameState.LIGHT_WON) {
-                    lightStats.markWin();
-                    darkStats.markLoss();
+                    lightStats.markWin(true);
+                    darkStats.markLoss(false);
                 } else {
-                    darkStats.markWin();
-                    lightStats.markLoss();
+                    darkStats.markWin(false);
+                    lightStats.markLoss(true);
                 }
             } finally {
                 latch.countDown();

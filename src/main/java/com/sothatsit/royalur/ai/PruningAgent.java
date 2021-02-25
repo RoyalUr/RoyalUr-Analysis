@@ -1,39 +1,48 @@
 package com.sothatsit.royalur.ai;
 
 import com.sothatsit.royalur.ai.utility.UtilityFunction;
-import com.sothatsit.royalur.simulation.*;
+import com.sothatsit.royalur.simulation.Game;
+import com.sothatsit.royalur.simulation.MoveList;
+import com.sothatsit.royalur.simulation.Roll;
 
 /**
- * An agent that uses expectimax to determine the best move.
+ * An agent that uses iterative deepening and improbable move pruning,
+ * combined with expectimax in order to choose its moves. The improbable
+ * move pruning helps this agent reach much higher depths than expectimax.
  *
- * @author Paddy Lamont
+ * This takes advantage of the fact that searching deeper and deeper tends
+ * only to make the utility approximations of each move more accurate,
+ * with little chance of them changing drastically at higher depths.
  */
-public class ExpectimaxAgent extends Agent {
+public class PruningAgent extends Agent {
 
     /** The utility function used to score the end-states. **/
     private final UtilityFunction utilityFn;
     /** The maximum depth to search to. **/
-    private final int depth;
+    private final int maxDepth;
+    /** The depth to search to before filtering out moves. **/
+    private final int filterDepth;
     /** Game objects to re-use while exploring. **/
     private final Game[] games;
     /** MoveList objects to re-use while exploring. **/
     private final MoveList[] moveLists;
 
-    public ExpectimaxAgent(UtilityFunction utilityFn, int depth) {
-        super("Expectimax-" + depth);
+    public PruningAgent(UtilityFunction utilityFn, int maxDepth, int filterDepth) {
+        super("Pruning-" + maxDepth);
         this.utilityFn = utilityFn;
-        this.depth = depth;
-        this.games = new Game[depth + 1];
-        this.moveLists = new MoveList[depth + 1];
-        for (int index = 0; index <= depth; ++index) {
+        this.maxDepth = maxDepth;
+        this.filterDepth = filterDepth;
+        this.games = new Game[maxDepth + 1];
+        this.moveLists = new MoveList[maxDepth + 1];
+        for (int index = 0; index <= maxDepth; ++index) {
             games[index] = new Game();
             moveLists[index] = new MoveList();
         }
     }
 
     @Override
-    public ExpectimaxAgent clone() {
-        return new ExpectimaxAgent(utilityFn, depth);
+    public Agent clone() {
+        return new PruningAgent(utilityFn, maxDepth, filterDepth);
     }
 
     public float calculateBestMoveUtility(Game precedingGame, int roll, int depth) {
@@ -73,7 +82,7 @@ public class ExpectimaxAgent extends Agent {
     }
 
     public float calculateProbabilityWeightedUtility(Game game, int depth) {
-        if (game.state.finished || depth >= this.depth)
+        if (game.state.finished || depth >= this.maxDepth)
             return utilityFn.scoreGameState(game);
 
         float utility = 0;

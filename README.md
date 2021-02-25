@@ -5,7 +5,7 @@ This repository is dedicated to the technical analysis of
 The Royal Game of Ur is an ancient Sumerian board game discovered by Sir Leonard Woolley in a
 tomb in ancient Ur in 1922. The game dates back to **over 4000 years ago**, and is considered
 by many to be the oldest board game in the world. This repository contains code with the goal
-of analysing this old game, and determining how much of the game is luck, and how much is skill.
+of analysing this old game, and determining how much of the game is luck, and how much is skill!
 
 Learn the rules of the game at https://royalur.net/rules, or play the game over at https://royalur.net.
 
@@ -47,12 +47,12 @@ We currently have a small set of agents designed to play The Royal Game of Ur.
 | [Expectimax](/docs/Agents.md#-the-expectimax-agent-)  | Does a statistical analysis to determine the best move. |
 
 If you'd like to delve deeper into each agent and how they function,
-check out [Agents.md](docs/Agents.md) for more information!
+check out [docs/Agents.md](/docs/Agents.md) for more information!
 
 
 # 📈 Current Rankings
 There are currently only a few agents implemented to play the game,
-and here are there current rankings:
+and here are their rankings:
 
 | Agent | Win Percentage |
 | ----- | -------------- |
@@ -65,7 +65,7 @@ and here are there current rankings:
 
 These results may not show us the best way to play the game yet, but they definitely
 tell us the worst. If you want to lose every game you play, there is no better
-strategy than always playing the first possible move you can!
+strategy than always moving your least advanced piece!
 
 ### Want more detailed statistics?
 If you'd like to delve deeper into each agent and more statistics about them,
@@ -85,7 +85,21 @@ how lucky you have to be when playing a very simple strategy to beat someone pla
 These results suggest that even if you are a world-class Game of Ur player, there is _always_
 a chance that someone with very meagre skills could still win! This is part of what makes
 The Royal Game of Ur such an approachable and exciting game, with matches often coming
-down to the wire.
+down to the wire even with big skill disparities.
+
+
+# 🉐 Does playing first give you an advantage?
+Another question that people may wonder, is whether playing as light or dark gives you
+an advantage in your games? Well, we ran the numbers by playing two depth-5 expectimax
+agents against one another, and here are the results:
+
+| Colour | Win Percentage |
+| ------ | -------------- |
+| Light  | 61.9%          |
+| Dark   | 38.1%          |
+
+From these results you can see that playing as light gives you a significant advantage
+when playing The Royal Game of Ur, with a whopping 23.8% higher chance of winning!
 
 
 # 📝 License

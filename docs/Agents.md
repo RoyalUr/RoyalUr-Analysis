@@ -135,8 +135,9 @@ The source code for the greedy agent is available in
 
 
 # 📒 The Expectimax Agent 📒
-The expectimax agent is currently our best agent. Expectimax is our first
-agent to look ahead at potential future moves.
+The expectimax agent is currently our best agent. Expectimax (Expectation Maximisation)
+is our first agent to look ahead at potential future moves, with an aim at maximising
+the expected outcome of the moves it makes.
 
 It does this by considering all the possible moves that could happen to some
 depth into the future. It then scores all the possible end states after these
