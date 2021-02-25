@@ -89,9 +89,11 @@ down to the wire even with big skill disparities.
 
 
 # 🉐 Does playing first give you an advantage?
-Another question that people may wonder, is whether playing as light or dark gives you
-an advantage in your games? Well, we ran the numbers by playing two depth-5 expectimax
-agents against one another, and here are the results:
+Another question that people may wonder is: **Does playing as light or dark give you
+an advantage?**
+
+Well, we ran the numbers by playing two depth-5 expectimax agents against one another,
+and here are the results:
 
 | Colour | Win Percentage |
 | ------ | -------------- |
