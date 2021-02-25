@@ -1,4 +1,4 @@
-# AI Agents to play The Royal Game of Ur
+# 🤖 AI Agents to play The Royal Game of Ur
 This file contains a list of all the current artifical intelligence (AI) strategies
 that are implemented in this project to play
 [The Royal Game of Ur](https://en.wikipedia.org/wiki/Royal_Game_of_Ur). This file
@@ -6,14 +6,14 @@ aims to describe the algorithms used by each of the agents. It also contains
 statistics for each of the agents to demonstrate their strengths and weaknesses.
 
 
-## 🎲 The Random Agent
+# 🎲 The Random Agent 🎲
 The random agent is probably the most self-explanatory agent we have.
 When it is the random agent's turn, it looks through all of its legal
 moves, and picks a random one. Surprisingly, the random agent remains
-quite effective against the worse strategies in the game. Unsurprisingly
+quite effective against the worst strategies in the game. Unsurprisingly
 however, more advanced agents wipe the floor with the random agent.
 
-### Random vs. Expectimax (Depth 5)
+### 📊 Random vs. Expectimax (Depth 5)
 Here are the results of a game between the random agent and
 one of our best strategies: expectimax with a depth of 5:
 
@@ -22,22 +22,22 @@ one of our best strategies: expectimax with a depth of 5:
 | Expectimax (Depth 5)  | 99.5%          |
 | Random                | 0.5%           |
 
-Maybe surprising to some is that the random agent does have some chances!
+Surprisingly, even against our best agent random still has a chance!
 If you play randomly, you could expect that 1 in 200 games, you _might_
 get lucky enough to win!
 
-### Random Agent Source Code
+### 📄 Random Agent Source Code
 The source code for the random agent is available in
 [RandomAgent.java](/src/main/java/com/sothatsit/royalur/ai/RandomAgent.java).
 
 
-# 👶 The First-Move Agent
+# 👶 The First-Move Agent 👶
 The first-move agent is the _worst_ possible strategy we have at playing
 The Royal Game of Ur. This agent always picks the least advanced piece to
 move.
 
-### First-Move vs. Random
-**How bad could it be?** The answer is _very, very_ bad. Here are some results of the
+### 📊 First-Move vs. Random
+How bad could the first-move agent really be? The answer is _very, very_ bad. Here are some results of the
 first-move agent playing against a _random_ player:
 
 | Agent       | Win Percentage |
@@ -50,18 +50,18 @@ to win. This can be understood by considering that often this agent would get al
 pieces onto the board before it ever considers taking a piece off the board. This gives
 ample opportunity for its opponent to take its pieces before it decides to advance them.
 
-### First-Move Agent Source Code
+### 📄 First-Move Agent Source Code
 The source code for the first-move agent is available in
 [FirstMoveAgent.java](/src/main/java/com/sothatsit/royalur/ai/FirstMoveAgent.java).
 
 
-# 👴 The Last-Move Agent
+# 👴 The Last-Move Agent 👴
 The last-move agent is a much better alternative to the first-move agent when
 playing The Royal Game of Ur. This agent always picks the most advanced piece
 to move. This leads this agent to perform much better than random, however it
 is still not up to par when playing against more advanced agents.
 
-### Last-Move vs. Random
+### 📊 Last-Move vs. Random
 **Here are the results of the last-move agent being played against the random agent:**
 
 | Agent      | Win Percentage |
@@ -72,7 +72,7 @@ is still not up to par when playing against more advanced agents.
 Somewhat surprisingly, the random agent still has a chance against this simple strategy.
 Against more advanced strategies however, this simple strategy performs much more poorly.
 
-### Last-Move vs. Expectimax (Depth 5)
+### 📊 Last-Move vs. Expectimax (Depth 5)
 **Here are the results of the last-move agent being played
 against our best expectimax agent with a depth of 5:**
 
@@ -84,12 +84,12 @@ against our best expectimax agent with a depth of 5:**
 This shows us that although the last-move agent's strategy is much better than
 picking random moves, there are still _much_ better strategies to choose from.
 
-### Last-Move Agent Source Code
+### 📄 Last-Move Agent Source Code
 The source code for the last-move agent is available in
 [LastMoveAgent.java](/src/main/java/com/sothatsit/royalur/ai/LastMoveAgent.java).
 
 
-# 🤑 The Greedy Agent
+# 🤑 The Greedy Agent 🤑
 The greedy agent is an agent that starts to develop some semblance of tactics
 while playing The Royal Game of Ur. This agent is similar to the last-move
 agent, except it prioritises taking pieces and moving pieces onto rosettes.
@@ -103,7 +103,7 @@ Here is the decision-making process of the greedy agent:
 
 This helps the greedy agent gain a modest advantage over the last-move agent.
 
-### Greedy vs. Last-Move
+### 📊 Greedy vs. Last-Move
 Here are the results of the greedy agent playing against the last-move agent:
 
 | Agent      | Win Percentage |
@@ -116,7 +116,7 @@ better than the last-move agent. The difference between them though is
 modest, with the greedy agent winning only 25.8% more games than the
 last-move agent.
 
-### Greedy vs. Expectimax (Depth 5)
+### 📊 Greedy vs. Expectimax (Depth 5)
 Here are the results of the greedy agent playing against a depth-5 expectimax:
 
 | Agent                 | Win Percentage |
@@ -129,12 +129,12 @@ by the depth-5 expectimax agent. This suggests that the strategy
 involved in The Royal Game of Ur still dominates the match, even
 when playing very sensible moves.
 
-### Greedy Agent Source Code
+### 📄 Greedy Agent Source Code
 The source code for the greedy agent is available in
 [GreedyAgent.java](/src/main/java/com/sothatsit/royalur/ai/GreedyAgent.java).
 
 
-# 📒 The Expectimax Agent
+# 📒 The Expectimax Agent 📒
 The expectimax agent is currently our best agent. Expectimax is our first
 agent to look ahead at potential future moves.
 
@@ -162,7 +162,7 @@ This is repeated until we get all the way back up to the current state of the ga
 At this point, we now have an accurate score for each move, and we can pick the
 move with the highest score to play.
 
-### Expectimax vs. Expectimax: How does the depth affect its play?
+### 📊 Expectimax vs. Expectimax: How does the depth affect its play?
 We have already shown above that expectimax beats all of our other strategies of
 playing The Royal Game of Ur quite solidly. But how does it fair against itself
 when its looking to different depths into the future?
@@ -182,7 +182,7 @@ higher and higher depths is infeasible due to limitations on available
 compute. Therefore, there is clearly more work to be done with optimisations
 and the exploration of new algorithms to crown our perfect strategy!
 
-### Greedy Agent Source Code
+### 📄 Expectimax Agent Source Code
 The source code for the expectimax agent is available in
 [ExpectimaxAgent.java](/src/main/java/com/sothatsit/royalur/ai/ExpectimaxAgent.java).
 
