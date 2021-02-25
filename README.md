@@ -38,13 +38,13 @@ people have made! The Discord is also a great place to find strong opponents to 
 # 🤖 The Agents
 We currently have a small set of agents designed to play The Royal Game of Ur.
 
-| Agent       | Description |
-| ----------- | -------------- |
-| Random      | Picks a random move, every time! |
-| First-Move  | Picks the least advanced piece to move. |
-| Last-Move   | Picks the most advanced piece to move. |
-| Greedy      | Prioritises taking pieces, and moving onto rosettes. |
-| Expectimax  | Does a statistical analysis to determine the best move. |
+| Agent | Description |
+| ----- | ----------- |
+| [Random](/docs/Agents.md#-the-random-agent-)          | Picks a random move, every time! |
+| [First-Move](/docs/Agents.md#-the-first-move-agent-)  | Picks the least advanced piece to move. |
+| [Last-Move](/docs/Agents.md#-the-last-move-agent-)    | Picks the most advanced piece to move. |
+| [Greedy](/docs/Agents.md#-the-greedy-agent-)          | Prioritises taking pieces, and moving onto rosettes. |
+| [Expectimax](/docs/Agents.md#-the-expectimax-agent-)  | Does a statistical analysis to determine the best move. |
 
 If you'd like to delve deeper into each agent and how they function,
 check out [Agents.md](docs/Agents.md) for more information!
