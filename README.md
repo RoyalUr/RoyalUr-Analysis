@@ -79,8 +79,8 @@ how lucky you have to be when playing a very simple strategy to beat someone pla
 
 | Agent | Win Percentage |
 | ----- | -------------- |
-| [Expectimax](/docs/Agents.md#-the-expectimax-agent) (Depth 7)  | 85% |
-| [Greedy](/docs/Agents.md#-the-greedy-agent)                    | 15% |
+| [Expectimax](/docs/Agents.md#-the-expectimax-agent-) (Depth 7)  | 85% |
+| [Greedy](/docs/Agents.md#-the-greedy-agent-)                    | 15% |
 
 These results suggest that even if you are a world-class Game of Ur player, there is _always_
 a chance that someone with very meagre skills could still win! This is part of what makes
