@@ -21,12 +21,25 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Used for interaction with the browser for WASM target. -->
+        <dependency>
+            <groupId>de.mirkosertic.bytecoder</groupId>
+            <artifactId>bytecoder.api</artifactId>
+            <version>2021-01-26</version>
+        </dependency>
+        <dependency>
+            <groupId>de.mirkosertic.bytecoder</groupId>
+            <artifactId>bytecoder.web</artifactId>
+            <version>2021-01-26</version>
+        </dependency>
     </dependencies>
 
     <build>
         <finalName>RoyalUrAnalysis</finalName>
 
         <plugins>
+            <!-- Compilation target to compile to a jar file. -->
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
@@ -46,6 +59,27 @@
                         <phase>package</phase> <!-- bind to the packaging phase -->
                         <goals>
                             <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Compilation target to compile to WASM. -->
+            <plugin>
+                <groupId>de.mirkosertic.bytecoder</groupId>
+                <artifactId>bytecoder-mavenplugin</artifactId>
+                <version>2021-01-26</version>
+                <configuration>
+                    <mainClass>com.sothatsit.royalur.browser.WasmMain</mainClass>
+                    <backend>wasm</backend>
+                    <enableExceptionHandling>false</enableExceptionHandling>
+                    <optimizationLevel>ALL</optimizationLevel>
+                    <filenamePrefix>royal_ur_analysis</filenamePrefix>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
                         </goals>
                     </execution>
                 </executions>
