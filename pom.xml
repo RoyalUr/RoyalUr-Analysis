@@ -63,27 +63,64 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- Compilation target to compile to WASM. -->
-            <plugin>
-                <groupId>de.mirkosertic.bytecoder</groupId>
-                <artifactId>bytecoder-mavenplugin</artifactId>
-                <version>2021-01-26</version>
-                <configuration>
-                    <mainClass>com.sothatsit.royalur.browser.WasmMain</mainClass>
-                    <backend>wasm</backend>
-                    <enableExceptionHandling>false</enableExceptionHandling>
-                    <optimizationLevel>ALL</optimizationLevel>
-                    <filenamePrefix>royal_ur_analysis</filenamePrefix>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
+
+    <!-- Compilation target to compile to WASM. -->
+    <profiles>
+        <profile>
+            <id>wasm</id>
+            <build>
+                <plugins>
+                    <!-- Generate the WASM code. -->
+                    <plugin>
+                        <groupId>de.mirkosertic.bytecoder</groupId>
+                        <artifactId>bytecoder-mavenplugin</artifactId>
+                        <version>2021-01-26</version>
+                        <configuration>
+                            <mainClass>com.sothatsit.royalur.browser.WasmMain</mainClass>
+                            <backend>wasm_llvm</backend>
+                            <enableExceptionHandling>false</enableExceptionHandling>
+                            <optimizationLevel>ALL</optimizationLevel>
+                            <filenamePrefix>royal_ur_analysis</filenamePrefix>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>compile</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Generates the JavaScript API code to run and hook into RoyalUrAnalysis. -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>3.0.0</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <configuration>
+                                    <target>
+
+                                        <concat destfile="${project.build.directory}/bytecoder/api.js">
+                                            <fileset file="${project.build.directory}/bytecoder/royal_ur_analysis.js" />
+                                            <fileset file="${project.basedir}/src/main/java/com/sothatsit/royalur/browser/api.js" />
+                                        </concat>
+                                        <delete file="${project.build.directory}/bytecoder/royal_ur_analysis.js" />
+                                        <echo message="Generated ${project.build.directory}/bytecoder/api.js" level="info" />
+
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

@@ -97,7 +97,8 @@ public final class Board {
 
     @Override
     public int hashCode() {
-        return Long.hashCode(state);
+        long state = this.state;
+        return (int)(state ^ state >>> 32);
     }
 
     @Override

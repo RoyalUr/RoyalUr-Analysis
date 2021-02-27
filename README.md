@@ -54,14 +54,15 @@ check out [docs/Agents.md](/docs/Agents.md) for more information!
 There are currently only a few agents implemented to play the game,
 and here are their rankings:
 
-| Agent | Win Percentage |
-| ----- | -------------- |
-| [Expectimax](/docs/Agents.md#-the-expectimax-agent-) (Depth 5)  | 87.5% |
-| [Expectimax](/docs/Agents.md#-the-expectimax-agent-) (Depth 3)  | 77.6% |
-| [Greedy](/docs/Agents.md#-the-greedy-agent-)                    | 61.3% |
-| [Last-Move](/docs/Agents.md#-the-last-move-agent-)              | 50.0% |
-| [Random](/docs/Agents.md#-the-random-agent-)                    | 23.5% |
-| [First-Move](/docs/Agents.md#-the-first-move-agent-)            | 0.1%  |
+| Agent | Win Percentage | Win % when light | Win % when dark |
+| ----- | -------------- | ---------------- | --------------- |
+| [Expectimax](/docs/Agents.md#-the-expectimax-agent-) (Depth 7)  | 85.1% | 88.7% | 81.5% |
+| [Expectimax](/docs/Agents.md#-the-expectimax-agent-) (Depth 5)  | 79.2% | 84.4% | 74.0% |
+| [Expectimax](/docs/Agents.md#-the-expectimax-agent-) (Depth 3)  | 67.8% | 74.3% | 61.3% |
+| [Greedy](/docs/Agents.md#-the-greedy-agent-)                    | 53.4% | 55.9% | 50.8% |
+| [Last-Move](/docs/Agents.md#-the-last-move-agent-)              | 44.7% | 47.0% | 42.3% |
+| [Random](/docs/Agents.md#-the-random-agent-)                    | 19.6% | 19.9% | 19.3% |
+| [First-Move](/docs/Agents.md#-the-first-move-agent-)            | 0.2%  | 0.2%  | 0.2%  |
 
 These results may not show us the best way to play the game yet, but they definitely
 tell us the worst. If you want to lose every game you play, there is no better
@@ -102,6 +103,20 @@ and here are the results:
 
 From these results you can see that playing as light gives you a significant advantage
 when playing The Royal Game of Ur, with a whopping 23.8% higher chance of winning!
+
+
+# 🥊 Challenge the AI's yourself
+If you'd like to challenge our best [Depth-7 Expectimax AI](/docs/Agents.md#-the-expectimax-agent-),
+the website [RoyalUr.net](https://royalur.net) has an _Extreme_ difficulty in the works which uses
+RoyalUrAnalysis under the hood!
+<p align="left"><a href="https://royalur.net">
+  <img src="https://royalur.net/banner.jpg" width="400" />
+</a></p>
+
+### Want to add RoyalUrAnalysis support to your website?
+RoyalUrAnalysis has a WASM build target and JavaScript API that allows you
+to do just that! Check out the documentation for RoyalUrAnalysis on the web
+in [WebSupport.md](/docs/WebSupport.md).
 
 
 # 📝 License
