@@ -151,6 +151,21 @@ pieces advancement represents how many tiles each piece has been moved.
 For example, if you moved a piece four spaces, you would gain 4 score.
 The only way to lose score is if the opponent captures any of your pieces.
 
+**Canonicalising Wins:** An enhancement to the pieces advanced utility
+function is to canonicalise wins/losses to the maximum and minimum
+possible scores respectively. This has the advantage that no one win
+is better than another, and that there is no "good" way to lose. If
+you win, you get the maximum possible score, no matter if you win by
+1 tile or 5 tiles. Additionally, if you are about to lose, this
+canonicalisation prioritises doing whatever possible to try to win,
+however slim the chances are. Otherwise, the AI may just try to
+improve its score so that it doesn't lose by as much.
+
+| Utility Function  | Win Percentage |
+| ----------------- | -------------- |
+| Canocalising Wins | 50.8%          |
+| Pieces Advanced   | 49.2%          |
+
 ### Statistical Analysis of End-States
 The score (otherwise termed utility) of each end-state is collapsed up the
 tree of potential moves in two stages:

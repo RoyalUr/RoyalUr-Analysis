@@ -1,6 +1,7 @@
 package com.sothatsit.royalur.analysis;
 
 import com.sothatsit.royalur.ai.*;
+import com.sothatsit.royalur.ai.utility.CanonicaliseWinsUtilityFn;
 import com.sothatsit.royalur.ai.utility.PiecesAdvancedUtilityFn;
 import com.sothatsit.royalur.simulation.Agent;
 
@@ -18,10 +19,10 @@ public class Main {
 //                new LastMoveAgent(),
 //                new GreedyAgent(),
 //                new ExpectimaxAgent(new PiecesAdvancedUtilityFn(), 3),
-                new ExpectimaxAgent(new PiecesAdvancedUtilityFn(), 5),
-                new PandaAgent(new PiecesAdvancedUtilityFn(), 5, 2)
+                new PandaAgent(new PiecesAdvancedUtilityFn(), 5, 2),
+                new PandaAgent(new CanonicaliseWinsUtilityFn(), 5, 2)
         });
-        analysis.simulateGames(1000, 5);
+        analysis.simulateGames(10_000, 5);
         System.out.println();
         analysis.printReport();
         analysis.shutdown();

@@ -56,4 +56,11 @@ public class PandaAgent extends ExpectimaxAgent {
         }
         return utility;
     }
+
+    @Override
+    public String describe() {
+        return name + "(depth " + depth
+                + ", full for " + fullSearchDepth
+                + ", score by " + utilityFn.name + ")";
+    }
 }

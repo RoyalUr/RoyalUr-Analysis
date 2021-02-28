@@ -7,14 +7,18 @@ import com.sothatsit.royalur.simulation.*;
  *
  * @author Paddy Lamont
  */
-public class PiecesAdvancedUtilityFn implements UtilityFunction {
+public class PiecesAdvancedUtilityFn extends UtilityFunction {
+
+    public PiecesAdvancedUtilityFn() {
+        this("pieces-advanced");
+    }
+
+    protected PiecesAdvancedUtilityFn(String name) {
+        super(name);
+    }
 
     @Override
     public int scoreGameStateForLight(Game game) {
-        // If the game is over, just go straight for the maximum score.
-        if (game.state.finished)
-            return (game.state.isLightActive ? 1 : -1) * 16 * Player.MAX_TILES;
-
         Board board = game.board;
         int[] lightIndexToPos = Path.LIGHT.indexToPos;
         int[] darkIndexToPos = Path.DARK.indexToPos;

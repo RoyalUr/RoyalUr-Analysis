@@ -34,12 +34,12 @@ public class Analysis {
     public void printReport() {
         int maxNameLength = 0;
         for (AgentStats stats : agents) {
-            maxNameLength = Math.max(maxNameLength, stats.agent.name.length());
+            maxNameLength = Math.max(maxNameLength, stats.agent.describe().length());
         }
 
         Arrays.sort(agents, (one, two) -> Double.compare(two.getWinPercentage(), one.getWinPercentage()));
         for (AgentStats stats : agents) {
-            String agentName = pad(stats.agent.name, maxNameLength);
+            String agentName = pad(stats.agent.describe(), maxNameLength);
             System.out.println(agentName + "  - " + stats.summariseStats());
         }
     }

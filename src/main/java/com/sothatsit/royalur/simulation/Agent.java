@@ -21,4 +21,9 @@ public abstract class Agent {
 
     /** @return The packed position of the piece to be moved. **/
     public abstract int determineMove(Game game, int roll, MoveList legalMoves);
+
+    /** @return a description of this agent. **/
+    public String describe() {
+        return name;
+    }
 }

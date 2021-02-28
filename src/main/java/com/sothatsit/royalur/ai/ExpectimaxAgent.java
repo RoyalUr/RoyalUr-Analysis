@@ -23,8 +23,8 @@ public class ExpectimaxAgent extends Agent {
         this("Expectimax", utilityFn, depth);
     }
 
-    protected ExpectimaxAgent(String namePrefix, UtilityFunction utilityFn, int depth) {
-        super(namePrefix + "-" + depth);
+    protected ExpectimaxAgent(String name, UtilityFunction utilityFn, int depth) {
+        super(name);
         this.utilityFn = utilityFn;
         this.depth = depth;
         this.games = new Game[depth + 1];
@@ -108,5 +108,10 @@ public class ExpectimaxAgent extends Agent {
             }
         }
         return maxMove;
+    }
+
+    @Override
+    public String describe() {
+        return name + "(depth " + depth + ", score by " + utilityFn.name + ")";
     }
 }
