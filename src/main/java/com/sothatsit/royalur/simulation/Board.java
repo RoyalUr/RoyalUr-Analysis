@@ -86,7 +86,7 @@ public final class Board {
 
             int dest = posToDest[pos];
             int destTile = get(dest);
-            if (destTile == playerTile || (pos == middleRosettePos && destTile != 0))
+            if (destTile == playerTile || (dest == middleRosettePos && destTile != 0))
                 continue;
 
             outPositions[count] = pos;

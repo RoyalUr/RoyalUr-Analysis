@@ -178,6 +178,27 @@ public class BoardTest {
             Assert.assertEquals(Pos.pack(1, 6), moves.positions[2]);
             Assert.assertEquals(Pos.pack(1, 7), moves.destinations[2]);
         }
+
+        // Test that pieces on the rosette are safe.
+        for (Player player : new Player[] {lightPlayer, darkPlayer}) {
+            Player otherPlayer = (player == lightPlayer ? darkPlayer : lightPlayer);
+            player.tiles = 0;
+
+            for (int roll = 1; roll <= 4; ++roll) {
+                board.clear();
+
+                // Put a piece of the other player on the rosette.
+                board.set(Tile.MIDDLE_ROSETTE, otherPlayer.tile);
+
+                // Put a piece of the player before the rosette.
+                int pos = player.path.indexToPos[8 - roll];
+                board.set(pos, player.tile);
+
+                // Make sure moving that piece onto the rosette is illegal.
+                board.findPossibleMoves(player, roll, moves);
+                Assert.assertEquals(0, moves.count);
+            }
+        }
     }
 
     @Test
