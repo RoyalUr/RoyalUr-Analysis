@@ -70,13 +70,14 @@ public final class Board {
         int[] posToDest = path.posToDestByRoll[roll];
         int[] outPositions = moves.positions;
         int[] outDestinations = moves.destinations;
+        int middleRosettePos = Tile.MIDDLE_ROSETTE;
 
         int count = 0;
         for (int index = 0; index < Path.LENGTH - roll; ++index) {
             int pos = indexToPos[index];
             int tile;
             if (index == 0) {
-                tile = (player.tiles > 0 ? playerTile : Tile.EMPTY);
+                tile = (player.tiles > 0 ? playerTile : 0);
             } else {
                 tile = get(pos);
             }
@@ -85,7 +86,7 @@ public final class Board {
 
             int dest = posToDest[pos];
             int destTile = get(dest);
-            if (destTile == playerTile || (pos == Tile.MIDDLE_ROSETTE && destTile != Tile.EMPTY))
+            if (destTile == playerTile || (pos == middleRosettePos && destTile != 0))
                 continue;
 
             outPositions[count] = pos;

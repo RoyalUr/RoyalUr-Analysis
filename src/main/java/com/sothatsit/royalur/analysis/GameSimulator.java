@@ -1,6 +1,6 @@
 package com.sothatsit.royalur.analysis;
 
-import com.sothatsit.royalur.ai.Agent;
+import com.sothatsit.royalur.simulation.Agent;
 import com.sothatsit.royalur.simulation.Game;
 import com.sothatsit.royalur.simulation.GameState;
 
@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * This class handles the simulating of lots of games
@@ -88,7 +86,7 @@ public class GameSimulator {
         public void run() {
             try {
                 game.reset();
-                game.simulateGame(light, dark);
+                game.simulateGame(lightStats, darkStats, light, dark);
                 if (game.state == GameState.LIGHT_WON) {
                     lightStats.markWin(true);
                     darkStats.markLoss(false);

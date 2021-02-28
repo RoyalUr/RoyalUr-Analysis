@@ -1,5 +1,6 @@
 package com.sothatsit.royalur.ai;
 
+import com.sothatsit.royalur.simulation.Agent;
 import com.sothatsit.royalur.simulation.Game;
 import com.sothatsit.royalur.simulation.MoveList;
 

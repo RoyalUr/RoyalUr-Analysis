@@ -82,6 +82,7 @@
                             <backend>wasm_llvm</backend>
                             <enableExceptionHandling>false</enableExceptionHandling>
                             <optimizationLevel>ALL</optimizationLevel>
+                            <llvmOptimizationLevel>O3</llvmOptimizationLevel>
                             <filenamePrefix>royal_ur_analysis</filenamePrefix>
                         </configuration>
                         <executions>

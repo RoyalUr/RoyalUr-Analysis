@@ -1,6 +1,7 @@
 package com.sothatsit.royalur.browser;
 
 import com.sothatsit.royalur.ai.ExpectimaxAgent;
+import com.sothatsit.royalur.ai.PandaAgent;
 import com.sothatsit.royalur.ai.utility.PiecesAdvancedUtilityFn;
 import com.sothatsit.royalur.simulation.*;
 import de.mirkosertic.bytecoder.api.Export;
@@ -35,7 +36,7 @@ public class WasmMain {
 
         // Read information about the AI to use.
         int depth = reader.nextInt(2);
-        ExpectimaxAgent agent = new ExpectimaxAgent(new PiecesAdvancedUtilityFn(), depth);
+        ExpectimaxAgent agent = new PandaAgent(new PiecesAdvancedUtilityFn(), depth, 2);
 
         // Read the state of the game.
         Game game = new Game();

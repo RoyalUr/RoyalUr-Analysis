@@ -2,6 +2,7 @@ package com.sothatsit.royalur.analysis;
 
 import com.sothatsit.royalur.ai.*;
 import com.sothatsit.royalur.ai.utility.PiecesAdvancedUtilityFn;
+import com.sothatsit.royalur.simulation.Agent;
 
 /**
  * The main entry-point to this Royal Ur Analysis program.
@@ -12,13 +13,13 @@ public class Main {
 
     public static void main(String[] args) {
         Analysis analysis = new Analysis(new Agent[] {
-                new RandomAgent(),
-                new FirstMoveAgent(),
-                new LastMoveAgent(),
-                new GreedyAgent(),
-                new ExpectimaxAgent(new PiecesAdvancedUtilityFn(), 3),
+//                new RandomAgent(),
+//                new FirstMoveAgent(),
+//                new LastMoveAgent(),
+//                new GreedyAgent(),
+//                new ExpectimaxAgent(new PiecesAdvancedUtilityFn(), 3),
                 new ExpectimaxAgent(new PiecesAdvancedUtilityFn(), 5),
-                new ExpectimaxAgent(new PiecesAdvancedUtilityFn(), 7)
+                new PandaAgent(new PiecesAdvancedUtilityFn(), 5, 2)
         });
         analysis.simulateGames(1000, 5);
         System.out.println();

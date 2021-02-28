@@ -1,11 +1,6 @@
 package com.sothatsit.royalur.ai;
 
-import com.sothatsit.royalur.simulation.Board;
-import com.sothatsit.royalur.simulation.Game;
-import com.sothatsit.royalur.simulation.MoveList;
-import com.sothatsit.royalur.simulation.Tile;
-
-import java.util.Random;
+import com.sothatsit.royalur.simulation.*;
 
 /**
  * An agent that prioritises capturing pieces, then landing on rosettes,

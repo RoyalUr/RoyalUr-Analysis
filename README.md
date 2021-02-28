@@ -106,14 +106,14 @@ when playing The Royal Game of Ur, with a whopping 23.8% higher chance of winnin
 
 
 # 🥊 Challenge the AI's yourself
-If you'd like to challenge our best [Depth-7 Expectimax AI](/docs/Agents.md#-the-expectimax-agent-),
-the website [RoyalUr.net](https://royalur.net) has an _Extreme_ difficulty in the works which uses
-RoyalUrAnalysis under the hood!
+If you'd like to challenge the [Panda Agent](/docs/Agents.md#-the-panda-agent-),
+the website [RoyalUr.net](https://royalur.net) has the _Panda_ difficulty in the
+works which uses the RoyalUrAnalysis Panda Agent under the hood!
 <p align="left"><a href="https://royalur.net">
   <img src="https://royalur.net/banner.jpg" width="400" />
 </a></p>
 
-### Want to add RoyalUrAnalysis support to your website?
+# 🚧 Want to add RoyalUrAnalysis support to your website?
 RoyalUrAnalysis has a WASM build target and JavaScript API that allows you
 to do just that! Check out the documentation for RoyalUrAnalysis on the web
 in [WebSupport.md](/docs/WebSupport.md).

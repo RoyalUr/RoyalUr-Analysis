@@ -1,11 +1,7 @@
 package com.sothatsit.royalur.analysis;
 
-import com.sothatsit.royalur.ai.Agent;
-import com.sothatsit.royalur.simulation.Game;
-import com.sothatsit.royalur.simulation.GameState;
+import com.sothatsit.royalur.simulation.Agent;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -44,7 +40,7 @@ public class Analysis {
         Arrays.sort(agents, (one, two) -> Double.compare(two.getWinPercentage(), one.getWinPercentage()));
         for (AgentStats stats : agents) {
             String agentName = pad(stats.agent.name, maxNameLength);
-            System.out.println(agentName + "  - " + stats.summarise());
+            System.out.println(agentName + "  - " + stats.summariseStats());
         }
     }
 

@@ -11,16 +11,20 @@ import com.sothatsit.royalur.simulation.*;
 public class ExpectimaxAgent extends Agent {
 
     /** The utility function used to score the end-states. **/
-    private final UtilityFunction utilityFn;
+    protected final UtilityFunction utilityFn;
     /** The maximum depth to search to. **/
-    private final int depth;
+    protected final int depth;
     /** Game objects to re-use while exploring. **/
-    private final Game[] games;
+    protected final Game[] games;
     /** MoveList objects to re-use while exploring. **/
-    private final MoveList[] moveLists;
+    protected final MoveList[] moveLists;
 
     public ExpectimaxAgent(UtilityFunction utilityFn, int depth) {
-        super("Expectimax-" + depth);
+        this("Expectimax", utilityFn, depth);
+    }
+
+    protected ExpectimaxAgent(String namePrefix, UtilityFunction utilityFn, int depth) {
+        super(namePrefix + "-" + depth);
         this.utilityFn = utilityFn;
         this.depth = depth;
         this.games = new Game[depth + 1];
@@ -77,8 +81,9 @@ public class ExpectimaxAgent extends Agent {
             return utilityFn.scoreGameState(game);
 
         float utility = 0;
+        float[] probabilities = Roll.PROBABILITIES;
         for (int roll = 0; roll <= Roll.MAX; ++roll) {
-            utility += Roll.PROBABILITIES[roll] * calculateBestMoveUtility(game, roll, depth);
+            utility += probabilities[roll] * calculateBestMoveUtility(game, roll, depth);
         }
         return utility;
     }

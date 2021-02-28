@@ -1,6 +1,6 @@
 package com.sothatsit.royalur.simulation;
 
-import com.sothatsit.royalur.ai.Agent;
+import com.sothatsit.royalur.analysis.AgentStats;
 
 /**
  * Represents a game of The Royal Game of Ur.
@@ -53,6 +53,40 @@ public class Game {
     /** Advances this game to the next turn. **/
     public void nextTurn() {
         state = state.nextTurn();
+    }
+
+    /**
+     * Simulates a whole game between the two agents given.
+     */
+    public void simulateGame(AgentStats lightStats, AgentStats darkStats, Agent light, Agent dark) {
+        MoveList legalMoves = new MoveList();
+
+        while (!state.finished) {
+            Agent activeAgent;
+            AgentStats activeAgentStats;
+            if (state.isLightActive) {
+                activeAgent = light;
+                activeAgentStats = lightStats;
+            } else {
+                activeAgent = dark;
+                activeAgentStats = darkStats;
+            }
+
+            int roll = Roll.next();
+            findPossibleMoves(roll, legalMoves);
+            if (legalMoves.count == 0) {
+                nextTurn();
+                continue;
+            }
+
+            long start = System.nanoTime();
+            int move = activeAgent.determineMove(this, roll, legalMoves);
+            activeAgentStats.recordMoveMade(System.nanoTime() - start);
+            if (!legalMoves.contains(move))
+                throw new IllegalStateException(activeAgent.name + " made an illegal move");
+
+            performMove(move, roll);
+        }
     }
 
     /**

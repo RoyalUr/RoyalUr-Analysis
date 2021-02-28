@@ -1,6 +1,7 @@
 package com.sothatsit.royalur;
 
 import com.sothatsit.royalur.ai.RandomAgent;
+import com.sothatsit.royalur.analysis.AgentStats;
 import com.sothatsit.royalur.simulation.Board;
 import com.sothatsit.royalur.simulation.Game;
 import com.sothatsit.royalur.simulation.GameState;

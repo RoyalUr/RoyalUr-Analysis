@@ -1,7 +1,4 @@
-package com.sothatsit.royalur.ai;
-
-import com.sothatsit.royalur.simulation.Game;
-import com.sothatsit.royalur.simulation.MoveList;
+package com.sothatsit.royalur.simulation;
 
 /**
  * An agent that is able to generate its own moves.
@@ -22,5 +19,6 @@ public abstract class Agent {
     @Override
     public abstract Agent clone();
 
+    /** @return The packed position of the piece to be moved. **/
     public abstract int determineMove(Game game, int roll, MoveList legalMoves);
 }

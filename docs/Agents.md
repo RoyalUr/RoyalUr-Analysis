@@ -187,3 +187,51 @@ and the exploration of new algorithms to crown our perfect strategy!
 The source code for the expectimax agent is available in
 [ExpectimaxAgent.java](/src/main/java/com/sothatsit/royalur/ai/ExpectimaxAgent.java).
 
+
+# 🐼 The Panda Agent 🐼
+One issue with expectimax is speed, as checking all possible moves within a
+certain depth is expensive! Therefore, instead of calculating _all_ possible
+moves, after a certain depth the panda agent simply ignores the possibility
+of rolling 0's and 4's.
+
+This sacrifices some accuracy, but it gains a significant amount in speed.
+
+### 📊 Panda vs. Expectimax
+For these tests, the panda is set to ignore rolls of 0 and 4 after a depth of 2.
+
+**Depth 5**
+
+| Agent       | Win Percentage | Milliseconds per move |
+| ----------- | -------------- | --------------------- |
+| Expectimax  | 50.0%          | 3.19 ms               |
+| Panda       | 50.0%          | 6.43 ms               |
+
+**Depth 6**
+
+| Agent       | Win Percentage | Milliseconds per move |
+| ----------- | -------------- | --------------------- |
+| Expectimax  | 50.9%          | 97.5 ms               |
+| Panda       | 49.1%          | 37.7 ms               |
+
+**Depth 7**
+
+| Agent       | Win Percentage | Milliseconds per move |
+| ----------- | -------------- | --------------------- |
+| Expectimax  | 52%            | 1504 ms               |
+| Panda       | 48%            | 406 ms                |
+
+These results show us that after a certain depth, ignoring the possibility of rolling
+0's or 4's does not affect the performance of the agent too much. Therefore, the Panda
+agent is able to perform almost as well as expectimax, with 2-3x the speed.
+
+**Note:** Do keep in mind that these ms/move statistics will change from computer
+to computer based on the hardware used. The numbers are really only useful for
+comparison between algorithms.
+
+### Why is this agent named Panda? 🐼
+This agent is pretty lazy with its move checking, and if
+there's one thing pandas are famous for, its their laziness!
+
+### 📄 The Panda Agent Source Code
+The source code for the panda agent is available in
+[PandaAgent.java](/src/main/java/com/sothatsit/royalur/ai/PandaAgent.java).
