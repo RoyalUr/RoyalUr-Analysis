@@ -199,6 +199,18 @@ public class BoardTest {
                 Assert.assertEquals(0, moves.count);
             }
         }
+
+        // Test moving pieces onto the board.
+        for (Player player : new Player[] {lightPlayer, darkPlayer}) {
+            player.tiles = 1;
+
+            for (int roll = 1; roll <= 4; ++roll) {
+                board.clear();
+                board.findPossibleMoves(player, roll, moves);
+                Assert.assertEquals(1, moves.count);
+                Assert.assertEquals(player.path.indexToPos[0], moves.positions[0]);
+            }
+        }
     }
 
     @Test

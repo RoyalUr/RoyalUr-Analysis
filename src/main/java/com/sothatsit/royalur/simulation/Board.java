@@ -125,12 +125,14 @@ public final class Board {
             }
             for (int x = 0; x < 3; ++x) {
                 int tile = get(x, y);
-                if (tile == Tile.LIGHT) {
+                if (!Tile.isOnBoard(Pos.pack(x, y))) {
+                    builder.append(".");
+                } else if (tile == Tile.LIGHT) {
                     builder.append("L");
                 } else if (tile == Tile.DARK) {
                     builder.append("D");
                 } else {
-                    builder.append(Tile.isOnBoard(Pos.pack(x, y)) ? "-" : ".");
+                    builder.append("-");
                 }
             }
         }

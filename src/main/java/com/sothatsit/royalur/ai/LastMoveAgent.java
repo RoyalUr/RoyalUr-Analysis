@@ -22,6 +22,9 @@ public class LastMoveAgent extends Agent {
 
     @Override
     public int determineMove(Game game, int roll, MoveList legalMoves) {
+        if (legalMoves.count == 0)
+            return -1;
+
         return legalMoves.positions[legalMoves.count - 1];
     }
 }

@@ -90,8 +90,12 @@ public class ExpectimaxAgent extends Agent {
 
     @Override
     public int determineMove(Game originalGame, int roll, MoveList legalMoves) {
-        Game game = games[0];
+        if (legalMoves.count == 0)
+            return -1;
+        if (legalMoves.count == 1)
+            return legalMoves.positions[0];
 
+        Game game = games[0];
         float maxUtility = Float.NEGATIVE_INFINITY;
         int maxMove = legalMoves.positions[0];
 

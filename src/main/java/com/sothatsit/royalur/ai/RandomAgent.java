@@ -26,6 +26,9 @@ public class RandomAgent extends Agent {
 
     @Override
     public int determineMove(Game game, int roll, MoveList legalMoves) {
+        if (legalMoves.count == 0)
+            return -1;
+
         return legalMoves.positions[RAND.nextInt(legalMoves.count)];
     }
 }

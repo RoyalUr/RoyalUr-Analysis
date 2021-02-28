@@ -21,6 +21,9 @@ public class GreedyAgent extends Agent {
 
     @Override
     public int determineMove(Game game, int roll, MoveList legalMoves) {
+        if (legalMoves.count == 0)
+            return -1;
+
         Board board = game.board;
 
         // Check if there are any capturing moves.

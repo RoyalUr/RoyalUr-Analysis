@@ -36,7 +36,7 @@ public class WasmMain {
 
         // Read information about the AI to use.
         int depth = reader.nextInt(2);
-        ExpectimaxAgent agent = new PandaAgent(new PiecesAdvancedUtilityFn(), depth, 2);
+        Agent agent = new PandaAgent(new PiecesAdvancedUtilityFn(), depth, 2);
 
         // Read the state of the game.
         Game game = new Game();
@@ -63,6 +63,7 @@ public class WasmMain {
         int move = agent.determineMove(game, roll, legalMoves);
         int moveX = Pos.getX(move);
         int moveY = Pos.getY(move);
+        System.out.println("Move " + moveX + "," + moveY + " (" + move + ") on " + game.board);
 
         // Write the response packet.
         PacketWriter writer = new PacketWriter();
