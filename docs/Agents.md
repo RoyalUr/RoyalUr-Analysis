@@ -6,6 +6,26 @@ aims to describe the algorithms used by each of the agents. It also contains
 statistics for each of the agents to demonstrate their strengths and weaknesses.
 
 
+# 📈 Current Rankings
+We have several AI agents designed to play The Royal Game of Ur.
+Therefore, it is useful to play them against one another to get
+an idea of their relative strengths.
+
+| Agent | Win Percentage | Win % when light | Win % when dark |
+| ----- | -------------- | ---------------- | --------------- |
+| [Expectimax](/docs/Agents.md#-the-expectimax-agent-) (Depth 7)  | 85.1% | 88.7% | 81.5% |
+| [Expectimax](/docs/Agents.md#-the-expectimax-agent-) (Depth 5)  | 79.2% | 84.4% | 74.0% |
+| [Expectimax](/docs/Agents.md#-the-expectimax-agent-) (Depth 3)  | 67.8% | 74.3% | 61.3% |
+| [Greedy](/docs/Agents.md#-the-greedy-agent-)                    | 53.4% | 55.9% | 50.8% |
+| [Last-Move](/docs/Agents.md#-the-last-move-agent-)              | 44.7% | 47.0% | 42.3% |
+| [Random](/docs/Agents.md#-the-random-agent-)                    | 19.6% | 19.9% | 19.3% |
+| [First-Move](/docs/Agents.md#-the-first-move-agent-)            | 0.2%  | 0.2%  | 0.2%  |
+
+These results may not show us the best way to play the game yet, but they definitely
+tell us the worst. If you want to lose every game you play, there is no better
+strategy than always moving your least advanced piece!
+
+
 # 🎲 The Random Agent 🎲
 The random agent is probably the most self-explanatory agent we have.
 When it is the random agent's turn, it looks through all of its legal
@@ -141,7 +161,7 @@ the expected outcome of the moves it makes.
 
 It does this by considering all the possible moves that could happen to some
 depth into the future. It then scores all the possible end states after these
-moves, and does a statistical analysis to determine which move is expected to
+moves, and does a statistical analyser to determine which move is expected to
 maximise its own score.
 
 ### Scoring End-States

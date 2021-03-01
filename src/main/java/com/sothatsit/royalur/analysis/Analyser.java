@@ -11,12 +11,20 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Paddy Lamont
  */
-public class Analysis {
+public class Analyser {
 
     private final GameSimulator simulator = new GameSimulator();
     private final AgentStats[] agents;
 
-    public Analysis(Agent[] agents) {
+    public Analyser(AgentType[] agentTypes) {
+        this.agents = new AgentStats[agentTypes.length];
+        for (int index = 0; index < agentTypes.length; ++index) {
+            AgentType type = agentTypes[index];
+            this.agents[index] = new AgentStats(type.name, type.agent);
+        }
+    }
+
+    public Analyser(Agent[] agents) {
         this.agents = new AgentStats[agents.length];
         for (int index = 0; index < agents.length; ++index) {
             this.agents[index] = new AgentStats(agents[index]);
@@ -30,16 +38,24 @@ public class Analysis {
         simulator.shutdown();
     }
 
+    /**
+     * @return a list of the statistics of all the agents,
+     *         sorted in descending order by win percentage.
+     */
+    public AgentStats[] getAgentStats() {
+        Arrays.sort(agents, (one, two) -> Double.compare(two.getWinPercentage(), one.getWinPercentage()));
+        return agents;
+    }
+
     /** Prints out a report of all of the agents and their performance. **/
     public void printReport() {
         int maxNameLength = 0;
         for (AgentStats stats : agents) {
-            maxNameLength = Math.max(maxNameLength, stats.agent.describe().length());
+            maxNameLength = Math.max(maxNameLength, stats.name.length());
         }
 
-        Arrays.sort(agents, (one, two) -> Double.compare(two.getWinPercentage(), one.getWinPercentage()));
-        for (AgentStats stats : agents) {
-            String agentName = pad(stats.agent.describe(), maxNameLength);
+        for (AgentStats stats : getAgentStats()) {
+            String agentName = pad(stats.name, maxNameLength);
             System.out.println(agentName + "  - " + stats.summariseStats());
         }
     }

@@ -1,6 +1,5 @@
 package com.sothatsit.royalur.browser;
 
-import com.sothatsit.royalur.ai.ExpectimaxAgent;
 import com.sothatsit.royalur.ai.PandaAgent;
 import com.sothatsit.royalur.ai.utility.PiecesAdvancedUtilityFn;
 import com.sothatsit.royalur.simulation.*;
@@ -63,7 +62,6 @@ public class WasmMain {
         int move = agent.determineMove(game, roll, legalMoves);
         int moveX = Pos.getX(move);
         int moveY = Pos.getY(move);
-        System.out.println("Move " + moveX + "," + moveY + " (" + move + ") on " + game.board);
 
         // Write the response packet.
         PacketWriter writer = new PacketWriter();

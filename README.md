@@ -1,5 +1,5 @@
 # 🎲 The Royal Game of Ur Analysis
-This repository is dedicated to the technical analysis of
+This repository is dedicated to the technical analyser of
 [The Royal Game of Ur](https://en.wikipedia.org/wiki/Royal_Game_of_Ur).
 
 The Royal Game of Ur is an ancient Sumerian board game discovered by Sir Leonard Woolley in a
@@ -35,74 +35,31 @@ people have made! The Discord is also a great place to find strong opponents to 
 **Side Goal:** Gain new insights into the strategy of the game.
 
 
+# 💡 Insights
+If you'd like to learn more about questions such as:
+
+- 🍀 How much of the game is luck?
+
+- 🐇 Does playing first give you an advantage?
+
+Then check out our list of insights that we have found out about
+The Royal Game of Ur in [docs/Insights.md](/docs/Insights.md).
+
+
 # 🤖 The Agents
 We currently have a small set of agents designed to play The Royal Game of Ur.
 
 | Agent | Description |
 | ----- | ----------- |
-| [Random](/docs/Agents.md#-the-random-agent-)          | Picks a random move, every time! |
-| [First-Move](/docs/Agents.md#-the-first-move-agent-)  | Picks the least advanced piece to move. |
-| [Last-Move](/docs/Agents.md#-the-last-move-agent-)    | Picks the most advanced piece to move. |
-| [Greedy](/docs/Agents.md#-the-greedy-agent-)          | Prioritises taking pieces, and moving onto rosettes. |
-| [Expectimax](/docs/Agents.md#-the-expectimax-agent-)  | Does a statistical analysis to determine the best move. |
+| [Random](/docs/Agents.md#-the-random-agent-)         | Picks a random move, every time! |
+| [First-Move](/docs/Agents.md#-the-first-move-agent-) | Picks the least advanced piece to move. |
+| [Last-Move](/docs/Agents.md#-the-last-move-agent-)   | Picks the most advanced piece to move. |
+| [Greedy](/docs/Agents.md#-the-greedy-agent-)         | Prioritises taking pieces, and moving onto rosettes. |
+| [Expectimax](/docs/Agents.md#-the-expectimax-agent-) | Does a statistical analyser to determine the best move. |
+| [Panda](/docs/Agents.md#-the-panda-agent-)           | A cheaper variant of expectimax that skips checking some rolls. |
 
-If you'd like to delve deeper into each agent and how they function,
-check out [docs/Agents.md](/docs/Agents.md) for more information!
-
-
-# 📈 Current Rankings
-There are currently only a few agents implemented to play the game,
-and here are their rankings:
-
-| Agent | Win Percentage | Win % when light | Win % when dark |
-| ----- | -------------- | ---------------- | --------------- |
-| [Expectimax](/docs/Agents.md#-the-expectimax-agent-) (Depth 7)  | 85.1% | 88.7% | 81.5% |
-| [Expectimax](/docs/Agents.md#-the-expectimax-agent-) (Depth 5)  | 79.2% | 84.4% | 74.0% |
-| [Expectimax](/docs/Agents.md#-the-expectimax-agent-) (Depth 3)  | 67.8% | 74.3% | 61.3% |
-| [Greedy](/docs/Agents.md#-the-greedy-agent-)                    | 53.4% | 55.9% | 50.8% |
-| [Last-Move](/docs/Agents.md#-the-last-move-agent-)              | 44.7% | 47.0% | 42.3% |
-| [Random](/docs/Agents.md#-the-random-agent-)                    | 19.6% | 19.9% | 19.3% |
-| [First-Move](/docs/Agents.md#-the-first-move-agent-)            | 0.2%  | 0.2%  | 0.2%  |
-
-These results may not show us the best way to play the game yet, but they definitely
-tell us the worst. If you want to lose every game you play, there is no better
-strategy than always moving your least advanced piece!
-
-### Want more detailed statistics?
-If you'd like to delve deeper into each agent and more statistics about them,
-check out [Agents.md](docs/Agents.md) for more information!
-
-
-# 🍀 So, how much of the game is luck?
-To quantify this question, here are the results of playing a very simple greedy strategy
-against our current best strategy: depth-7 expectimax. This should give us a good idea of
-how lucky you have to be when playing a very simple strategy to beat someone playing very well.
-
-| Agent | Win Percentage |
-| ----- | -------------- |
-| [Expectimax](/docs/Agents.md#-the-expectimax-agent-) (Depth 7)  | 85% |
-| [Greedy](/docs/Agents.md#-the-greedy-agent-)                    | 15% |
-
-These results suggest that even if you are a world-class Game of Ur player, there is _always_
-a chance that someone with very meagre skills could still win! This is part of what makes
-The Royal Game of Ur such an approachable and exciting game, with matches often coming
-down to the wire even with big skill disparities.
-
-
-# 🉐 Does playing first give you an advantage?
-Another question that people may wonder is: **Does playing as light or dark give you
-an advantage?**
-
-Well, we ran the numbers by playing two depth-5 expectimax agents against one another,
-and here are the results:
-
-| Colour | Win Percentage |
-| ------ | -------------- |
-| Light  | 61.9%          |
-| Dark   | 38.1%          |
-
-From these results you can see that playing as light gives you a significant advantage
-when playing The Royal Game of Ur, with a whopping 23.8% higher chance of winning!
+If you'd like to delve deeper into each agent, how they function, and more statistics
+about each of them, then check out [docs/Agents.md](/docs/Agents.md) for more information!
 
 
 # 🥊 Challenge the AI's yourself
@@ -113,10 +70,10 @@ works which uses the RoyalUrAnalysis Panda Agent under the hood!
   <img src="https://royalur.net/banner.jpg" width="400" />
 </a></p>
 
-# 🚧 Want to add RoyalUrAnalysis support to your website?
+# 🚧 Add RoyalUrAnalysis support to your website
 RoyalUrAnalysis has a WASM build target and JavaScript API that allows you
-to do just that! Check out the documentation for RoyalUrAnalysis on the web
-in [WebSupport.md](/docs/WebSupport.md).
+to use its AI's from the web! Check out the documentation for RoyalUrAnalysis
+on the web in [WebSupport.md](/docs/WebSupport.md).
 
 
 # 📝 License

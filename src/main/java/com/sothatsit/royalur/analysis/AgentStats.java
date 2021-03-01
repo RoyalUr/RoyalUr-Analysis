@@ -1,5 +1,6 @@
 package com.sothatsit.royalur.analysis;
 
+import com.sothatsit.royalur.analysis.reporting.ReportFormatter;
 import com.sothatsit.royalur.simulation.Agent;
 
 import java.text.DecimalFormat;
@@ -14,19 +15,29 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class AgentStats {
 
-    private static final NumberFormat oneDPFormatter = new DecimalFormat("#0.0");
-    private static final NumberFormat twoDPFormatter = new DecimalFormat("#0.00");
-
+    /** The user-friendly name of the agent being tested. **/
+    public final String name;
     /** The agent that is being tested. **/
     public final Agent agent;
+    /** The number of games the agent won as light. **/
     public final AtomicInteger wonAsLight = new AtomicInteger(0);
+    /** The number of games the agent won as dark. **/
     public final AtomicInteger wonAsDark = new AtomicInteger(0);
+    /** The number of games the agent lost as light. **/
     public final AtomicInteger lostAsLight = new AtomicInteger(0);
+    /** The number of games the agent lost as dark. **/
     public final AtomicInteger lostAsDark = new AtomicInteger(0);
+    /** The total number of moves the agent made in its games. **/
     public final AtomicInteger movesMade = new AtomicInteger(0);
+    /** The total amount of time the agent spent deciding its moves. **/
     public final AtomicLong timeSpentNanos = new AtomicLong(0);
 
     public AgentStats(Agent agent) {
+        this(agent.describe(), agent);
+    }
+
+    public AgentStats(String name, Agent agent) {
+        this.name = name;
         this.agent = agent;
     }
 
@@ -81,12 +92,12 @@ public class AgentStats {
 
     /** @return a summary of the statistics measured about this agent. **/
     public String summariseStats() {
-        String won = oneDPFormatter.format(getWinPercentage()) + "%";
-        String wonAsLight = oneDPFormatter.format(getWinPercentageAsLight()) + "%";
-        String wonAsDark = oneDPFormatter.format(getWinPercentageAsDark()) + "%";
+        String won = ReportFormatter.formatWinPercentage(getWinPercentage());
+        String wonAsLight = ReportFormatter.formatWinPercentage(getWinPercentageAsLight());
+        String wonAsDark = ReportFormatter.formatWinPercentage(getWinPercentageAsDark());
         String winSummary = "won " + won + " (" + wonAsLight + " when light, " + wonAsDark + " when dark)";
-        String timeSummary = twoDPFormatter.format(getMsPerMove()) + " ms/move";
-        String gameSummary = oneDPFormatter.format(getMovesPerGame()) + "moves/game";
+        String timeSummary = ReportFormatter.formatMSPerMove(getMsPerMove());
+        String gameSummary = ReportFormatter.formatMovesPerGame(getMovesPerGame());
         return winSummary + ", " + timeSummary + ", " + gameSummary;
     }
 

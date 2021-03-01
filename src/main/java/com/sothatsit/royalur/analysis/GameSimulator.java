@@ -23,7 +23,6 @@ public class GameSimulator {
 
     public GameSimulator() {
         int threadCount = Runtime.getRuntime().availableProcessors();
-        System.out.println("GameSimulator is using " + threadCount + " threads\n");
         this.executor = Executors.newFixedThreadPool(threadCount);
     }
 
