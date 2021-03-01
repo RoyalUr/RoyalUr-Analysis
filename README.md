@@ -1,17 +1,26 @@
 # 🎲 The Royal Game of Ur Analysis
 This repository is dedicated to the technical analysis of
 [The Royal Game of Ur](https://en.wikipedia.org/wiki/Royal_Game_of_Ur).
+We use many different AI agents over a wide range of skill levels that
+help us answer questions about strategy in The Royal Game of Ur, including
+answering questions such as:
 
-<p align="center">
+- 🍀 How much of the game is luck?
+
+- 🐇 Does playing first give you an advantage?
+
+If you find these questions interesting like we do, or if you just like cool AI designed
+to solve probability-heavy games, then you are in the right place!
+
+<p align="center"><a href="https://github.com/Sothatsit/RoyalUrAnalysis">
   <img src="logo.png" height="256" />
-</p>
+</a></p>
 
-The Royal Game of Ur is an ancient Sumerian board game discovered by Sir Leonard Woolley in a
+**Introduction to the game:** The Royal Game of Ur is an ancient Sumerian board game discovered by Sir Leonard Woolley in a
 tomb in ancient Ur in 1922. The game dates back to **over 4000 years ago**, and is considered
-by many to be the oldest board game in the world. This repository contains code with the goal
-of analysing this old game, and determining how much of the game is luck, and how much is skill!
+by many to be the oldest board game in the world!
 
-Learn the rules of the game at https://royalur.net/rules, or play the game over at https://royalur.net.
+You can learn the rules of the game at https://royalur.net/rules, or play the game over at https://royalur.net!
 
 
 ### Join the community!
@@ -34,13 +43,7 @@ people have made! The Discord is also a great place to find strong opponents to 
 </p>
 
 
-# 🏆 Goals
-**Ultimate Goal:** Determine the best possible strategy to use to win at The Royal Game of Ur.
-
-**Side Goal:** Gain new insights into the strategy of the game.
-
-
-# 💡 Insights
+# 💡 Our current Insights
 If you'd like to learn more about questions such as:
 
 - 🍀 How much of the game is luck?
@@ -48,11 +51,12 @@ If you'd like to learn more about questions such as:
 - 🐇 Does playing first give you an advantage?
 
 Then check out our list of insights that we have found out about
-The Royal Game of Ur in [docs/Insights.md](/docs/Insights.md).
+The Royal Game of Ur in [docs/Insights.md](/docs/Insights.md)!
 
 
-# 🤖 The Agents
-We currently have a small set of agents designed to play The Royal Game of Ur.
+# 🤖 Meet the Agents
+We currently have a small set of agents designed to play The Royal Game of Ur,
+and each takes a slightly different approach to picking their moves!
 
 | Agent | Description |
 | ----- | ----------- |
@@ -60,7 +64,7 @@ We currently have a small set of agents designed to play The Royal Game of Ur.
 | [First-Move](/docs/Agents.md#-the-first-move-agent-) | Picks the least advanced piece to move. |
 | [Last-Move](/docs/Agents.md#-the-last-move-agent-)   | Picks the most advanced piece to move. |
 | [Greedy](/docs/Agents.md#-the-greedy-agent-)         | Prioritises taking pieces, and moving onto rosettes. |
-| [Expectimax](/docs/Agents.md#-the-expectimax-agent-) | Does a statistical analyser to determine the best move. |
+| [Expectimax](/docs/Agents.md#-the-expectimax-agent-) | Does a statistical analysis to determine the best move. |
 | [Panda](/docs/Agents.md#-the-panda-agent-)           | A cheaper variant of expectimax that skips checking some rolls. |
 
 If you'd like to delve deeper into each agent, how they function, and more statistics
@@ -75,7 +79,7 @@ works which uses the RoyalUrAnalysis Panda Agent under the hood!
   <img src="https://royalur.net/banner.jpg" width="400" />
 </a></p>
 
-# 🚧 Add RoyalUrAnalysis support to your website
+# 🚧 Add our AI agents to your website
 RoyalUrAnalysis has a WASM build target and JavaScript API that allows you
 to use its AI's from the web! Check out the documentation for RoyalUrAnalysis
 on the web in [WebSupport.md](/docs/WebSupport.md).
