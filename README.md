@@ -3,7 +3,7 @@ This repository is dedicated to the technical analysis of
 [The Royal Game of Ur](https://en.wikipedia.org/wiki/Royal_Game_of_Ur).
 
 <p align="center">
-  <img src="logo.png" />
+  <img src="logo.png" height="400" />
 </p>
 
 The Royal Game of Ur is an ancient Sumerian board game discovered by Sir Leonard Woolley in a
