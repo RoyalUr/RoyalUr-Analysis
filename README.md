@@ -1,6 +1,10 @@
 # 🎲 The Royal Game of Ur Analysis
-This repository is dedicated to the technical analyser of
+This repository is dedicated to the technical analysis of
 [The Royal Game of Ur](https://en.wikipedia.org/wiki/Royal_Game_of_Ur).
+
+<p align="center">
+  <img src="logo.png" />
+</p>
 
 The Royal Game of Ur is an ancient Sumerian board game discovered by Sir Leonard Woolley in a
 tomb in ancient Ur in 1922. The game dates back to **over 4000 years ago**, and is considered
