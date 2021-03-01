@@ -3,7 +3,7 @@ This repository is dedicated to the technical analysis of
 [The Royal Game of Ur](https://en.wikipedia.org/wiki/Royal_Game_of_Ur).
 
 <p align="center">
-  <img src="logo.png" height="400" />
+  <img src="logo.png" height="256" />
 </p>
 
 The Royal Game of Ur is an ancient Sumerian board game discovered by Sir Leonard Woolley in a
@@ -19,6 +19,7 @@ If you're interested in The Royal Game of Ur, we have a [Discord](https://discor
 and a [Reddit](https://www.reddit.com/r/GameofUr/) that you might want to check out! These are
 both good places to talk about the game, its strategies, and see cool board recreations that
 people have made! The Discord is also a great place to find strong opponents to challenge!
+(Other than our own AI's of course!)
 
 <p float="left">
   <a href="https://discord.gg/Ea49VVru5N">
