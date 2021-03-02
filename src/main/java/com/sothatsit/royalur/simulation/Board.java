@@ -8,6 +8,23 @@ package com.sothatsit.royalur.simulation;
 public final class Board {
 
     /**
+     * A mask where all the bits that represent tiles on the board are 1.
+     * Any bits that are off of the board are 0. This is helpful in order
+     * to stop tiles off the board being given a value other than empty.
+     */
+    public static final long ON_BOARD_MASK;
+    static {
+        long onBoardMask = 0;
+        for (int pos = 0; pos <= Pos.MAX; ++pos) {
+            if (Tile.isOnBoard(pos)) {
+                int shift = pos * 2;
+                onBoardMask |= 0b11L << shift;
+            }
+        }
+        ON_BOARD_MASK = onBoardMask;
+    }
+
+    /**
      * We store the whole state of the board in 48 bits:
      *
      *  11 11 11
@@ -44,7 +61,7 @@ public final class Board {
     /** Set the tile at the given packed position to {@param tile}. **/
     public void set(int pos, int tile) {
         int shift = pos * 2;
-        state = (state & ~(0b11L << shift) | ((long) tile << shift));
+        state = (state & ~(0b11L << shift) | ((long) tile << shift)) & ON_BOARD_MASK;
     }
 
     /** Clear all of the tiles on the board. **/

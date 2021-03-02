@@ -27,13 +27,25 @@ public class BoardTest {
         for (int tile = 0; tile < 3; ++tile) {
             for (int pos = 0; pos <= Pos.MAX; ++pos) {
                 board.set(pos, tile);
-                Assert.assertEquals(tile, board.get(pos));
+
+                // The board should not let you set any tiles off of the board.
+                if (Tile.isOnBoard(pos)) {
+                    Assert.assertEquals(tile, board.get(pos));
+                } else {
+                    Assert.assertEquals(Tile.EMPTY, board.get(pos));
+                }
             }
         }
         for (int pos = 0; pos <= Pos.MAX; ++pos) {
             for (int tile = 0; tile < 3; ++tile) {
                 board.set(pos, tile);
-                Assert.assertEquals(tile, board.get(pos));
+
+                // The board should not let you set any tiles off of the board.
+                if (Tile.isOnBoard(pos)) {
+                    Assert.assertEquals(tile, board.get(pos));
+                } else {
+                    Assert.assertEquals(Tile.EMPTY, board.get(pos));
+                }
             }
         }
 
@@ -42,7 +54,13 @@ public class BoardTest {
             for (int pos = 0; pos <= Pos.MAX; ++pos) {
                 int tile = (pos + offset) % 3;
                 board.set(pos, tile);
-                Assert.assertEquals(tile, board.get(pos));
+
+                // The board should not let you set any tiles off of the board.
+                if (Tile.isOnBoard(pos)) {
+                    Assert.assertEquals(tile, board.get(pos));
+                } else {
+                    Assert.assertEquals(Tile.EMPTY, board.get(pos));
+                }
             }
         }
     }

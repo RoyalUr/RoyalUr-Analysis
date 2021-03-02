@@ -1,10 +1,7 @@
 package com.sothatsit.royalur.analysis;
 
 import com.sothatsit.royalur.analysis.reporting.ReportFormatter;
-import com.sothatsit.royalur.analysis.targets.BenchmarkTarget;
-import com.sothatsit.royalur.analysis.targets.FirstMoveAdvantageTarget;
-import com.sothatsit.royalur.analysis.targets.LuckTarget;
-import com.sothatsit.royalur.analysis.targets.Target;
+import com.sothatsit.royalur.analysis.targets.*;
 
 /**
  * The main entry-point to this Royal Ur Analysis program.
@@ -16,7 +13,8 @@ public class Main {
     public static final Target[] TARGETS = {
             new BenchmarkTarget(),
             new FirstMoveAdvantageTarget(),
-            new LuckTarget()
+            new LuckTarget(),
+            new RoyalUrNetTarget()
     };
 
     public static void main(String[] args) {
