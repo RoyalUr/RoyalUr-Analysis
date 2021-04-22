@@ -20,6 +20,13 @@ public abstract class Agent {
     public abstract Agent clone();
 
     /** @return The packed position of the piece to be moved. **/
+    public int determineMove(Game game, int roll) {
+        MoveList legalMoves = new MoveList();
+        game.findPossibleMoves(roll, legalMoves);
+        return determineMove(game, roll, legalMoves);
+    }
+
+    /** @return The packed position of the piece to be moved. **/
     public abstract int determineMove(Game game, int roll, MoveList legalMoves);
 
     /** @return a description of this agent. **/

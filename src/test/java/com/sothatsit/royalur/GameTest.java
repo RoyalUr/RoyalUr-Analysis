@@ -1,7 +1,7 @@
 package com.sothatsit.royalur;
 
 import com.sothatsit.royalur.ai.RandomAgent;
-import com.sothatsit.royalur.analysis.AgentStats;
+import com.sothatsit.royalur.ai.utility.PiecesAdvancedUtilityFn;
 import com.sothatsit.royalur.simulation.Board;
 import com.sothatsit.royalur.simulation.Game;
 import com.sothatsit.royalur.simulation.GameState;
@@ -10,6 +10,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class GameTest {
+
+    private static final PiecesAdvancedUtilityFn piecesAdvancedUtility = new PiecesAdvancedUtilityFn();
 
     public static void assertGameState(
             Game game, GameState state,
@@ -21,6 +23,10 @@ public class GameTest {
         Assert.assertEquals(lightScore, game.light.score);
         Assert.assertEquals(darkTiles, game.dark.tiles);
         Assert.assertEquals(darkScore, game.dark.score);
+
+        int cumulative = piecesAdvancedUtility.scoreGameStateForLight(game);
+        int scratch = piecesAdvancedUtility.scoreGameStateForLightFromScratch(game);
+        Assert.assertEquals(scratch, cumulative);
     }
 
     @Test

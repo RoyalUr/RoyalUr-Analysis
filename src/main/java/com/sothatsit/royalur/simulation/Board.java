@@ -1,5 +1,7 @@
 package com.sothatsit.royalur.simulation;
 
+import com.sothatsit.royalur.ai.utility.PiecesAdvancedUtilityFn;
+
 /**
  * Represents a game board for The Royal Game of Ur.
  *
@@ -41,7 +43,14 @@ public final class Board {
      *  01 - light tile
      *  10 - dark tile
      */
-    private long state;
+    private long state = 0;
+
+    /**
+     * Stores the pieces advanced utility of the pieces
+     * that are on the board, and is updated as pieces
+     * are placed or removed.
+     */
+    public int piecesAdvancedUtility = 0;
 
     /** @return the tile at the given position. **/
     public int get(int x, int y) {
@@ -60,8 +69,13 @@ public final class Board {
 
     /** Set the tile at the given packed position to {@param tile}. **/
     public void set(int pos, int tile) {
+        int previous = get(pos);
         int shift = pos * 2;
         state = (state & ~(0b11L << shift) | ((long) tile << shift)) & ON_BOARD_MASK;
+
+        // Update the pieces advanced utility.
+        piecesAdvancedUtility -= PiecesAdvancedUtilityFn.getPieceLightUtility(pos, previous);
+        piecesAdvancedUtility += PiecesAdvancedUtilityFn.getPieceLightUtility(pos, tile);
     }
 
     /** Clear all of the tiles on the board. **/
@@ -72,6 +86,7 @@ public final class Board {
     /** Copies the state of {@param board} into this board object. **/
     public void copyFrom(Board board) {
         state = board.state;
+        piecesAdvancedUtility = board.piecesAdvancedUtility;
     }
 
     /** Clears and adds all the possible moves to {@param moves}. **/

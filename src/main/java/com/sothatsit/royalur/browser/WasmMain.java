@@ -1,7 +1,7 @@
 package com.sothatsit.royalur.browser;
 
+import com.sothatsit.royalur.RoyalUrAnalysis;
 import com.sothatsit.royalur.ai.PandaAgent;
-import com.sothatsit.royalur.ai.RoyalUrNetAgent;
 import com.sothatsit.royalur.ai.utility.PiecesAdvancedUtilityFn;
 import com.sothatsit.royalur.simulation.*;
 import de.mirkosertic.bytecoder.api.Export;
@@ -16,8 +16,10 @@ import de.mirkosertic.bytecoder.api.Import;
  */
 public class WasmMain {
 
-    /** Just needed for Bytecoder. Not actually used. **/
-    public static void main(String[] args) {}
+    /** Called when instantiated through Bytecoder. **/
+    public static void main(String[] args) {
+        System.out.println("Loaded RoyalUrAnalysis " + RoyalUrAnalysis.VERSION);
+    }
 
     /**
      * @return the latest request to be handled when {@link #handleRequest} is invoked.
@@ -31,43 +33,17 @@ public class WasmMain {
      */
     @Export("handleRequest")
     public static String handleRequest() {
-        String request = getLastRequest();
-        PacketReader reader = new PacketReader(request);
+        // Read the move request.
+        PacketReader requestReader = new PacketReader(getLastRequest());
+        MoveRequestPacket request = MoveRequestPacket.read(requestReader);
 
-        // Read information about the AI to use.
-        int depth = reader.nextInt(2);
-        Agent agent = new PandaAgent(new PiecesAdvancedUtilityFn(), depth, 2);
-
-        // Read the state of the game.
-        Game game = new Game();
-        game.light.tiles = reader.nextDigit();
-        game.light.score = reader.nextDigit();
-        game.dark.tiles = reader.nextDigit();
-        game.dark.score = reader.nextDigit();
-        for (int y = 0; y < 8; ++y) {
-            for (int x = 0; x < 3; ++x) {
-                int owner = reader.nextDigit();
-                int tile = (owner == 1 ? Tile.DARK : (owner == 2 ? Tile.LIGHT : Tile.EMPTY));
-                game.board.set(x, y, tile);
-            }
-        }
-        int activePlayerNo = reader.nextDigit();
-        game.state = (activePlayerNo == 1 ? GameState.DARK_TURN : GameState.LIGHT_TURN);
-
-        // Read the value of the dice.
-        int roll = reader.nextDigit();
+        // Create the agent to use to fulfill the request.
+        Agent agent = new PandaAgent(new PiecesAdvancedUtilityFn(), request.depth, 2);
 
         // Use the AI to determine the best move.
-        MoveList legalMoves = new MoveList();
-        game.findPossibleMoves(roll, legalMoves);
-        int move = agent.determineMove(game, roll, legalMoves);
-        int moveX = Pos.getX(move);
-        int moveY = Pos.getY(move);
+        int bestMove = agent.determineMove(request.state, request.roll);
 
         // Write the response packet.
-        PacketWriter writer = new PacketWriter();
-        writer.pushDigit(moveX);
-        writer.pushDigit(moveY);
-        return writer.toString();
+        return new MoveResponsePacket(bestMove).toString();
     }
 }
