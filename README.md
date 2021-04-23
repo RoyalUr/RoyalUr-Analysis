@@ -73,8 +73,8 @@ about each of them, then check out [docs/Agents.md](/docs/Agents.md) for more in
 
 # 🥊 Challenge the AI's yourself
 If you'd like to challenge the [Panda Agent](/docs/Agents.md#-the-panda-agent-),
-the website [RoyalUr.net](https://royalur.net) has the _Panda_ difficulty in the
-works which uses the RoyalUrAnalysis Panda Agent under the hood!
+the website [RoyalUr.net](https://royalur.net) has the _Extreme_ difficulty,
+which uses the RoyalUrAnalysis Panda Agent under the hood!
 <p align="left"><a href="https://royalur.net">
   <img src="https://royalur.net/banner.jpg" width="400" />
 </a></p>
