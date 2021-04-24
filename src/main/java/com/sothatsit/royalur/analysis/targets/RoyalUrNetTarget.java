@@ -28,7 +28,6 @@ public class RoyalUrNetTarget extends Target {
                 },
                 1000
         );
-
         AgentStats[] againstPandaDepth5 = runGames(
                 "Testing the RoyalUr.net Hard agent against Panda Depth 5",
                 new AgentType[] {
@@ -37,12 +36,11 @@ public class RoyalUrNetTarget extends Target {
                 },
                 1000
         );
-
         AgentStats[] againstPandaDepth7 = runGames(
                 "Testing the RoyalUr.net Hard agent against Panda Depth 7",
                 new AgentType[] {
                         AgentType.ROYALUR_NET_HARD,
-                        AgentType.PANDA_DEPTH_7
+                        AgentType.BROWSER_PANDA_DEPTH_7
                 },
                 100
         );

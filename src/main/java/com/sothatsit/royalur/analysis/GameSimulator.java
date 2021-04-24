@@ -23,7 +23,7 @@ public class GameSimulator {
 
     public GameSimulator() {
         int threadCount = Runtime.getRuntime().availableProcessors();
-        this.executor = Executors.newFixedThreadPool(threadCount - 4); // TODO : REMOVE ME
+        this.executor = Executors.newFixedThreadPool(threadCount);
     }
 
     public void addGame(AgentStats lightStats, AgentStats darkStats) {
