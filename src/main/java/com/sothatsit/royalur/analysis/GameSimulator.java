@@ -23,13 +23,11 @@ public class GameSimulator {
 
     public GameSimulator() {
         int threadCount = Runtime.getRuntime().availableProcessors();
-        this.executor = Executors.newFixedThreadPool(threadCount);
+        this.executor = Executors.newFixedThreadPool(threadCount - 4); // TODO : REMOVE ME
     }
 
     public void addGame(AgentStats lightStats, AgentStats darkStats) {
-        Agent light = lightStats.agent.clone();
-        Agent dark = darkStats.agent.clone();
-        outstandingTasks.add(new SimulateGameTask(lightStats, darkStats, light, dark));
+        outstandingTasks.add(new SimulateGameTask(lightStats, darkStats));
     }
 
     /**
@@ -66,23 +64,21 @@ public class GameSimulator {
      */
     private static final class SimulateGameTask implements Runnable {
 
-        private final Game game;
         private final AgentStats lightStats;
         private final AgentStats darkStats;
-        private final Agent light;
-        private final Agent dark;
         private CountDownLatch latch;
 
-        public SimulateGameTask(AgentStats lightStats, AgentStats darkStats, Agent light, Agent dark) {
-            this.game = new Game();
+        public SimulateGameTask(AgentStats lightStats, AgentStats darkStats) {
             this.lightStats = lightStats;
             this.darkStats = darkStats;
-            this.light = light;
-            this.dark = dark;
         }
 
         @Override
         public void run() {
+            Game game = new Game();
+            Agent light = lightStats.agent.clone();
+            Agent dark = darkStats.agent.clone();
+
             try {
                 game.reset();
                 game.simulateGame(lightStats, darkStats, light, dark);

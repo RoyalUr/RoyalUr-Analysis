@@ -24,7 +24,7 @@ public class PrioritiseCenterUtilityFn extends CanonicaliseWinsUtilityFn {
         if (game.state.finished)
             return score;
 
-        int center = game.board.get(1, 4);
+        int center = game.board.get(Tile.MIDDLE_ROSETTE);
         if (center == Tile.EMPTY)
             return score;
 
