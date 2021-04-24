@@ -21,28 +21,26 @@ public class FirstMoveAdvantageTarget extends Target {
     }
 
     @Override
-    public void run() {
+    public TargetResult run() {
         AgentStats[] results = runGames(
                 "Testing two good players against one another",
                 new AgentType[] { AgentType.PANDA_DEPTH_5, AgentType.PANDA_DEPTH_5 },
                 10_000
         );
 
-        double lightWinPercentage = 0;
-        double darkWinPercentage = 0;
-        for (AgentStats stats : results) {
-            lightWinPercentage += stats.getWinPercentageAsLight();
-            darkWinPercentage += stats.getWinPercentageAsDark();
-        }
-        lightWinPercentage /= results.length;
-        darkWinPercentage /= results.length;
+        double lightWinPercentage = AgentStats.calcLightWinPercentage(results);
+        double darkWinPercentage = AgentStats.calcDarkWinPercentage(results);
+        return new TargetResult(this) {
+            @Override
+            public void print() {
+                System.out.println("\n### Results of the " + NAME + " target");
+                System.out.println();
 
-        System.out.println("\n### Results of the " + NAME + " target");
-        System.out.println();
-
-        TableGenerator table = new TableGenerator("Colour", "Win Percentage");
-        table.addRow("Light", ReportFormatter.formatWinPercentage(lightWinPercentage));
-        table.addRow("Dark", ReportFormatter.formatWinPercentage(darkWinPercentage));
-        System.out.println(table.generate());
+                TableGenerator table = new TableGenerator("Colour", "Win Percentage");
+                table.addRow("Light", ReportFormatter.formatWinPercentage(lightWinPercentage));
+                table.addRow("Dark", ReportFormatter.formatWinPercentage(darkWinPercentage));
+                System.out.println(table.generate());
+            }
+        };
     }
 }

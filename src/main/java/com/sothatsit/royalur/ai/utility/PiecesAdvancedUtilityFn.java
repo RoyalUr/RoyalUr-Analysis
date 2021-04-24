@@ -29,7 +29,7 @@ public class PiecesAdvancedUtilityFn extends UtilityFunction {
     }
 
     @Override
-    public int scoreGameStateForLight(Game game) {
+    public float scoreGameStateForLight(Game game) {
         return 16 * (game.light.score - game.dark.score) + game.board.piecesAdvancedUtility;
     }
 

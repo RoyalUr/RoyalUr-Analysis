@@ -24,9 +24,9 @@ public class GameTest {
         Assert.assertEquals(darkTiles, game.dark.tiles);
         Assert.assertEquals(darkScore, game.dark.score);
 
-        int cumulative = piecesAdvancedUtility.scoreGameStateForLight(game);
-        int scratch = piecesAdvancedUtility.scoreGameStateForLightFromScratch(game);
-        Assert.assertEquals(scratch, cumulative);
+        float cumulative = piecesAdvancedUtility.scoreGameStateForLight(game);
+        float scratch = piecesAdvancedUtility.scoreGameStateForLightFromScratch(game);
+        Assert.assertEquals(scratch, cumulative, 1e-12);
     }
 
     @Test

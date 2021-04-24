@@ -21,20 +21,25 @@ public class BenchmarkTarget extends Target {
     }
 
     @Override
-    public void run() {
+    public TargetResult run() {
         AgentStats[] results = runGames(
                 "Testing two of our slower agents against one another",
                 new AgentType[] { AgentType.PANDA_DEPTH_5, AgentType.EXPECTIMAX_DEPTH_5 },
                 1000
         );
 
-        System.out.println("\n### Results of the " + NAME + " target");
-        System.out.println();
+        return new TargetResult(this) {
+            @Override
+            public void print() {
+                System.out.println("\n### Results of the " + NAME + " target");
+                System.out.println();
 
-        TableGenerator table = new TableGenerator("Agent", "Move Duration");
-        for (AgentStats stats : results) {
-            table.addRow(stats.name, ReportFormatter.formatMSPerMove(stats.getMsPerMove()));
-        }
-        System.out.println(table.generate());
+                TableGenerator table = new TableGenerator("Agent", "Move Duration");
+                for (AgentStats stats : results) {
+                    table.addRow(stats.name, ReportFormatter.formatMSPerMove(stats.getMsPerMove()));
+                }
+                System.out.println(table.generate());
+            }
+        };
     }
 }

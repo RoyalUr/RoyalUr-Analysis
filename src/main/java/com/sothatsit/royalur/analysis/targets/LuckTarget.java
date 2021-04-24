@@ -19,7 +19,7 @@ public class LuckTarget extends Target {
     }
 
     @Override
-    public void run() {
+    public TargetResult run() {
         AgentType okay = AgentType.GREEDY;
         AgentType good = AgentType.EXPECTIMAX_DEPTH_3;
         AgentType great = AgentType.PANDA_DEPTH_7;
@@ -41,15 +41,20 @@ public class LuckTarget extends Target {
                 100
         );
 
-        System.out.println("\n### Results of the " + NAME + " target");
-        System.out.println();
-        System.out.println("**Okay Player vs. Good Player:**\n");
-        System.out.println(generateAgentWinPercentageTable(okayVsGood));
-        System.out.println();
-        System.out.println("**Good Player vs. Great Player:**\n");
-        System.out.println(generateAgentWinPercentageTable(goodVsGreat));
-        System.out.println();
-        System.out.println("**Okay Player vs. Great Player:**\n");
-        System.out.println(generateAgentWinPercentageTable(okayVsGreat));
+        return new TargetResult(this) {
+            @Override
+            public void print() {
+                System.out.println("\n### Results of the " + NAME + " target");
+                System.out.println();
+                System.out.println("**Okay Player vs. Good Player:**\n");
+                System.out.println(generateAgentWinPercentageTable(okayVsGood));
+                System.out.println();
+                System.out.println("**Good Player vs. Great Player:**\n");
+                System.out.println(generateAgentWinPercentageTable(goodVsGreat));
+                System.out.println();
+                System.out.println("**Okay Player vs. Great Player:**\n");
+                System.out.println(generateAgentWinPercentageTable(okayVsGreat));
+            }
+        };
     }
 }

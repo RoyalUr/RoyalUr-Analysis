@@ -19,7 +19,7 @@ public class RoyalUrNetTarget extends Target {
     }
 
     @Override
-    public void run() {
+    public TargetResult run() {
         AgentStats[] againstExpectimaxDepth3 = runGames(
                 "Testing the RoyalUr.net Hard agent against Expectimax Depth 3",
                 new AgentType[] {
@@ -47,15 +47,20 @@ public class RoyalUrNetTarget extends Target {
                 100
         );
 
-        System.out.println("\n### Results of the " + NAME + " target");
-        System.out.println();
-        System.out.println("**RoyalUr.net Hard vs. Expectimax Depth 3**");
-        System.out.println(generateAgentWinPercentageTable(againstExpectimaxDepth3));
-        System.out.println();
-        System.out.println("**RoyalUr.net Hard vs. Panda Depth 5**");
-        System.out.println(generateAgentWinPercentageTable(againstPandaDepth5));
-        System.out.println();
-        System.out.println("**RoyalUr.net Hard vs. Panda Depth 7**");
-        System.out.println(generateAgentWinPercentageTable(againstPandaDepth7));
+        return new TargetResult(this) {
+            @Override
+            public void print() {
+                System.out.println("\n### Results of the " + NAME + " target");
+                System.out.println();
+                System.out.println("**RoyalUr.net Hard vs. Expectimax Depth 3**");
+                System.out.println(generateAgentWinPercentageTable(againstExpectimaxDepth3));
+                System.out.println();
+                System.out.println("**RoyalUr.net Hard vs. Panda Depth 5**");
+                System.out.println(generateAgentWinPercentageTable(againstPandaDepth5));
+                System.out.println();
+                System.out.println("**RoyalUr.net Hard vs. Panda Depth 7**");
+                System.out.println(generateAgentWinPercentageTable(againstPandaDepth7));
+            }
+        };
     }
 }

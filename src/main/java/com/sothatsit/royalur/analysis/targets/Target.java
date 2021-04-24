@@ -32,7 +32,7 @@ public abstract class Target {
         this.description = description;
     }
 
-    public abstract void run();
+    public abstract TargetResult run();
 
     /** @return the statistics after running {@param iterations} iterations of games between all agents. **/
     protected AgentStats[] runGames(String desc, AgentType[] agentTypes, int iterations) {
@@ -64,6 +64,15 @@ public abstract class Target {
                 return target;
         }
         return null;
+    }
+
+    /** @return an array of all the targets with the given {@param names} from the list of {@param targets}. **/
+    public static Target[] find(String[] names, Target[] targets) {
+        Target[] found = new Target[names.length];
+        for (int index = 0; index < names.length; ++index) {
+            found[index] = find(names[index], targets);
+        }
+        return found;
     }
 
     /** @return the given target name converted to lowercase, with all punctuation removed. **/

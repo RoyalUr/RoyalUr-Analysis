@@ -12,11 +12,15 @@ import com.sothatsit.royalur.simulation.*;
 public class CanonicaliseWinsUtilityFn extends PiecesAdvancedUtilityFn {
 
     public CanonicaliseWinsUtilityFn() {
-        super("canonicalise-wins");
+        this("canonicalise-wins");
+    }
+
+    protected CanonicaliseWinsUtilityFn(String name) {
+        super(name);
     }
 
     @Override
-    public int scoreGameStateForLight(Game game) {
+    public float scoreGameStateForLight(Game game) {
         // If the game is over, just go straight for the maximum score.
         if (game.state.finished)
             return (game.state.isLightActive ? 1 : -1) * 16 * Player.MAX_TILES;

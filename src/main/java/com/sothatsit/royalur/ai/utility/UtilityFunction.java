@@ -16,11 +16,11 @@ public abstract class UtilityFunction {
     }
 
     /** @return a utility value to light for the state {@param game}. **/
-    public abstract int scoreGameStateForLight(Game game);
+    public abstract float scoreGameStateForLight(Game game);
 
     /** @return a utility value for the active player for the state {@param game}. **/
-    public int scoreGameState(Game game) {
-        int utility = scoreGameStateForLight(game);
+    public float scoreGameState(Game game) {
+        float utility = scoreGameStateForLight(game);
         return game.state.isLightActive ? utility : -utility;
     }
 }

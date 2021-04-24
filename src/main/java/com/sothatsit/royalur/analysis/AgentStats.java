@@ -3,8 +3,6 @@ package com.sothatsit.royalur.analysis;
 import com.sothatsit.royalur.analysis.reporting.ReportFormatter;
 import com.sothatsit.royalur.simulation.Agent;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -59,17 +57,17 @@ public class AgentStats {
 
     /** @return the percentage (0 -> 100) of games that this agent won. **/
     public double getWinPercentageAsLight() {
-        return calculateWinPercentage(wonAsLight.get(), lostAsLight.get());
+        return calcWinPercentage(wonAsLight.get(), lostAsLight.get());
     }
 
     /** @return the percentage (0 -> 100) of games that this agent won. **/
     public double getWinPercentageAsDark() {
-        return calculateWinPercentage(wonAsDark.get(), lostAsDark.get());
+        return calcWinPercentage(wonAsDark.get(), lostAsDark.get());
     }
 
     /** @return the percentage (0 -> 100) of games that this agent won. **/
     public double getWinPercentage() {
-        return calculateWinPercentage(
+        return calcWinPercentage(
                 wonAsLight.get() + wonAsDark.get(),
                 lostAsLight.get() + lostAsDark.get()
         );
@@ -102,9 +100,27 @@ public class AgentStats {
     }
 
     /** @return the percentage (0 -> 100) of games that were won. **/
-    private static double calculateWinPercentage(int won, int lost) {
+    public static double calcWinPercentage(int won, int lost) {
         if (won == 0)
             return 0;
         return 100.0d * (double) won / (double) (won + lost);
+    }
+
+    /** @return the mean win percentage as light for all of the agents. **/
+    public static double calcLightWinPercentage(AgentStats[] results) {
+        double lightWinPercentageSum = 0;
+        for (AgentStats stats : results) {
+            lightWinPercentageSum += stats.getWinPercentageAsLight();
+        }
+        return lightWinPercentageSum / results.length;
+    }
+
+    /** @return the mean win percentage as dark for all of the agents. **/
+    public static double calcDarkWinPercentage(AgentStats[] results) {
+        double darkWinPercentageSum = 0;
+        for (AgentStats stats : results) {
+            darkWinPercentageSum += stats.getWinPercentageAsDark();
+        }
+        return darkWinPercentageSum / results.length;
     }
 }
