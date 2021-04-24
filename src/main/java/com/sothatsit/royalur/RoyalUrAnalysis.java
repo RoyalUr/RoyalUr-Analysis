@@ -5,5 +5,5 @@ package com.sothatsit.royalur;
  */
 public class RoyalUrAnalysis {
 
-    public static final String VERSION = "v1.1";
+    public static final String VERSION = "v1.2";
 }

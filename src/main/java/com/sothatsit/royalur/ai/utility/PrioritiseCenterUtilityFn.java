@@ -14,7 +14,7 @@ public class PrioritiseCenterUtilityFn extends CanonicaliseWinsUtilityFn {
     private final float bonus;
 
     public PrioritiseCenterUtilityFn(float bonus) {
-        super("prioritise-center");
+        super("Prioritise Center");
         this.bonus = bonus;
     }
 

@@ -21,7 +21,7 @@ public class PiecesAdvancedUtilityFn extends UtilityFunction {
     }
 
     public PiecesAdvancedUtilityFn() {
-        this("pieces-advanced");
+        this("Pieces Advanced");
     }
 
     protected PiecesAdvancedUtilityFn(String name) {

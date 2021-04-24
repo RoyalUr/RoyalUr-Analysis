@@ -12,7 +12,7 @@ import com.sothatsit.royalur.simulation.*;
 public class CanonicaliseWinsUtilityFn extends PiecesAdvancedUtilityFn {
 
     public CanonicaliseWinsUtilityFn() {
-        this("canonicalise-wins");
+        this("Canonicalise Wins");
     }
 
     protected CanonicaliseWinsUtilityFn(String name) {

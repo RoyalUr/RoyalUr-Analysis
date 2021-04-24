@@ -2,7 +2,9 @@ package com.sothatsit.royalur.browser;
 
 import com.sothatsit.royalur.RoyalUrAnalysis;
 import com.sothatsit.royalur.ai.PandaAgent;
+import com.sothatsit.royalur.ai.utility.CanonicaliseWinsUtilityFn;
 import com.sothatsit.royalur.ai.utility.PiecesAdvancedUtilityFn;
+import com.sothatsit.royalur.ai.utility.PrioritiseCenterUtilityFn;
 import com.sothatsit.royalur.simulation.*;
 import de.mirkosertic.bytecoder.api.Export;
 import de.mirkosertic.bytecoder.api.Import;
@@ -38,7 +40,7 @@ public class WasmMain {
         MoveRequestPacket request = MoveRequestPacket.read(requestReader);
 
         // Create the agent to use to fulfill the request.
-        Agent agent = new PandaAgent(new PiecesAdvancedUtilityFn(), request.depth, 2);
+        Agent agent = new PandaAgent(new PrioritiseCenterUtilityFn(4.0f), request.depth, 2);
 
         // Use the AI to determine the best move.
         int bestMove = agent.determineMove(request.state, request.roll);
