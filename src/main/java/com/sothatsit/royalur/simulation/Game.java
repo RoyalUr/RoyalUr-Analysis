@@ -35,6 +35,26 @@ public class Game {
         state = game.state;
     }
 
+    /** Set the current state of the game. **/
+    public void setState(GameState state) {
+        this.state = state;
+    }
+
+    /** Set the number of tiles that the light player has yet to play. **/
+    public void setLightTiles(int tiles) {
+        light.tiles = tiles;
+    }
+
+    /** Set the number of tiles that the dark player has yet to play. **/
+    public void setDarkTiles(int tiles) {
+        dark.tiles = tiles;
+    }
+
+    /** Set a tile at x/y on the board to the given tile. **/
+    public void setTile(int x, int y, int tile) {
+        board.set(x, y, tile);
+    }
+
     /** @return the currently active player. **/
     public Player getActivePlayer() {
         return state.isLightActive ? light : dark;

@@ -80,23 +80,25 @@ RoyalUrAnalysisAPI.prototype.load = function(sourcePath, onLoad, onError) {
     const initFn = this.initialiseRoyalUrAnalysis.bind(this),
           errorFn = this.onLoadErrored.bind(this);
 
-    WebAssembly.instantiateStreaming(fetch(this.sourcePath), bytecoder.imports)
-        .then(initFn)
-        .catch(function(error) {
-            console.warn("[RoyalUrAnalysisAPI] Using fallback method to load WebAssembly! "
-                + "Check if mime types for WebAssembly are configured correctly!\n"
-                + error);
+    try {
+        const request = new XMLHttpRequest();
+        request.open('GET', this.sourcePath);
+        request.responseType = 'arraybuffer';
+        request.send();
 
-            const request = new XMLHttpRequest();
-            request.open('GET', this.sourcePath);
-            request.responseType = 'arraybuffer';
-            request.send();
-
-            request.onload = function() {
-                WebAssembly.instantiate(request.response, bytecoder.imports).then(initFn).catch(errorFn);
-            };
-            request.onerror = errorFn;
-        }.bind(this));
+        request.onload = function() {
+            try {
+                WebAssembly.instantiate(request.response, bytecoder.imports)
+                    .then(initFn)
+                    .catch(errorFn);
+            } catch (e) {
+                errorFn(e);
+            }
+        };
+        request.onerror = errorFn;
+    } catch (e) {
+        errorFn(e);
+    }
 };
 
 // Create the API object.

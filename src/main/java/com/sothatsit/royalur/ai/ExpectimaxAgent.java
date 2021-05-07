@@ -3,6 +3,9 @@ package com.sothatsit.royalur.ai;
 import com.sothatsit.royalur.ai.utility.UtilityFunction;
 import com.sothatsit.royalur.simulation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * An agent that uses expectimax to determine the best move.
  *
@@ -112,6 +115,25 @@ public class ExpectimaxAgent extends Agent {
             }
         }
         return maxMove;
+    }
+
+    @Override
+    public Map<Integer, Float> scoreMoves(Game originalGame, int roll, MoveList legalMoves) {
+        Game game = games[0];
+        Map<Integer, Float> scores = new HashMap<>();
+
+        for (int index = 0; index < legalMoves.count; ++index) {
+            int move = legalMoves.positions[index];
+            game.copyFrom(originalGame);
+            game.performMove(move, roll);
+            float utility = calculateProbabilityWeightedUtility(game, 1);
+            // Correct for if the utility is the utility of the other player.
+            utility *= (originalGame.state.isLightActive == game.state.isLightActive ? 1 : -1);
+
+            // Add the score to the map.
+            scores.put(move, utility);
+        }
+        return scores;
     }
 
     @Override

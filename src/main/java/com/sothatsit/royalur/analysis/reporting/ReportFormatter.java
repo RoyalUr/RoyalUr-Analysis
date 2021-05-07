@@ -16,20 +16,30 @@ public class ReportFormatter {
     /** Formats numbers to two decimal places. **/
     private static final NumberFormat twoDPFormatter = new DecimalFormat("#0.00");
 
+    /** @return the given number formatted to one decimal place. **/
+    public static String format1DP(double value) {
+        return oneDPFormatter.format(value);
+    }
+
+    /** @return the given number formatted to two decimal places. **/
+    public static String format2DP(double value) {
+        return twoDPFormatter.format(value);
+    }
+
     /** @return a win percentage formatted as a string. **/
     public static String formatWinPercentage(double winPercentage) {
-        return oneDPFormatter.format(winPercentage) + "%";
+        return format1DP(winPercentage) + "%";
     }
 
     /** @return a duration in milliseconds formatted as a string. **/
     public static String formatMSDuration(double durationMS) {
-        return twoDPFormatter.format(durationMS) + " ms";
+        return format2DP(durationMS) + " ms";
     }
 
     /** @return a duration in seconds formatted as a string. **/
     public static String formatSecDuration(double durationSeconds) {
         if (durationSeconds < 60)
-            return oneDPFormatter.format(durationSeconds) + " sec";
+            return format1DP(durationSeconds) + " sec";
 
         long minutes = ((long) durationSeconds) / 60;
         long seconds = ((long) durationSeconds) - 60 * minutes;
@@ -38,12 +48,12 @@ public class ReportFormatter {
 
     /** @return the mean milliseconds spent per move formatted as a string. **/
     public static String formatMSPerMove(double msPerMove) {
-        return twoDPFormatter.format(msPerMove) + " ms/move";
+        return format2DP(msPerMove) + " ms/move";
     }
 
     /** @return the mean moves per game formatted as a string. **/
     public static String formatMovesPerGame(double movesPerGame) {
-        return oneDPFormatter.format(movesPerGame) + " moves/game";
+        return format1DP(movesPerGame) + " moves/game";
     }
 
     /**

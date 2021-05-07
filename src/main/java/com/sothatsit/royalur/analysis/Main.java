@@ -15,7 +15,8 @@ public class Main {
             new FirstMoveAdvantageTarget(),
             new LuckTarget(),
             new RoyalUrNetTarget(),
-            new UtilityFnsTarget()
+            new UtilityFnsTarget(),
+            new AnalysisTarget()
     };
 
     public static void main(String[] args) {

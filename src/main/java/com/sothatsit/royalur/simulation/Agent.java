@@ -1,5 +1,7 @@
 package com.sothatsit.royalur.simulation;
 
+import java.util.Map;
+
 /**
  * An agent that is able to generate its own moves.
  *
@@ -28,6 +30,24 @@ public abstract class Agent {
 
     /** @return The packed position of the piece to be moved. **/
     public abstract int determineMove(Game game, int roll, MoveList legalMoves);
+
+    /**
+     * @return A map of the calculated scores of all moves.
+     * @throws UnsupportedOperationException if not implemented for this agent.
+     */
+    public Map<Integer, Float> scoreMoves(Game game, int roll) {
+        MoveList legalMoves = new MoveList();
+        game.findPossibleMoves(roll, legalMoves);
+        return scoreMoves(game, roll, legalMoves);
+    }
+
+    /**
+     * @return A map of the calculated scores of all moves.
+     * @throws UnsupportedOperationException if not implemented for this agent.
+     */
+    public Map<Integer, Float> scoreMoves(Game game, int roll, MoveList legalMoves) {
+        throw new UnsupportedOperationException("scoreMoves is not implemented for this agent");
+    }
 
     /** @return a description of this agent. **/
     public String describe() {
