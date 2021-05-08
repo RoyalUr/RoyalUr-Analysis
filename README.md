@@ -1,7 +1,4 @@
 # 🎲 The Royal Game of Ur Analysis
-<p align="center">
-  <img src="window.png" />
-</p>
 
 This repository is dedicated to the technical analysis of
 [The Royal Game of Ur](https://en.wikipedia.org/wiki/Royal_Game_of_Ur).
@@ -16,7 +13,8 @@ If you find these questions interesting like we do, or if you just like cool AI 
 to solve probability-heavy games, then you are in the right place!
 
 <p align="center"><a href="https://github.com/Sothatsit/RoyalUrAnalysis">
-  <img src="logo.png" height="256" />
+  <img src="logo.png" height="256" />&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="window.png" height="256" />
 </a></p>
 
 **Introduction to the game:** The Royal Game of Ur is an ancient Sumerian board game discovered by Sir Leonard Woolley in a
@@ -55,6 +53,17 @@ If you'd like to learn more about questions such as:
 
 Then check out our list of insights that we have found out about
 The Royal Game of Ur in [docs/Insights.md](/docs/Insights.md)!
+
+
+# 🧐 Analyse your own positions
+If you'd like to analyse your own positions, just open the RoyalUrAnalysis.jar
+file, and it will open a window where you can input a game position. You can
+then click _Analyse_ and it will analyse the position using the same AI used for
+the royalur.net Panda difficulty! In the future, we plan to add support for
+analysing the positions using more AI's as well.
+
+In the window simply click any details you want to change about the position,
+and they will toggle between their possible states.
 
 
 # 🤖 Meet the Agents
