@@ -2,6 +2,7 @@ package com.sothatsit.royalur.analysis;
 
 import com.sothatsit.royalur.analysis.reporting.ReportFormatter;
 import com.sothatsit.royalur.analysis.targets.*;
+import com.sothatsit.royalur.analysis.ui.AnalysisWindow;
 
 /**
  * The main entry-point to this Royal Ur Analysis program.
@@ -15,14 +16,24 @@ public class Main {
             new FirstMoveAdvantageTarget(),
             new LuckTarget(),
             new RoyalUrNetTarget(),
-            new UtilityFnsTarget(),
-            new AnalysisTarget()
+            new UtilityFnsTarget()
     };
 
     public static void main(String[] args) {
-        // Check that the user gave some targets to run.
+        // By default, start the analysis window.
         if (args.length == 0) {
-            printHelp();
+            startAnalysisWindow();
+            return;
+        }
+
+        // Check if the user is running the analysis window.
+        if ("analysis".equalsIgnoreCase(args[0])) {
+            if (args.length != 1) {
+                printUsage();
+                return;
+            }
+
+            startAnalysisWindow();
             return;
         }
 
@@ -63,6 +74,10 @@ public class Main {
         }
     }
 
+    public static void startAnalysisWindow() {
+        new AnalysisWindow();
+    }
+
     public static TargetResult runTarget(Target target) {
         // Run the target!
         System.out.println("\nRunning RoyalUrAnalysis target " + target.name + ":");
@@ -88,7 +103,10 @@ public class Main {
 
     /** Prints the usage of the RoyalUrAnalysis CLI to STDERR. **/
     public static void printUsage() {
-        System.err.println("Usage of RoyalUrAnalysis CLI:");
+        System.err.println("Start the analysis window:");
+        System.err.println("   java -jar RoyalUrAnalysis.jar [analysis]");
+        System.err.println();
+        System.err.println("Run analysis targets:");
         System.err.println("   java -jar RoyalUrAnalysis.jar <target-name>");
     }
 

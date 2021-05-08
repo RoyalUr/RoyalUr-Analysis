@@ -118,9 +118,12 @@ public class ExpectimaxAgent extends Agent {
     }
 
     @Override
-    public Map<Integer, Float> scoreMoves(Game originalGame, int roll, MoveList legalMoves) {
+    public Map<Pos, Float> scoreMoves(Game originalGame, int roll, MoveList legalMoves) {
         Game game = games[0];
-        Map<Integer, Float> scores = new HashMap<>();
+        Map<Pos, Float> scores = new HashMap<>();
+
+        // We subtract the baseline score to make the scores relative.
+        float baselineScore = utilityFn.scoreGameState(originalGame);
 
         for (int index = 0; index < legalMoves.count; ++index) {
             int move = legalMoves.positions[index];
@@ -131,7 +134,7 @@ public class ExpectimaxAgent extends Agent {
             utility *= (originalGame.state.isLightActive == game.state.isLightActive ? 1 : -1);
 
             // Add the score to the map.
-            scores.put(move, utility);
+            scores.put(new Pos(move), utility - baselineScore);
         }
         return scores;
     }

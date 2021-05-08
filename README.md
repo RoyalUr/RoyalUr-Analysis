@@ -1,9 +1,12 @@
 # 🎲 The Royal Game of Ur Analysis
+<p align="center">
+  <img src="window.png" />
+</p>
+
 This repository is dedicated to the technical analysis of
 [The Royal Game of Ur](https://en.wikipedia.org/wiki/Royal_Game_of_Ur).
-We use many different AI agents over a wide range of skill levels that
-help us answer questions about strategy in The Royal Game of Ur, including
-answering questions such as:
+We use AI agents over a wide range of skill levels to help us answer
+questions about strategy in The Royal Game of Ur, including questions such as:
 
 - 🍀 How much of the game is luck?
 

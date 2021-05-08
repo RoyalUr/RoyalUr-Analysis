@@ -35,7 +35,7 @@ public abstract class Agent {
      * @return A map of the calculated scores of all moves.
      * @throws UnsupportedOperationException if not implemented for this agent.
      */
-    public Map<Integer, Float> scoreMoves(Game game, int roll) {
+    public Map<Pos, Float> scoreMoves(Game game, int roll) {
         MoveList legalMoves = new MoveList();
         game.findPossibleMoves(roll, legalMoves);
         return scoreMoves(game, roll, legalMoves);
@@ -45,7 +45,7 @@ public abstract class Agent {
      * @return A map of the calculated scores of all moves.
      * @throws UnsupportedOperationException if not implemented for this agent.
      */
-    public Map<Integer, Float> scoreMoves(Game game, int roll, MoveList legalMoves) {
+    public Map<Pos, Float> scoreMoves(Game game, int roll, MoveList legalMoves) {
         throw new UnsupportedOperationException("scoreMoves is not implemented for this agent");
     }
 

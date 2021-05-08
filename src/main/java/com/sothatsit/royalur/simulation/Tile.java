@@ -18,6 +18,11 @@ public class Tile {
     /** The packed position of the rosette at the bottom of the dark side of the board. **/
     public static final int DARK_BOTTOM_ROSETTE = Pos.pack(2, 6);
 
+    /** The x coordinate of light's safe tiles. **/
+    public static final int LIGHT_SAFE_X = 0;
+    /** The x coordinate of dark's safe tiles. **/
+    public static final int DARK_SAFE_X = 2;
+
     /** Represents a tile that is empty. **/
     public static final int EMPTY = 0;
     /** Represents a tile that contains a light piece. **/
@@ -32,9 +37,17 @@ public class Tile {
 
     /** @return whether the given position is on the board. **/
     public static boolean isOnBoard(int pos) {
-        int x = Pos.getX(pos);
-        int y = Pos.getY(pos);
+        return isOnBoard(Pos.getX(pos), Pos.getY(pos));
+    }
+
+    /** @return whether the given position is on the board. **/
+    public static boolean isOnBoard(int x, int y) {
         return x == 1 || (y != 4 && y != 5);
+    }
+
+    /** @return whether the given packed position is a rosette tile. **/
+    public static boolean isRosette(int x, int y) {
+        return isRosette(Pos.pack(x, y));
     }
 
     /** @return whether the given packed position is a rosette tile. **/

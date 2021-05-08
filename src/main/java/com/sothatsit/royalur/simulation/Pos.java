@@ -18,6 +18,10 @@ public final class Pos {
     public final int x;
     public final int y;
 
+    public Pos(int pos) {
+        this(getX(pos), getY(pos));
+    }
+
     public Pos(int x, int y) {
         this.x = x;
         this.y = y;
@@ -42,7 +46,7 @@ public final class Pos {
 
     @Override
     public String toString() {
-        return "Pos(" + x + ", " + y + ")";
+        return (char) ('A' + x) + Integer.toString(y + 1);
     }
 
     /**
