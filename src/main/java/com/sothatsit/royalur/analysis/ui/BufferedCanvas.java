@@ -21,6 +21,7 @@ public class BufferedCanvas extends JPanel {
         this.graphics = image.createGraphics();
         graphics.setBackground(Color.WHITE);
     }
+
     public Graphics2D getGraphics() {
         return graphics;
     }

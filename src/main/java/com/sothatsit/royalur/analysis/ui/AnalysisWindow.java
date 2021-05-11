@@ -4,7 +4,6 @@ import com.sothatsit.royalur.RoyalUrAnalysis;
 import com.sothatsit.royalur.ai.PandaAgent;
 import com.sothatsit.royalur.ai.utility.PrioritiseCenterUtilityFn;
 import com.sothatsit.royalur.analysis.reporting.ReportFormatter;
-import com.sothatsit.royalur.analysis.reporting.TableGenerator;
 import com.sothatsit.royalur.simulation.*;
 
 import javax.swing.*;
