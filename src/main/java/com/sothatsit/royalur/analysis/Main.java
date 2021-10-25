@@ -16,7 +16,8 @@ public class Main {
             new FirstMoveAdvantageTarget(),
             new LuckTarget(),
             new RoyalUrNetTarget(),
-            new UtilityFnsTarget()
+            new UtilityFnsTarget(),
+            new DiegoTarget()
     };
 
     public static void main(String[] args) {
@@ -49,7 +50,7 @@ public class Main {
         }
         if (missingAnyTargets) {
             System.err.println();
-            printAvailableTargets();
+            printHelp();
             return;
         }
 
@@ -110,7 +111,7 @@ public class Main {
         System.err.println("   java -jar RoyalUrAnalysis.jar <target-name>");
     }
 
-    /** Prints all of the available targets to STDERR. **/
+    /** Prints all available targets to STDERR. **/
     public static void printAvailableTargets() {
         System.err.println("Available Targets:");
         for (Target target : TARGETS) {

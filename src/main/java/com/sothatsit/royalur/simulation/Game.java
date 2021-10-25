@@ -80,13 +80,14 @@ public class Game {
             int roll = Roll.next();
             findPossibleMoves(roll, legalMoves);
             if (legalMoves.count == 0) {
+                activeAgentStats.recordMoveMade(0, 0);
                 nextTurn();
                 continue;
             }
 
             long start = System.nanoTime();
             int move = activeAgent.determineMove(this, roll, legalMoves);
-            activeAgentStats.recordMoveMade(System.nanoTime() - start);
+            activeAgentStats.recordMoveMade(System.nanoTime() - start, legalMoves.count);
             if (!legalMoves.contains(move))
                 throw new IllegalStateException(activeAgent.name + " made an illegal move");
 

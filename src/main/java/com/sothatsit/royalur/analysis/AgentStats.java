@@ -26,7 +26,9 @@ public class AgentStats {
     /** The number of games the agent lost as dark. **/
     public final AtomicInteger lostAsDark = new AtomicInteger(0);
     /** The total number of moves the agent made in its games. **/
-    public final AtomicInteger movesMade = new AtomicInteger(0);
+    public final AtomicLong movesMade = new AtomicLong(0);
+    /** The total number of choices presented to this agent. **/
+    public final AtomicLong choices = new AtomicLong(0);
     /** The total amount of time the agent spent deciding its moves. **/
     public final AtomicLong timeSpentNanos = new AtomicLong(0);
 
@@ -50,8 +52,9 @@ public class AgentStats {
     }
 
     /** Records the duration this agent spent making a move. **/
-    public void recordMoveMade(long durationNanos) {
+    public void recordMoveMade(long durationNanos, int choicesAvailable) {
         movesMade.incrementAndGet();
+        choices.addAndGet(choicesAvailable);
         timeSpentNanos.addAndGet(durationNanos);
     }
 
@@ -86,6 +89,13 @@ public class AgentStats {
     /** The mean number of moves this agent played per game. **/
     public double getMovesPerGame() {
         return (double) movesMade.get() / (double) getTotalGames();
+    }
+
+    /**
+     * @return the average number of choices per move presented to the agent.
+     */
+    public double getChoicesPerMove() {
+        return (double) choices.get() / (double) movesMade.get();
     }
 
     /** @return a summary of the statistics measured about this agent. **/

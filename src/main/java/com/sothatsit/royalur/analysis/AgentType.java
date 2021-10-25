@@ -53,7 +53,7 @@ public final class AgentType {
             "Panda Depth 7", new PandaAgent(new CanonicaliseWinsUtilityFn(), 7, 2)
     );
     public static final AgentType BROWSER_PANDA_DEPTH_7 = new AgentType(
-            "Panda Depth 7", new PandaAgent(new PrioritiseCenterUtilityFn(4.0f), 7, 2)
+            "Browser Panda Depth 7", new PandaAgent(new PrioritiseCenterUtilityFn(4.0f), 7, 2)
     );
 
     public final String name;
