@@ -1,6 +1,7 @@
 package com.sothatsit.royalur.analysis;
 
 import com.sothatsit.royalur.ai.*;
+import com.sothatsit.royalur.ai.utility.AlbanReinforcementUtilityFn;
 import com.sothatsit.royalur.ai.utility.CanonicaliseWinsUtilityFn;
 import com.sothatsit.royalur.ai.utility.PiecesAdvancedUtilityFn;
 import com.sothatsit.royalur.ai.utility.PrioritiseCenterUtilityFn;
@@ -54,6 +55,20 @@ public final class AgentType {
     );
     public static final AgentType BROWSER_PANDA_DEPTH_7 = new AgentType(
             "Browser Panda Depth 7", new PandaAgent(new PrioritiseCenterUtilityFn(4.0f), 7, 2)
+    );
+
+    // Alban Reinforcement Learning agents.
+    public static final AgentType ALBAN_DEPTH_3 = new AgentType(
+            "Alban Depth 3", new ExpectimaxAgent(new AlbanReinforcementUtilityFn(), 3)
+    );
+    public static final AgentType ALBAN_DEPTH_5 = new AgentType(
+            "Alban Depth 5", new ExpectimaxAgent(new AlbanReinforcementUtilityFn(), 5)
+    );
+    public static final AgentType ALBAN_DEPTH_7 = new AgentType(
+            "Alban Depth 7", new ExpectimaxAgent(new AlbanReinforcementUtilityFn(), 7)
+    );
+    public static final AgentType BROWSER_PANDA_ALBAN_DEPTH_7 = new AgentType(
+            "Browser Panda Alban Depth 7", new PandaAgent(new AlbanReinforcementUtilityFn(), 7, 2)
     );
 
     public final String name;

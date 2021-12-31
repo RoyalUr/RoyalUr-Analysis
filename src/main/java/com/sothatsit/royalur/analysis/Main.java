@@ -17,7 +17,8 @@ public class Main {
             new LuckTarget(),
             new RoyalUrNetTarget(),
             new UtilityFnsTarget(),
-            new DiegoTarget()
+            new DiegoTarget(),
+            new AlbanTarget()
     };
 
     public static void main(String[] args) {

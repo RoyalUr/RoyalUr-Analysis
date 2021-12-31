@@ -53,6 +53,11 @@ public final class Board {
     public int piecesAdvancedUtility = 0;
 
     /** @return the tile at the given position. **/
+    public int get(Pos pos) {
+        return get(pos.pack());
+    }
+
+    /** @return the tile at the given position. **/
     public int get(int x, int y) {
         return get(Pos.pack(x, y));
     }
@@ -78,7 +83,7 @@ public final class Board {
         piecesAdvancedUtility += PiecesAdvancedUtilityFn.getPieceLightUtility(pos, tile);
     }
 
-    /** Clear all of the tiles on the board. **/
+    /** Clear all the tiles on the board. **/
     public void clear() {
         state = 0;
     }

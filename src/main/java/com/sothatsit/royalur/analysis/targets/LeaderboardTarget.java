@@ -1,12 +1,7 @@
 package com.sothatsit.royalur.analysis.targets;
 
-import com.sothatsit.royalur.analysis.AgentStats;
-import com.sothatsit.royalur.analysis.AgentType;
-import com.sothatsit.royalur.analysis.reporting.ReportFormatter;
-import com.sothatsit.royalur.analysis.reporting.TableGenerator;
-
 /**
- * This target aims to rank all of the different
+ * This target aims to rank all the different
  * agents that make up the RoyalUrAnalysis lineup.
  *
  * @author Paddy Lamont
@@ -22,24 +17,7 @@ public class LeaderboardTarget extends Target {
 
     @Override
     public TargetResult run() {
-        AgentStats[] results = runGames(
-                "Testing two of our slower agents against one another",
-                new AgentType[] { AgentType.PANDA_DEPTH_5, AgentType.EXPECTIMAX_DEPTH_5 },
-                1000
-        );
-
-        return new TargetResult(this) {
-            @Override
-            public void print() {
-                System.out.println("\n### Results of the " + NAME + " target");
-                System.out.println();
-
-                TableGenerator table = new TableGenerator("Agent", "Move Duration");
-                for (AgentStats stats : results) {
-                    table.addRow(stats.name, ReportFormatter.formatMSPerMove(stats.getMsPerMove()));
-                }
-                System.out.println(table.generate());
-            }
-        };
+        // TODO
+        throw new UnsupportedOperationException("The leaderboard target has not been implemented yet");
     }
 }

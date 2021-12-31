@@ -17,14 +17,13 @@ public final class Path {
     /** The dark path around the board. **/
     public static final Path DARK = new Path(Pos.DARK_HOME_COL);
 
-
     /** This includes the start and end tiles. **/
     public final Pos[] path = new Pos[LENGTH];
     /** The path with each position packed. **/
     public final int[] indexToPos = new int[LENGTH];
     /** Maps from packed positions to the index of that position in the path. **/
     public final int[] posToIndex = new int[Pos.MAX + 1];
-   /** Maps from a position on this path to the next position after moving by the given roll. **/
+    /** Maps from a position on this path to the next position after moving by the given roll. **/
     public final int[][] posToDestByRoll = new int[Roll.MAX + 1][Pos.MAX + 1];
 
     public Path(int homeCol) {

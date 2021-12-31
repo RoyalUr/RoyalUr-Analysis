@@ -47,14 +47,19 @@ public class Analyser {
         return agents;
     }
 
-    /** Prints out a report of all of the agents and their performance. **/
+    /** Prints out a report of all the agents and their performance. **/
     public void printReport() {
+        printAgentsReport(getAgentStats());
+    }
+
+    /** Prints out a report of all the agents and their performance. **/
+    public static void printAgentsReport(AgentStats[] agents) {
         int maxNameLength = 0;
         for (AgentStats stats : agents) {
             maxNameLength = Math.max(maxNameLength, stats.name.length());
         }
 
-        for (AgentStats stats : getAgentStats()) {
+        for (AgentStats stats : agents) {
             String agentName = pad(stats.name, maxNameLength);
             System.out.println(agentName + "  - " + stats.summariseStats());
         }
