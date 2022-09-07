@@ -43,13 +43,6 @@ people have made! The Discord is also a great place to find strong opponents to 
   </a>
 </p>
 
-
-# Project installation
-
-To get the project working, you need a working version of the java JDK (I use 17 personally) and [Apache Maven](https://maven.apache.org/download.cgi) which you can install easily on windows using chocolatey: `choco install maven`
-
-Once those dependencies are installed, run `mvn install` at the root of the project. This will ensure all tests pass and that the CLI is built properly inside `target/CLI.jar`
-
 # 💡 Our current Insights
 If you'd like to learn more about questions such as:
 
@@ -96,6 +89,13 @@ which uses the RoyalUrAnalysis Panda Agent under the hood!
 <p align="left"><a href="https://royalur.net">
   <img src="https://royalur.net/banner.jpg" width="400" />
 </a></p>
+
+
+# 🔨 Project Installation
+RoyalUrAnalysis requires the Java JDK and [Apache Maven](https://maven.apache.org/download.cgi) to build. Java version 17 is known to be supported, although earlier versions may also work. Maven can be easily installed on Windows using chocolatey: `choco install maven`.
+
+Once the dependencies are installed, run `mvn install` at the root of the project. This will build the CLI into `target/CLI.jar`. RoyalUrAnalysis may then be ran using `java -jar target/CLI.jar`.
+
 
 # 🚧 Add our AI agents to your website
 RoyalUrAnalysis has a WASM build target and JavaScript API that allows you
