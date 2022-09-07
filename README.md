@@ -44,6 +44,12 @@ people have made! The Discord is also a great place to find strong opponents to 
 </p>
 
 
+# Project installation
+
+To get the project working, you need a working version of the java JDK (I use 17 personally) and [Apache Maven](https://maven.apache.org/download.cgi) which you can install easily on windows using chocolatey: `choco install maven`
+
+Once those dependencies are installed, run `mvn install` at the root of the project. This will ensure all tests pass and that the CLI is built properly inside `target/CLI.jar`
+
 # 💡 Our current Insights
 If you'd like to learn more about questions such as:
 
