@@ -6,6 +6,8 @@ import com.sothatsit.royalur.simulation.MoveList;
 
 /**
  * An agent that always selects the last legal move.
+ * In this case, the last move is categorised by the
+ * movement of the piece that is the most advanced.
  *
  * @author Paddy Lamont
  */

@@ -13,6 +13,7 @@ import com.sothatsit.royalur.simulation.Agent;
  *
  * @author Paddy Lamont
  */
+@SuppressWarnings("unused")
 public final class AgentType {
 
     // Simple agents.

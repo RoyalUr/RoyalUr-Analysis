@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * An agent that uses expectimax to determine the best move.
+ * An agent that uses the expectimax algorithm to determine the best move.
  *
  * @author Paddy Lamont
  */

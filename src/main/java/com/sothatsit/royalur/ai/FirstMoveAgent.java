@@ -6,6 +6,8 @@ import com.sothatsit.royalur.simulation.MoveList;
 
 /**
  * An agent that always selects the first legal move.
+ * In this case, the first move is categorised by the
+ * movement of the piece that is the least advanced.
  *
  * @author Paddy Lamont
  */

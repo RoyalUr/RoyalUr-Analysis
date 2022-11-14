@@ -12,8 +12,10 @@ import java.util.Random;
  * instead of to be as strong as is possible can be, so these
  * flaws are just left unfixed.
  *
- * You can see the RoyalUr.net agent's source code at:
- * https://github.com/Sothatsit/RoyalUrClient/blob/master/client/js/game/simulation.js
+ * You can see the RoyalUr.net agent's source code in the
+ * <a href="https://github.com/Sothatsit/RoyalUrClient/blob/master/client/js/game/simulation.js">
+ *     RoyalUrClient repository on GitHub
+ * </a>.
  *
  * The RoyalUrAnalysis Expectimax agent of is actually largely
  * based upon the RoyalUr.net agent!

@@ -1,7 +1,5 @@
 package com.sothatsit.royalur.analysis;
 
-import com.sothatsit.royalur.simulation.Agent;
-
 import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -21,13 +19,6 @@ public class Analyser {
         for (int index = 0; index < agentTypes.length; ++index) {
             AgentType type = agentTypes[index];
             this.agents[index] = new AgentStats(type.name, type.agent);
-        }
-    }
-
-    public Analyser(Agent[] agents) {
-        this.agents = new AgentStats[agents.length];
-        for (int index = 0; index < agents.length; ++index) {
-            this.agents[index] = new AgentStats(agents[index]);
         }
     }
 

@@ -4,7 +4,7 @@ import com.sothatsit.royalur.simulation.*;
 
 /**
  * An agent that prioritises capturing pieces, then landing on rosettes,
- * and otherwise will select the last available move.
+ * and otherwise will move the most advanced piece that can be moved.
  *
  * @author Paddy Lamont
  */

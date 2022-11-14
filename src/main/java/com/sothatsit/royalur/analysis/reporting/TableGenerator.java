@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Can be used to produce formatted markdown tables.
+ * Can be used to produce formatted Markdown tables.
  *
  * @author Paddy Lamont
  */

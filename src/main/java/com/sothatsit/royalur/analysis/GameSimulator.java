@@ -38,7 +38,7 @@ public class GameSimulator {
     }
 
     /**
-     * Submits all of the outstanding games to be simulated.
+     * Submits all outstanding games to be simulated.
      *
      * @return a latch that can be used to monitor the number of games remaining to be simulated.
      */

@@ -6,7 +6,7 @@ import com.sothatsit.royalur.simulation.*;
  * This utility function was trained using simulations by Alban
  * from The Royal Game of Ur Discord. Alban's code that was used
  * to train this model is available on GitHub at
- * https://github.com/Cemoixerestre/Ur.
+ * <a href="https://github.com/Cemoixerestre/Ur">https://github.com/Cemoixerestre/Ur</a>.
  */
 public class AlbanReinforcementUtilityFn extends UtilityFunction {
 
