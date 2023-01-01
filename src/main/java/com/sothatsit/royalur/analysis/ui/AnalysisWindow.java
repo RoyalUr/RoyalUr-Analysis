@@ -90,14 +90,14 @@ public class AnalysisWindow implements MouseListener {
         frame = new JFrame(RoyalUrAnalysis.TITLE);
         frame.setBackground(Color.WHITE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        canvas = new BufferedCanvas(canvasWidth, canvasHeight);
+        canvas = new BufferedCanvas(canvasWidth, canvasHeight, this::repaint);
         canvas.addMouseListener(this);
         frame.setContentPane(canvas);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        repaint();
+        canvas.repaint();
     }
 
     public int[] convertBoardToScreen(int x, int y) {
@@ -117,10 +117,7 @@ public class AnalysisWindow implements MouseListener {
         };
     }
 
-    public void repaint() {
-        Graphics2D g = canvas.getGraphics();
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
+    public void repaint(Graphics2D g) {
         g.clearRect(0, 0, canvasWidth, canvasHeight);
         drawBoard(g);
 
@@ -143,6 +140,7 @@ public class AnalysisWindow implements MouseListener {
         drawTextCentered(g, titleFont, canvasWidth / 2, 35, turn);
         drawTextCentered(g, titleFont, canvasWidth / 2, canvasHeight - 35, "Analyse");
 
+        g.dispose();
         canvas.repaint();
         frame.repaint();
     }
@@ -174,7 +172,7 @@ public class AnalysisWindow implements MouseListener {
     }
 
     public void drawBoard(Graphics2D g) {
-        // Draw all of the spaces on the board.
+        // Draw all spaces on the board.
         for (int x = 0; x < 3; ++x) {
             for (int y = 0; y < 8; ++y) {
                 if (!Tile.isOnBoard(x, y))
@@ -323,7 +321,7 @@ public class AnalysisWindow implements MouseListener {
         } else if (analyseRect.contains(mouse)) {
             analyse();
         }
-        repaint();
+        canvas.repaint();
     }
 
     @Override

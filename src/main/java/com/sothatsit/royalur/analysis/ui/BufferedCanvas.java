@@ -3,6 +3,7 @@ package com.sothatsit.royalur.analysis.ui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.function.Consumer;
 
 /**
  * A canvas that buffers the modifications you make to it
@@ -12,23 +13,25 @@ import java.awt.image.BufferedImage;
  */
 public class BufferedCanvas extends JPanel {
 
-    private final BufferedImage image;
-    private final Graphics2D graphics;
+    private final Consumer<Graphics2D> repaintFn;
 
-    public BufferedCanvas(int width, int height) {
+    public BufferedCanvas(int width, int height, Consumer<Graphics2D> repaintFn) {
         setPreferredSize(new Dimension(width, height));
-        this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        this.graphics = image.createGraphics();
-        graphics.setBackground(Color.WHITE);
-    }
-
-    public Graphics2D getGraphics() {
-        return graphics;
+        this.repaintFn = repaintFn;
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(image, 0, 0, this);
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        try {
+            repaintFn.accept(graphics);
+        } finally {
+            graphics.dispose();
+        }
     }
 }
