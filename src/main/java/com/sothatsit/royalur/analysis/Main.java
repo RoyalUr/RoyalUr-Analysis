@@ -18,7 +18,8 @@ public class Main {
             new RoyalUrNetTarget(),
             new UtilityFnsTarget(),
             new DiegoTarget(),
-            new AlbanTarget()
+            new AlbanTarget(),
+            new ExpectimaxApproxTarget()
     };
 
     public static void main(String[] args) {
