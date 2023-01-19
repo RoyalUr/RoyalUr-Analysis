@@ -2,8 +2,6 @@ package com.sothatsit.royalur.browser;
 
 import com.sothatsit.royalur.RoyalUrAnalysis;
 import com.sothatsit.royalur.ai.PandaAgent;
-import com.sothatsit.royalur.ai.utility.CanonicaliseWinsUtilityFn;
-import com.sothatsit.royalur.ai.utility.PiecesAdvancedUtilityFn;
 import com.sothatsit.royalur.ai.utility.PrioritiseCenterUtilityFn;
 import com.sothatsit.royalur.simulation.*;
 import de.mirkosertic.bytecoder.api.Export;

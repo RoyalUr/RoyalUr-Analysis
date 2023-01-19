@@ -68,7 +68,7 @@ public class Analyser {
     }
 
     /**
-     * Simulates all possible game pairings between agents {@param games} times.
+     * Simulates all possible game pairings between agents {@param iterations} times.
      */
     public void simulateGames(int iterations, int reportIntervalSeconds) {
         for (int iteration = 0; iteration < iterations; ++iteration) {

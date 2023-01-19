@@ -3,8 +3,6 @@ package com.sothatsit.royalur.analysis.targets;
 import com.sothatsit.royalur.analysis.AgentStats;
 import com.sothatsit.royalur.analysis.AgentType;
 import com.sothatsit.royalur.analysis.Analyser;
-import com.sothatsit.royalur.analysis.reporting.ReportFormatter;
-import com.sothatsit.royalur.analysis.reporting.TableGenerator;
 
 /**
  * This target aims to test the strength of Alban's
