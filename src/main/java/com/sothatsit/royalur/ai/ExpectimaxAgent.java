@@ -24,6 +24,7 @@ public class ExpectimaxAgent extends Agent {
     protected final MoveList[] moveLists;
 
     protected final Boolean useCache;
+    protected static final int maxCacheDepth = 5;
     protected static final Map<String, Float> cache = new ConcurrentHashMap<String,Float>();
 
     public ExpectimaxAgent(UtilityFunction utilityFn, int depth, Boolean useCache) {
@@ -86,7 +87,7 @@ public class ExpectimaxAgent extends Agent {
 
     public float calculateProbabilityWeightedUtility(Game game, int depth) {
         String cacheKey = "";
-        if (useCache && depth < 5) {
+        if (useCache && depth <= maxCacheDepth) {
             // TODO: Use a long for a cache key by using the game board state instead of this poor string
             cacheKey = game.toString() + depth;
             if (cache.containsKey(cacheKey)) {
@@ -102,7 +103,7 @@ public class ExpectimaxAgent extends Agent {
             utility += probabilities[roll] * calculateBestMoveUtility(game, roll, depth);
         }
         // TODO: Remove unused cache keys eventually instead of dumb capping
-        if (useCache && cache.size() < 2000000 && depth < 5) {
+        if (useCache && cache.size() < 2000000 && depth <= maxCacheDepth) {
             cache.putIfAbsent(cacheKey, utility);
         }
         return utility;
