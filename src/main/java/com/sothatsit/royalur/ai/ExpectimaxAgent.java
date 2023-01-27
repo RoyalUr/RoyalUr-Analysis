@@ -104,7 +104,7 @@ public class ExpectimaxAgent extends Agent {
         }
         // TODO: Remove unused cache keys eventually instead of dumb capping
         if (useCache && cache.size() < 2000000 && depth <= maxCacheDepth) {
-            cache.putIfAbsent(cacheKey, utility);
+            cache.put(cacheKey, utility);
         }
         return utility;
     }
