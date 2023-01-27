@@ -86,9 +86,8 @@ public class ExpectimaxAgent extends Agent {
 
     public float calculateProbabilityWeightedUtility(Game game, int depth) {
         String cacheKey = "";
-        if (useCache) {
+        if (useCache && depth < 5) {
             // TODO: Use a long for a cache key by using the game board state instead of this poor string
-            // CAUTION! USING THE CACHE ATM WILL BLOW UP YOUR RAM AND START SWAPPING LIKE MAD!
             cacheKey = game.toString() + depth;
             if (cache.containsKey(cacheKey)) {
                 return cache.get(cacheKey);
@@ -102,8 +101,9 @@ public class ExpectimaxAgent extends Agent {
         for (int roll = 0; roll <= Roll.MAX; ++roll) {
             utility += probabilities[roll] * calculateBestMoveUtility(game, roll, depth);
         }
-        if (useCache) {
-            cache.put(cacheKey, utility);
+        // TODO: Remove unused cache keys eventually instead of dumb capping
+        if (useCache && cache.size() < 2000000 && depth < 5) {
+            cache.putIfAbsent(cacheKey, utility);
         }
         return utility;
     }
