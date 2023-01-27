@@ -120,7 +120,7 @@ public class Game {
     }
 
     /**
-     * Simulates a whole game between the two agents given.
+     * Simulates a single move between the two given agents.
      */
     public void simulateOneMove(Agent light, Agent dark) {
         MoveList legalMoves = new MoveList();
