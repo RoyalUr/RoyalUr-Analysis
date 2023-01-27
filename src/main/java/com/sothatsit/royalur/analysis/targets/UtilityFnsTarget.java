@@ -72,7 +72,7 @@ public class UtilityFnsTarget extends Target {
     private static AgentType createAgentType(int depth, UtilityFunction utilityFn) {
         Agent agent;
         if (depth <= 5) {
-            agent = new ExpectimaxAgent(utilityFn, depth);
+            agent = new ExpectimaxAgent(utilityFn, depth, false);
         } else {
             agent = new PandaAgent(utilityFn, depth, 2);
         }

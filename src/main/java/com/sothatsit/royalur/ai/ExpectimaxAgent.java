@@ -5,6 +5,7 @@ import com.sothatsit.royalur.simulation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * An agent that uses the expectimax algorithm to determine the best move.
@@ -22,14 +23,18 @@ public class ExpectimaxAgent extends Agent {
     /** MoveList objects to re-use while exploring. **/
     protected final MoveList[] moveLists;
 
-    public ExpectimaxAgent(UtilityFunction utilityFn, int depth) {
-        this("Expectimax", utilityFn, depth);
+    protected final Boolean useCache;
+    protected static final Map<String, Float> cache = new ConcurrentHashMap<String,Float>();
+
+    public ExpectimaxAgent(UtilityFunction utilityFn, int depth, Boolean useCache) {
+        this("Expectimax", utilityFn, depth, useCache);
     }
 
-    protected ExpectimaxAgent(String name, UtilityFunction utilityFn, int depth) {
+    protected ExpectimaxAgent(String name, UtilityFunction utilityFn, int depth, Boolean useCache) {
         super(name);
         this.utilityFn = utilityFn;
         this.depth = depth;
+        this.useCache = useCache;
         this.games = new Game[depth + 1];
         this.moveLists = new MoveList[depth + 1];
         for (int index = 0; index <= depth; ++index) {
@@ -40,7 +45,7 @@ public class ExpectimaxAgent extends Agent {
 
     @Override
     public ExpectimaxAgent clone() {
-        return new ExpectimaxAgent(utilityFn, depth);
+        return new ExpectimaxAgent(utilityFn, depth, useCache);
     }
 
     public float calculateBestMoveUtility(Game precedingGame, int roll, int depth) {
@@ -80,6 +85,15 @@ public class ExpectimaxAgent extends Agent {
     }
 
     public float calculateProbabilityWeightedUtility(Game game, int depth) {
+        String cacheKey = "";
+        if (useCache) {
+            // TODO: Use a long for a cache key by using the game board state instead of this poor string
+            // CAUTION! USING THE CACHE ATM WILL BLOW UP YOUR RAM AND START SWAPPING LIKE MAD!
+            cacheKey = game.toString() + depth;
+            if (cache.containsKey(cacheKey)) {
+                return cache.get(cacheKey);
+            }
+        }
         if (game.state.finished || depth >= this.depth)
             return utilityFn.scoreGameState(game);
 
@@ -87,6 +101,9 @@ public class ExpectimaxAgent extends Agent {
         float[] probabilities = Roll.PROBABILITIES;
         for (int roll = 0; roll <= Roll.MAX; ++roll) {
             utility += probabilities[roll] * calculateBestMoveUtility(game, roll, depth);
+        }
+        if (useCache) {
+            cache.put(cacheKey, utility);
         }
         return utility;
     }
