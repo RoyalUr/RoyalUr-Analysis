@@ -8,8 +8,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import com.sothatsit.royalur.ai.ExpectimaxAgent;
+import com.sothatsit.royalur.ai.RandomAgent;
 import com.sothatsit.royalur.ai.utility.CanonicaliseWinsUtilityFn;
 import com.sothatsit.royalur.analysis.AgentType;
+import com.sothatsit.royalur.simulation.Agent;
 import com.sothatsit.royalur.simulation.Game;
 import com.sothatsit.royalur.simulation.MoveList;
 import com.sothatsit.royalur.simulation.Pos;
@@ -35,8 +37,8 @@ public class ExpectimaxApproxTarget extends Target {
 
         @Override
         public void run() {
-            AgentType lightType = AgentType.RANDOM;
-            AgentType darkType = AgentType.RANDOM;
+            Agent r1 = new RandomAgent();
+            Agent r2 = new RandomAgent();
             Game game = new Game();
             ExpectimaxAgent ExpectiMax7 = new ExpectimaxAgent(new CanonicaliseWinsUtilityFn(), 8, true);
             while (true) {
@@ -58,7 +60,7 @@ public class ExpectimaxApproxTarget extends Target {
                         }
                     }
                         
-                    game.simulateOneMove(lightType.agent, darkType.agent);
+                    game.simulateOneMove(r1, r2);
                 }
             }
         }

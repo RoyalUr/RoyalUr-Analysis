@@ -25,6 +25,7 @@ public class ExpectimaxAgent extends Agent {
 
     protected final Boolean useCache;
     protected static final int maxCacheDepth = 5;
+    protected static long cacheHits = 0;
     protected static final Map<String, Float> cache = new ConcurrentHashMap<String,Float>();
 
     public ExpectimaxAgent(UtilityFunction utilityFn, int depth, Boolean useCache) {
@@ -91,6 +92,10 @@ public class ExpectimaxAgent extends Agent {
             // TODO: Use a long for a cache key by using the game board state instead of this poor string
             cacheKey = game.toString() + depth;
             if (cache.containsKey(cacheKey)) {
+                cacheHits++;
+                if (cacheHits % 1000000 == 0) {
+                    System.out.println("cache hits:" + cacheHits + " cache size:" + cache.size());
+                }
                 return cache.get(cacheKey);
             }
         }
@@ -103,7 +108,7 @@ public class ExpectimaxAgent extends Agent {
             utility += probabilities[roll] * calculateBestMoveUtility(game, roll, depth);
         }
         // TODO: Remove unused cache keys eventually instead of dumb capping
-        if (useCache && cache.size() < 2000000 && depth <= maxCacheDepth) {
+        if (useCache && cache.size() < 20000000 && depth <= maxCacheDepth) {
             cache.put(cacheKey, utility);
         }
         return utility;
