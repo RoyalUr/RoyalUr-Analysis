@@ -38,7 +38,7 @@ public class ExpectimaxApproxTarget extends Target {
             AgentType lightType = AgentType.RANDOM;
             AgentType darkType = AgentType.RANDOM;
             Game game = new Game();
-            ExpectimaxAgent ExpectiMax7 = new ExpectimaxAgent(new CanonicaliseWinsUtilityFn(), 7, false);
+            ExpectimaxAgent ExpectiMax7 = new ExpectimaxAgent(new CanonicaliseWinsUtilityFn(), 8, true);
             while (true) {
                 game.reset();
                 while (!game.state.finished) {
