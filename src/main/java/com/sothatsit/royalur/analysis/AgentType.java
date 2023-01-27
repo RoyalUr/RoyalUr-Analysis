@@ -35,13 +35,16 @@ public final class AgentType {
 
     // Expectimax agents.
     public static final AgentType EXPECTIMAX_DEPTH_3 = new AgentType(
-            "Expectimax Depth 3", new ExpectimaxAgent(new CanonicaliseWinsUtilityFn(), 3)
+            "Expectimax Depth 3", new ExpectimaxAgent(new CanonicaliseWinsUtilityFn(), 3, false)
     );
     public static final AgentType EXPECTIMAX_DEPTH_5 = new AgentType(
-            "Expectimax Depth 5", new ExpectimaxAgent(new CanonicaliseWinsUtilityFn(), 5)
+            "Expectimax Depth 5", new ExpectimaxAgent(new CanonicaliseWinsUtilityFn(), 5, false)
     );
     public static final AgentType EXPECTIMAX_DEPTH_7 = new AgentType(
-            "Expectimax Depth 7", new ExpectimaxAgent(new CanonicaliseWinsUtilityFn(), 7)
+            "Expectimax Depth 7", new ExpectimaxAgent(new CanonicaliseWinsUtilityFn(), 7, false)
+    );
+    public static final AgentType EXPECTIMAX_ML_DEPTH_7 = new AgentType(
+            "Expectimax Depth 7 ML", new ExpectimaxMLAgent()
     );
 
     // Panda agents.
@@ -60,13 +63,13 @@ public final class AgentType {
 
     // Alban Reinforcement Learning agents.
     public static final AgentType ALBAN_DEPTH_3 = new AgentType(
-            "Alban Depth 3", new ExpectimaxAgent(new AlbanReinforcementUtilityFn(), 3)
+            "Alban Depth 3", new ExpectimaxAgent(new AlbanReinforcementUtilityFn(), 3, false)
     );
     public static final AgentType ALBAN_DEPTH_5 = new AgentType(
-            "Alban Depth 5", new ExpectimaxAgent(new AlbanReinforcementUtilityFn(), 5)
+            "Alban Depth 5", new ExpectimaxAgent(new AlbanReinforcementUtilityFn(), 5, false)
     );
     public static final AgentType ALBAN_DEPTH_7 = new AgentType(
-            "Alban Depth 7", new ExpectimaxAgent(new AlbanReinforcementUtilityFn(), 7)
+            "Alban Depth 7", new ExpectimaxAgent(new AlbanReinforcementUtilityFn(), 7, false)
     );
     public static final AgentType BROWSER_PANDA_ALBAN_DEPTH_7 = new AgentType(
             "Browser Panda Alban Depth 7", new PandaAgent(new AlbanReinforcementUtilityFn(), 7, 2)
