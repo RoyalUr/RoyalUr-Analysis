@@ -2,7 +2,11 @@ package com.sothatsit.royalur.analysis.targets;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -10,7 +14,6 @@ import java.util.concurrent.Executors;
 import com.sothatsit.royalur.ai.ExpectimaxAgent;
 import com.sothatsit.royalur.ai.RandomAgent;
 import com.sothatsit.royalur.ai.utility.CanonicaliseWinsUtilityFn;
-import com.sothatsit.royalur.analysis.AgentType;
 import com.sothatsit.royalur.simulation.Agent;
 import com.sothatsit.royalur.simulation.Game;
 import com.sothatsit.royalur.simulation.MoveList;
@@ -25,7 +28,7 @@ import com.sothatsit.royalur.simulation.Roll;
 public class ExpectimaxApproxTarget extends Target {
 
     public static final String NAME = "ExpectimaxApprox";
-    public static final String DESC = "This target aims to generate data so we can approximate Expectimax depth 7..";
+    public static final String DESC = "This target aims to generate data so we can approximate Expectimax depth 8.";
 
     private static final class GetExpectimaxOpinionOnMoveTask implements Runnable {
 
@@ -51,17 +54,22 @@ public class ExpectimaxApproxTarget extends Target {
                         game.findPossibleMoves(roll, legalMoves);
                         Map<Pos, Float> scoredMoves = ExpectiMax7.scoreMoves(game, roll, legalMoves);
                         if (scoredMoves.size() > 1) {
-                            for (Map.Entry<Pos, Float> entry : scoredMoves.entrySet()) {
+                            List<Entry<Pos, Float>> list = new ArrayList<>(scoredMoves.entrySet());
+                            list.sort(Entry.comparingByValue());
+                            Collections.reverse(list);
+                            int index = 1;
+                            for (Entry<Pos, Float> entry : list) {
                                 Pos p = entry.getKey();
                                 float utility = entry.getValue();
-                                String line = boardStringBeforeMove + ',' + roll + ',' + p.x + ',' + p.y + ',' + game.state.isLightActive + ',' + utility + ',' + game.light.score + ',' + game.dark.score + ',' + game.light.tiles + ',' + game.dark.tiles;
+                                String line = boardStringBeforeMove + ',' + roll + ',' + p.x + ',' + p.y + ',' + game.state.isLightActive + ',' + utility + ',' + game.light.score + ',' + game.dark.score + ',' + game.light.tiles + ',' + game.dark.tiles + ',' + index;
                                 queue.add(line);
+                                index++;
                             }
                         }
                     }
-                        
                     game.simulateOneMove(r1, r2);
                 }
+                System.out.println("Game done");
             }
         }
     }
@@ -86,7 +94,7 @@ public class ExpectimaxApproxTarget extends Target {
         long start = System.currentTimeMillis();
         try {
             out = new BufferedWriter(new FileWriter(path));
-            out.write("game,roll,x,y,light_turn,utility,light_score,dark_score,light_left,dark_left");
+            out.write("game,roll,x,y,light_turn,utility,light_score,dark_score,light_left,dark_left,rank");
             out.newLine();
             out.flush();
             while (true) {

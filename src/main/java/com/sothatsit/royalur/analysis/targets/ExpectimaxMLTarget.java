@@ -22,7 +22,7 @@ public class ExpectimaxMLTarget extends Target {
         AgentStats[] results = runGames(
                 "Testing two good players against one another",
                 new AgentType[] { AgentType.EXPECTIMAX_ML_DEPTH_7, AgentType.EXPECTIMAX_DEPTH_7 },
-                100
+                50
         );
 
         return new TargetResult(this) {

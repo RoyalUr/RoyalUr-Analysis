@@ -5,6 +5,7 @@ import com.sothatsit.royalur.simulation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -24,9 +25,10 @@ public class ExpectimaxAgent extends Agent {
     protected final MoveList[] moveLists;
 
     protected final Boolean useCache;
-    protected static final int maxCacheDepth = 5;
+    protected static final int maxCacheDepth = 3;
     protected static long cacheHits = 0;
     protected static final Map<String, Float> cache = new ConcurrentHashMap<String,Float>();
+    protected static final Map<String, Long> cacheAccess = new ConcurrentHashMap<String,Long>();
 
     public ExpectimaxAgent(UtilityFunction utilityFn, int depth, Boolean useCache) {
         this("Expectimax", utilityFn, depth, useCache);
@@ -91,24 +93,35 @@ public class ExpectimaxAgent extends Agent {
         if (useCache && depth <= maxCacheDepth) {
             // TODO: Use a long for a cache key by using the game board state instead of this poor string
             cacheKey = game.toString() + depth;
-            if (cache.containsKey(cacheKey)) {
+            Float v = cache.get(cacheKey);
+            if (v != null) {
+                cacheAccess.put(cacheKey, cacheAccess.get(cacheKey) + 1);
                 cacheHits++;
-                if (cacheHits % 1000000 == 0) {
-                    System.out.println("cache hits:" + cacheHits + " cache size:" + cache.size());
+                if (cacheHits % 200000 == 0) {
+                    System.out.println("cache size before cleanup:" + cache.size());
+                    for (Entry<String,Long> entry : cacheAccess.entrySet()) {
+                        // Remove unused cache entries after a while
+                        if (entry.getValue().equals(0L)) {
+                            cache.remove(entry.getKey());
+                            cacheAccess.remove(entry.getKey());
+                        }
+                    }
+                    System.out.println("cache hits:" + cacheHits + " cache size:" + cache.size() + " cacheAccess size:" + cacheAccess.size());
                 }
-                return cache.get(cacheKey);
+                return v;
             }
         }
         if (game.state.finished || depth >= this.depth)
             return utilityFn.scoreGameState(game);
 
-        float utility = 0;
+        Float utility = 0f;
         float[] probabilities = Roll.PROBABILITIES;
         for (int roll = 0; roll <= Roll.MAX; ++roll) {
             utility += probabilities[roll] * calculateBestMoveUtility(game, roll, depth);
         }
         // TODO: Remove unused cache keys eventually instead of dumb capping
-        if (useCache && cache.size() < 20000000 && depth <= maxCacheDepth) {
+        if (useCache && depth <= maxCacheDepth) {
+            cacheAccess.put(cacheKey, 0L);
             cache.put(cacheKey, utility);
         }
         return utility;
