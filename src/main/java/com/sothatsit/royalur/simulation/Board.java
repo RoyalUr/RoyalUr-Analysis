@@ -86,6 +86,7 @@ public final class Board {
     /** Clear all the tiles on the board. **/
     public void clear() {
         state = 0;
+        piecesAdvancedUtility = 0;
     }
 
     /** Copies the state of {@param board} into this board object. **/
