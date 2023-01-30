@@ -43,7 +43,7 @@ public class ExpectimaxApproxTarget extends Target {
             Agent r1 = new RandomAgent();
             Agent r2 = new RandomAgent();
             Game game = new Game();
-            ExpectimaxAgent ExpectiMax7 = new ExpectimaxAgent(new CanonicaliseWinsUtilityFn(), 8, true);
+            ExpectimaxAgent ExpectiMax = new ExpectimaxAgent(new CanonicaliseWinsUtilityFn(), 8, true);
             while (true) {
                 game.reset();
                 while (!game.state.finished) {
@@ -52,7 +52,7 @@ public class ExpectimaxApproxTarget extends Target {
                     for (int roll = 1; roll <= Roll.MAX; ++roll) {
                         MoveList legalMoves = new MoveList();
                         game.findPossibleMoves(roll, legalMoves);
-                        Map<Pos, Float> scoredMoves = ExpectiMax7.scoreMoves(game, roll, legalMoves);
+                        Map<Pos, Float> scoredMoves = ExpectiMax.scoreMoves(game, roll, legalMoves);
                         if (scoredMoves.size() > 1) {
                             List<Entry<Pos, Float>> list = new ArrayList<>(scoredMoves.entrySet());
                             list.sort(Entry.comparingByValue());
@@ -88,7 +88,7 @@ public class ExpectimaxApproxTarget extends Target {
             executor.submit(new GetExpectimaxOpinionOnMoveTask(queue));
         }
         
-        String path = "expectimax_utility_dataset.csv";
+        String path = "expectimax8_utility_dataset.csv";
         BufferedWriter out = null;
         long lineCounter = 1; // so modulo does not print 0
         long start = System.currentTimeMillis();
