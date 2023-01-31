@@ -120,6 +120,27 @@ public class Game {
     }
 
     /**
+     * Simulates a single move between the two given agents.
+     */
+    public void simulateOneMove(Agent light, Agent dark) {
+        MoveList legalMoves = new MoveList();
+        Agent activeAgent = (state.isLightActive ? light : dark);
+
+        int roll = Roll.next();
+        findPossibleMoves(roll, legalMoves);
+        if (legalMoves.count == 0) {
+            nextTurn();
+            return;
+        }
+
+        int move = activeAgent.determineMove(this, roll, legalMoves);
+        if (!legalMoves.contains(move))
+            throw new IllegalStateException(activeAgent.name + " made an illegal move");
+
+        performMove(move, roll);
+    }
+
+    /**
      * Move the tile at the given position.
      *
      * This method does _not_ check if the move is legal.

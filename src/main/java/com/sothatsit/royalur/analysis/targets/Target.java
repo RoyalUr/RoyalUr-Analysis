@@ -6,9 +6,6 @@ import com.sothatsit.royalur.analysis.Analyser;
 import com.sothatsit.royalur.analysis.reporting.ReportFormatter;
 import com.sothatsit.royalur.analysis.reporting.TableGenerator;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-
 /**
  * An analysis target. Each target is designed to gain
  * specific insights about the game.
