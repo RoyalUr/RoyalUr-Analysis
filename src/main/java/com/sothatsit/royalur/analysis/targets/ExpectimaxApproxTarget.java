@@ -2,11 +2,9 @@ package com.sothatsit.royalur.analysis.targets;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -14,11 +12,7 @@ import java.util.concurrent.Executors;
 import com.sothatsit.royalur.ai.ExpectimaxAgent;
 import com.sothatsit.royalur.ai.RandomAgent;
 import com.sothatsit.royalur.ai.utility.CanonicaliseWinsUtilityFn;
-import com.sothatsit.royalur.simulation.Agent;
-import com.sothatsit.royalur.simulation.Game;
-import com.sothatsit.royalur.simulation.MoveList;
-import com.sothatsit.royalur.simulation.Pos;
-import com.sothatsit.royalur.simulation.Roll;
+import com.sothatsit.royalur.simulation.*;
 
 /**
  * This target aims to generate data so we can approximate Expectimax depth 7.
@@ -30,12 +24,49 @@ public class ExpectimaxApproxTarget extends Target {
     public static final String NAME = "ExpectimaxApprox";
     public static final String DESC = "This target aims to generate data so we can approximate Expectimax depth 8.";
 
-    private static final class GetExpectimaxOpinionOnMoveTask implements Runnable {
+    private static String generateGameStateString(Game game) {
+        Board board = game.board;
+        Player light = game.light;
+        Player dark = game.dark;
+        return board + "," + light.tiles + "," + dark.tiles + "," + light.score + "," + dark.score;
+    }
 
-        private ConcurrentLinkedQueue<String> queue;
+    /**
+     * Generates positions and their evaluations using Expectimax.
+     */
+    private static final class GeneratePositionsTask implements Runnable {
 
-        public GetExpectimaxOpinionOnMoveTask(ConcurrentLinkedQueue<String> queue) {
-            this.queue = queue;
+        private final Queue<String> outputQueue;
+        private final Set<String> seenStates;
+
+        public GeneratePositionsTask(Queue<String> outputQueue, Set<String> seenStates) {
+            this.outputQueue = outputQueue;
+            this.seenStates = seenStates;
+        }
+
+        private void generateMoveEvaluations(ExpectimaxAgent evaluationAgent, Game game) {
+            String boardStringBeforeMove = game.board.toString();
+            for (int roll = 1; roll <= Roll.MAX; ++roll) {
+                MoveList legalMoves = new MoveList();
+                game.findPossibleMoves(roll, legalMoves);
+
+                Map<Pos, Float> scoredMoves = evaluationAgent.scoreMoves(game, roll, legalMoves);
+                List<Entry<Pos, Float>> list = new ArrayList<>(scoredMoves.entrySet());
+                list.sort(Entry.comparingByValue());
+                Collections.reverse(list);
+
+                int index = 1;
+                for (Entry<Pos, Float> entry : list) {
+                    Pos p = entry.getKey();
+                    float utility = entry.getValue();
+                    String line = boardStringBeforeMove + ',' + roll + ',' + p.x + ',' + p.y + ',' +
+                            game.state.isLightActive + ',' + utility + ',' +
+                            game.light.score + ',' + game.dark.score + ',' +
+                            game.light.tiles + ',' + game.dark.tiles + ',' + index;
+                    outputQueue.add(line);
+                    index++;
+                }
+            }
         }
 
         @Override
@@ -43,30 +74,17 @@ public class ExpectimaxApproxTarget extends Target {
             Agent r1 = new RandomAgent();
             Agent r2 = new RandomAgent();
             Game game = new Game();
-            ExpectimaxAgent ExpectiMax = new ExpectimaxAgent(new CanonicaliseWinsUtilityFn(), 8, true);
+            ExpectimaxAgent evaluationAgent = new ExpectimaxAgent(new CanonicaliseWinsUtilityFn(), 8, true);
             while (true) {
                 game.reset();
                 while (!game.state.finished) {
-                    String boardStringBeforeMove = game.board.toString();
-                    
-                    for (int roll = 1; roll <= Roll.MAX; ++roll) {
-                        MoveList legalMoves = new MoveList();
-                        game.findPossibleMoves(roll, legalMoves);
-                        Map<Pos, Float> scoredMoves = ExpectiMax.scoreMoves(game, roll, legalMoves);
-                        if (scoredMoves.size() > 1) {
-                            List<Entry<Pos, Float>> list = new ArrayList<>(scoredMoves.entrySet());
-                            list.sort(Entry.comparingByValue());
-                            Collections.reverse(list);
-                            int index = 1;
-                            for (Entry<Pos, Float> entry : list) {
-                                Pos p = entry.getKey();
-                                float utility = entry.getValue();
-                                String line = boardStringBeforeMove + ',' + roll + ',' + p.x + ',' + p.y + ',' + game.state.isLightActive + ',' + utility + ',' + game.light.score + ',' + game.dark.score + ',' + game.light.tiles + ',' + game.dark.tiles + ',' + index;
-                                queue.add(line);
-                                index++;
-                            }
-                        }
+                    // We only want to evaluate the position if we haven't seen it before.
+                    String state = generateGameStateString(game);
+                    if (!seenStates.add(state)) {
+                        generateMoveEvaluations(evaluationAgent, game);
                     }
+
+                    // Generate a new position.
                     game.simulateOneMove(r1, r2);
                 }
                 System.out.println("Game done");
@@ -82,10 +100,12 @@ public class ExpectimaxApproxTarget extends Target {
     public TargetResult run() {
         int threadCount = Runtime.getRuntime().availableProcessors();
         ExecutorService executor = Executors.newFixedThreadPool(threadCount);
-        ConcurrentLinkedQueue<String> queue = new ConcurrentLinkedQueue<>();
+        Queue<String> outputQueue = new ConcurrentLinkedQueue<>();
+        Set<String> seenStates = Collections.synchronizedSet(new HashSet<>());
 
+        System.out.println("Running using " + threadCount + " threads");
         for (int i = 0; i < threadCount; i++) {
-            executor.submit(new GetExpectimaxOpinionOnMoveTask(queue));
+            executor.submit(new GeneratePositionsTask(outputQueue, seenStates));
         }
         
         String path = "expectimax8_utility_dataset.csv";
@@ -98,7 +118,7 @@ public class ExpectimaxApproxTarget extends Target {
             out.newLine();
             out.flush();
             while (true) {
-                String line = queue.poll();
+                String line = outputQueue.poll();
                 if (line != null) {
                     lineCounter++;
                     out.write(line);
@@ -128,6 +148,7 @@ public class ExpectimaxApproxTarget extends Target {
         return new TargetResult(this) {
             @Override
             public void print() {
+                System.out.println("Output results to " + path);
             }
         };
     }
