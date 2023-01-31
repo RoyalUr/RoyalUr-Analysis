@@ -50,7 +50,7 @@ public class Game {
         return state.isLightActive ? dark : light;
     }
 
-    /** Populates {@param moves} with all of the possible moves from the current state. **/
+    /** Populates {@param moves} with all possible moves from the current state. **/
     public void findPossibleMoves(int roll, MoveList moves) {
         board.findPossibleMoves(getActivePlayer(), roll, moves);
     }
