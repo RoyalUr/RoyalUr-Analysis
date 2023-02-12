@@ -14,15 +14,18 @@ import kong.unirest.Unirest;
 import kong.unirest.json.JSONObject;
 import kong.unirest.json.JSONArray;
 
-public class ExpectimaxMLAgent extends Agent {
+/**
+ * An agent that retrieves its move evaluations from a local server.
+ */
+public class NetworkAgent extends Agent {
 
-    public ExpectimaxMLAgent() {
-        super("ExpectimaxML");
+    public NetworkAgent() {
+        super("NetworkAgent");
     }
 
     @Override
     public Agent clone() {
-        return new ExpectimaxMLAgent();
+        return new NetworkAgent();
     }
 
     @Override

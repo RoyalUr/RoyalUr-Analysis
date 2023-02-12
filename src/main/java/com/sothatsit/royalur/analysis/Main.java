@@ -19,7 +19,7 @@ public class Main {
             new UtilityFnsTarget(),
             new DiegoTarget(),
             new AlbanTarget(),
-            new ExpectimaxApproxTarget(),
+            new MLDataGatheringTarget(),
             new ExpectimaxMLTarget(),
     };
 
