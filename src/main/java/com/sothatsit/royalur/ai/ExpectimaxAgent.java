@@ -4,9 +4,8 @@ import com.sothatsit.royalur.ai.utility.UtilityFunction;
 import com.sothatsit.royalur.simulation.*;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * An agent that uses the expectimax algorithm to determine the best move.
@@ -24,21 +23,14 @@ public class ExpectimaxAgent extends Agent {
     /** MoveList objects to re-use while exploring. **/
     protected final MoveList[] moveLists;
 
-    protected final Boolean useCache;
-    protected static final int maxCacheDepth = 3;
-    protected static long cacheHits = 0;
-    protected static final Map<String, Float> cache = new ConcurrentHashMap<String,Float>();
-    protected static final Map<String, Long> cacheAccess = new ConcurrentHashMap<String,Long>();
-
-    public ExpectimaxAgent(UtilityFunction utilityFn, int depth, Boolean useCache) {
-        this("Expectimax", utilityFn, depth, useCache);
+    public ExpectimaxAgent(UtilityFunction utilityFn, int depth) {
+        this("Expectimax", utilityFn, depth);
     }
 
-    protected ExpectimaxAgent(String name, UtilityFunction utilityFn, int depth, Boolean useCache) {
+    protected ExpectimaxAgent(String name, UtilityFunction utilityFn, int depth) {
         super(name);
         this.utilityFn = utilityFn;
         this.depth = depth;
-        this.useCache = useCache;
         this.games = new Game[depth + 1];
         this.moveLists = new MoveList[depth + 1];
         for (int index = 0; index <= depth; ++index) {
@@ -49,7 +41,7 @@ public class ExpectimaxAgent extends Agent {
 
     @Override
     public ExpectimaxAgent clone() {
-        return new ExpectimaxAgent(utilityFn, depth, useCache);
+        return new ExpectimaxAgent(utilityFn, depth);
     }
 
     public float calculateBestMoveUtility(Game precedingGame, int roll, int depth) {
@@ -89,40 +81,13 @@ public class ExpectimaxAgent extends Agent {
     }
 
     public float calculateProbabilityWeightedUtility(Game game, int depth) {
-        String cacheKey = "";
-        if (useCache && depth <= maxCacheDepth) {
-            // TODO: Use a long for a cache key by using the game board state instead of this poor string
-            cacheKey = game.toString() + depth;
-            Float v = cache.get(cacheKey);
-            if (v != null) {
-                cacheAccess.put(cacheKey, cacheAccess.get(cacheKey) + 1);
-                cacheHits++;
-                if (cacheHits % 200000 == 0) {
-                    System.out.println("cache size before cleanup:" + cache.size());
-                    for (Entry<String,Long> entry : cacheAccess.entrySet()) {
-                        // Remove unused cache entries after a while
-                        if (entry.getValue().equals(0L)) {
-                            cache.remove(entry.getKey());
-                            cacheAccess.remove(entry.getKey());
-                        }
-                    }
-                    System.out.println("cache hits:" + cacheHits + " cache size:" + cache.size() + " cacheAccess size:" + cacheAccess.size());
-                }
-                return v;
-            }
-        }
         if (game.state.finished || depth >= this.depth)
             return utilityFn.scoreGameState(game);
 
-        Float utility = 0f;
+        float utility = 0f;
         float[] probabilities = Roll.PROBABILITIES;
         for (int roll = 0; roll <= Roll.MAX; ++roll) {
             utility += probabilities[roll] * calculateBestMoveUtility(game, roll, depth);
-        }
-        // TODO: Remove unused cache keys eventually instead of dumb capping
-        if (useCache && depth <= maxCacheDepth) {
-            cacheAccess.put(cacheKey, 0L);
-            cache.put(cacheKey, utility);
         }
         return utility;
     }
@@ -134,20 +99,16 @@ public class ExpectimaxAgent extends Agent {
         if (legalMoves.count == 1)
             return legalMoves.positions[0];
 
-        Game game = games[0];
-        float maxUtility = Float.NEGATIVE_INFINITY;
-        int maxMove = legalMoves.positions[0];
+        int maxMove = -1;
+        float maxUtility = 0;
 
-        for (int index = 0; index < legalMoves.count; ++index) {
-            int move = legalMoves.positions[index];
-            game.copyFrom(originalGame);
-            game.performMove(move, roll);
-            float utility = calculateProbabilityWeightedUtility(game, 1);
-            // Correct for if the utility is the utility of the other player.
-            utility *= (originalGame.state.isLightActive == game.state.isLightActive ? 1 : -1);
-            if (utility > maxUtility) {
+        Map<Pos, Float> scores = this.scoreMoves(originalGame, roll, legalMoves);
+        for (Map.Entry<Pos, Float> entry : scores.entrySet()) {
+            int pos = entry.getKey().pack();
+            float utility = entry.getValue();
+            if (maxMove == -1 || utility > maxUtility) {
+                maxMove = pos;
                 maxUtility = utility;
-                maxMove = move;
             }
         }
         return maxMove;
@@ -158,9 +119,6 @@ public class ExpectimaxAgent extends Agent {
         Game game = games[0];
         Map<Pos, Float> scores = new HashMap<>();
 
-        // We subtract the baseline score to make the scores relative.
-        float baselineScore = utilityFn.scoreGameState(originalGame);
-
         for (int index = 0; index < legalMoves.count; ++index) {
             int move = legalMoves.positions[index];
             game.copyFrom(originalGame);
@@ -170,7 +128,7 @@ public class ExpectimaxAgent extends Agent {
             utility *= (originalGame.state.isLightActive == game.state.isLightActive ? 1 : -1);
 
             // Add the score to the map.
-            scores.put(new Pos(move), utility - baselineScore);
+            scores.put(new Pos(move), utility);
         }
         return scores;
     }

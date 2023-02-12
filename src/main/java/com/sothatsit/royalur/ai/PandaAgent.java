@@ -24,7 +24,7 @@ public class PandaAgent extends ExpectimaxAgent {
     private final int fullSearchDepth;
 
     public PandaAgent(UtilityFunction utilityFn, int depth, int fullSearchDepth) {
-        super("Panda", utilityFn, depth, false);
+        super("Panda", utilityFn, depth);
         this.fullSearchDepth = fullSearchDepth;
     }
 

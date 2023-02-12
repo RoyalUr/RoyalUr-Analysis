@@ -185,4 +185,40 @@ public class Game {
     public String toString() {
         return "Game(" + state + ", " + light +", " + dark + ", \"" + board + "\")";
     }
+
+    /** @return the state of this game encoded into a long. **/
+    public long toLong() {
+        int bit = 0;
+        long value = 0;
+        for (int pos = 0; pos <= Pos.MAX; ++pos) {
+            if (!Tile.isOnBoard(pos))
+                continue;
+
+            int contents = board.get(pos);
+
+            boolean light = Path.LIGHT.contains(pos);
+            boolean dark = Path.DARK.contains(pos);
+            if (light && dark) {
+                value <<= 2;
+                value |= contents & 0b11;
+                bit += 2;
+            } else {
+                value <<= 1;
+                value |= (contents != 0 ? 1 : 0);
+                bit += 1;
+            }
+        }
+
+        // Add in the tiles.
+        value <<= 3;
+        value |= light.tiles & 0b111;
+        value <<= 3;
+        value |= dark.tiles & 0b111;
+
+        bit += 6;
+        if (bit > 64)
+            throw new RuntimeException("Something went wrong....");
+
+        return value;
+    }
 }
