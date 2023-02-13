@@ -50,6 +50,10 @@ public class MLDataGatheringTarget extends Target {
                 for (Entry<Pos, Float> entry : scoredMoves.entrySet()) {
                     int pos = entry.getKey().pack();
                     float utility = entry.getValue();
+                    if (!game.state.isLightActive) {
+                        utility *= -1;
+                    }
+
                     testGame.copyFrom(game);
                     testGame.performMove(pos, roll);
 

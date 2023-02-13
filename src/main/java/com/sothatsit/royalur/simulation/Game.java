@@ -214,8 +214,8 @@ public class Game {
         value |= light.tiles & 0b111;
         value <<= 3;
         value |= dark.tiles & 0b111;
-
         bit += 6;
+
         if (bit > 64)
             throw new RuntimeException("Something went wrong....");
 
