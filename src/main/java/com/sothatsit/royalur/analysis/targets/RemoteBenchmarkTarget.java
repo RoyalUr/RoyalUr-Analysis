@@ -4,24 +4,24 @@ import com.sothatsit.royalur.analysis.AgentStats;
 import com.sothatsit.royalur.analysis.AgentType;
 
 /**
- * This target aims to generate data so we can approximate Expectimax depth 7.
+ * This target allows testing an agent that is run in another process against Expectimax.
  *
  * @author Raphaël Côté
  */
-public class ExpectimaxMLTarget extends Target {
+public class RemoteBenchmarkTarget extends Target {
 
-    public static final String NAME = "ExpectimaxML";
-    public static final String DESC = "This target aims to generate data so we can approximate Expectimax depth 7.";
+    public static final String NAME = "RemoteBenchmark";
+    public static final String DESC = "This target allows testing an agent that is run in another process against Expectimax.";
 
-    public ExpectimaxMLTarget() {
+    public RemoteBenchmarkTarget() {
         super(NAME, DESC);
     }
 
     @Override
     public TargetResult run() {
         AgentStats[] results = runGames(
-                "Testing two good players against one another",
-                new AgentType[] { AgentType.EXPECTIMAX_ML_DEPTH_7, AgentType.EXPECTIMAX_DEPTH_7 },
+                "Testing a remote agent against Expectimax depth 7",
+                new AgentType[] { AgentType.REMOTE, AgentType.EXPECTIMAX_DEPTH_7 },
                 50
         );
 

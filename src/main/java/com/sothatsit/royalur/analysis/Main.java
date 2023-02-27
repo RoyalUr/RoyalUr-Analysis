@@ -19,8 +19,8 @@ public class Main {
             new UtilityFnsTarget(),
             new DiegoTarget(),
             new AlbanTarget(),
-            new MLDataGatheringTarget(),
-            new ExpectimaxMLTarget(),
+            new DataGatheringTarget(),
+            new RemoteBenchmarkTarget(),
     };
 
     public static void main(String[] args) {

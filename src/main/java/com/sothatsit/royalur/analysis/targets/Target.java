@@ -3,6 +3,7 @@ package com.sothatsit.royalur.analysis.targets;
 import com.sothatsit.royalur.analysis.AgentStats;
 import com.sothatsit.royalur.analysis.AgentType;
 import com.sothatsit.royalur.analysis.Analyser;
+import com.sothatsit.royalur.analysis.ConfiguredAgentType;
 import com.sothatsit.royalur.analysis.reporting.ReportFormatter;
 import com.sothatsit.royalur.analysis.reporting.TableGenerator;
 
@@ -31,8 +32,24 @@ public abstract class Target {
 
     public abstract TargetResult run();
 
-    /** @return the statistics after running {@param iterations} iterations of games between all agents. **/
+    /**
+     * Runs games between all agents, with each agent configured with no arguments.
+     * @return the statistics after running {@param iterations} iterations of games between all agents.
+     **/
     protected AgentStats[] runGames(String desc, AgentType[] agentTypes, int iterations) {
+        ConfiguredAgentType[] configuredAgentTypes = new ConfiguredAgentType[agentTypes.length];
+        String[] noArgs = new String[0];
+        for (int index = 0; index < agentTypes.length; ++index) {
+            configuredAgentTypes[index] = agentTypes[index].configure(noArgs);
+        }
+        return runGames(desc, configuredAgentTypes, iterations);
+    }
+
+    /**
+     * Runs games between all agents.
+     * @return the statistics after running {@param iterations} iterations of games between all agents.
+     **/
+    protected AgentStats[] runGames(String desc, ConfiguredAgentType[] agentTypes, int iterations) {
         System.out.println("Running " + iterations + " iterations of games for: " + desc);
         Analyser analyser = new Analyser(agentTypes);
         analyser.simulateGames(iterations, GAME_PROGRESS_REPORT_INTERVAL_SECS);

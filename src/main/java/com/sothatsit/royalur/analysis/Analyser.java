@@ -14,11 +14,11 @@ public class Analyser {
     private final GameSimulator simulator = new GameSimulator();
     private final AgentStats[] agents;
 
-    public Analyser(AgentType[] agentTypes) {
+    public Analyser(ConfiguredAgentType[] agentTypes) {
         this.agents = new AgentStats[agentTypes.length];
         for (int index = 0; index < agentTypes.length; ++index) {
-            AgentType type = agentTypes[index];
-            this.agents[index] = new AgentStats(type.name, type.agent);
+            ConfiguredAgentType type = agentTypes[index];
+            this.agents[index] = new AgentStats(type.getName(), type.newAgent());
         }
     }
 
@@ -30,7 +30,7 @@ public class Analyser {
     }
 
     /**
-     * @return a list of the statistics of all the agents,
+     * @return an array of the statistics of all the agents,
      *         sorted in descending order by win percentage.
      */
     public AgentStats[] getAgentStats() {

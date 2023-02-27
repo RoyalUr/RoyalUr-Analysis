@@ -21,10 +21,10 @@ import com.sothatsit.royalur.simulation.*;
  *
  * @author Raphaël Côté, Padraig X. Lamont
  */
-public class MLDataGatheringTarget extends Target {
+public class DataGatheringTarget extends Target {
 
-    public static final String NAME = "MLDataGathering";
-    public static final String DESC = "This target aims to generate data so that we can train machine learning models to play the Royal Game of Ur.";
+    public static final String NAME = "DataGathering";
+    public static final String DESC = "This target aims to generate random game data for training AI models.";
 
     /**
      * Generates positions and their evaluations.
@@ -90,7 +90,7 @@ public class MLDataGatheringTarget extends Target {
         }
     }
 
-    public MLDataGatheringTarget() {
+    public DataGatheringTarget() {
         super(NAME, DESC);
     }
 

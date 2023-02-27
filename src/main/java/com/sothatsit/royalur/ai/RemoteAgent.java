@@ -15,17 +15,36 @@ import kong.unirest.json.JSONObject;
 import kong.unirest.json.JSONArray;
 
 /**
- * An agent that retrieves its move evaluations from a local server.
+ * An agent that retrieves its move evaluations from an external server.
  */
-public class NetworkAgent extends Agent {
+public class RemoteAgent extends Agent {
 
-    public NetworkAgent() {
-        super("NetworkAgent");
+    private final String url;
+
+    public RemoteAgent(String url) {
+        super("RemoteAgent");
+        this.url = url;
     }
 
     @Override
     public Agent clone() {
-        return new NetworkAgent();
+        return new RemoteAgent(url);
+    }
+
+    public static RemoteAgent create(String[] args) {
+        if (args.length == 0) {
+            throw new IllegalArgumentException(
+                    "Expected a single argument: the remote URL. " +
+                            "Received no arguments"
+            );
+        }
+        if (args.length > 1) {
+            throw new IllegalArgumentException(
+                    "Expected only a single argument: the remote URL. " +
+                            "Received " + args.length + " arguments"
+            );
+        }
+        return new RemoteAgent(args[0]);
     }
 
     @Override
@@ -71,7 +90,7 @@ public class NetworkAgent extends Agent {
             arr.put(obj);
         }
 
-        HttpResponse<JsonNode> response = Unirest.post("http://localhost:5000/infer")
+        HttpResponse<JsonNode> response = Unirest.post(url)
             .header("accept", "application/json")
             .header("Content-Type", "application/json")
             .body(arr.toString())
