@@ -4,8 +4,6 @@ import com.sothatsit.royalur.ai.utility.PiecesAdvancedUtilityFn;
 import com.sothatsit.royalur.ai.utility.UtilityFunction;
 import com.sothatsit.royalur.simulation.*;
 
-import java.util.Random;
-
 /**
  * This class is a recreation of the AI agent used by RoyalUr.net.
  * It has some known flaws, but it is designed to be fun to play

@@ -4,6 +4,7 @@ import com.sothatsit.royalur.ai.utility.UtilityFunction;
 import com.sothatsit.royalur.simulation.*;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -83,7 +84,7 @@ public class ExpectimaxAgent extends Agent {
         if (game.state.finished || depth >= this.depth)
             return utilityFn.scoreGameState(game);
 
-        float utility = 0;
+        float utility = 0f;
         float[] probabilities = Roll.PROBABILITIES;
         for (int roll = 0; roll <= Roll.MAX; ++roll) {
             utility += probabilities[roll] * calculateBestMoveUtility(game, roll, depth);
@@ -98,20 +99,16 @@ public class ExpectimaxAgent extends Agent {
         if (legalMoves.count == 1)
             return legalMoves.positions[0];
 
-        Game game = games[0];
-        float maxUtility = Float.NEGATIVE_INFINITY;
-        int maxMove = legalMoves.positions[0];
+        int maxMove = -1;
+        float maxUtility = 0;
 
-        for (int index = 0; index < legalMoves.count; ++index) {
-            int move = legalMoves.positions[index];
-            game.copyFrom(originalGame);
-            game.performMove(move, roll);
-            float utility = calculateProbabilityWeightedUtility(game, 1);
-            // Correct for if the utility is the utility of the other player.
-            utility *= (originalGame.state.isLightActive == game.state.isLightActive ? 1 : -1);
-            if (utility > maxUtility) {
+        Map<Pos, Float> scores = this.scoreMoves(originalGame, roll, legalMoves);
+        for (Map.Entry<Pos, Float> entry : scores.entrySet()) {
+            int pos = entry.getKey().pack();
+            float utility = entry.getValue();
+            if (maxMove == -1 || utility > maxUtility) {
+                maxMove = pos;
                 maxUtility = utility;
-                maxMove = move;
             }
         }
         return maxMove;
@@ -122,9 +119,6 @@ public class ExpectimaxAgent extends Agent {
         Game game = games[0];
         Map<Pos, Float> scores = new HashMap<>();
 
-        // We subtract the baseline score to make the scores relative.
-        float baselineScore = utilityFn.scoreGameState(originalGame);
-
         for (int index = 0; index < legalMoves.count; ++index) {
             int move = legalMoves.positions[index];
             game.copyFrom(originalGame);
@@ -134,7 +128,7 @@ public class ExpectimaxAgent extends Agent {
             utility *= (originalGame.state.isLightActive == game.state.isLightActive ? 1 : -1);
 
             // Add the score to the map.
-            scores.put(new Pos(move), utility - baselineScore);
+            scores.put(new Pos(move), utility);
         }
         return scores;
     }

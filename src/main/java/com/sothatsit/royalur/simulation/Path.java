@@ -65,4 +65,13 @@ public final class Path {
     public boolean isEnd(int pos) {
         return pos == indexToPos[LENGTH - 1];
     }
+
+    /** @return whether {@param pos} falls within this path. **/
+    public boolean contains(int pos) {
+        for (Pos potential : path) {
+            if (potential.pack() == pos)
+                return true;
+        }
+        return false;
+    }
 }

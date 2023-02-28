@@ -3,3 +3,5 @@
 .llvm/
 target/
 RoyalUrAnalysis.iml
+*.txt
+*.csv

@@ -76,6 +76,6 @@ public class UtilityFnsTarget extends Target {
         } else {
             agent = new PandaAgent(utilityFn, depth, 2);
         }
-        return new AgentType(agent.name + " Depth " + depth + ", " + utilityFn.name + " Utility", agent);
+        return new AgentType(agent.name + " Depth " + depth + ", " + utilityFn.name + " Utility", args -> agent);
     }
 }
