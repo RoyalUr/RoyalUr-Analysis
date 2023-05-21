@@ -5,6 +5,6 @@ package com.sothatsit.royalur;
  */
 public class RoyalUrAnalysis {
 
-    public static final String VERSION = "v2.1.0";
+    public static final String VERSION = "v2.1.1";
     public static final String TITLE = "RoyalUrAnalysis " + VERSION;
 }

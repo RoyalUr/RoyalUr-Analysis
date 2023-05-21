@@ -1,7 +1,9 @@
 package com.sothatsit.royalur.analysis.ui;
 
 import com.sothatsit.royalur.RoyalUrAnalysis;
+import com.sothatsit.royalur.ai.LikelihoodAgent;
 import com.sothatsit.royalur.ai.PandaAgent;
+import com.sothatsit.royalur.ai.utility.AlbanReinforcementUtilityFn;
 import com.sothatsit.royalur.ai.utility.PrioritiseCenterUtilityFn;
 import com.sothatsit.royalur.analysis.reporting.ReportFormatter;
 import com.sothatsit.royalur.simulation.*;
@@ -253,9 +255,16 @@ public class AnalysisWindow implements MouseListener {
 
     public void analyse() {
         // Use the same AI used for the RoyalUr.net Panda difficulty.
-        Agent agent = new PandaAgent(new PrioritiseCenterUtilityFn(4.0f), 7, 2);
+        Agent agent = new LikelihoodAgent(
+                new AlbanReinforcementUtilityFn(),
+                LikelihoodAgent.calculateDepthThreshold(9)
+        );
 
+        long start = System.nanoTime();
         Map<Pos, Float> scores = agent.scoreMoves(game, roll);
+        double durationMS = (System.nanoTime() - start) * 1e-6d;
+        System.out.println("Took " + ReportFormatter.formatMSDuration(durationMS));
+
         StringBuilder builder = new StringBuilder("<html>");
 
         if (!scores.isEmpty()) {

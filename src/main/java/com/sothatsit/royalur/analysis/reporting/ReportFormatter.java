@@ -15,6 +15,8 @@ public class ReportFormatter {
     private static final NumberFormat oneDPFormatter = new DecimalFormat("#0.0");
     /** Formats numbers to two decimal places. **/
     private static final NumberFormat twoDPFormatter = new DecimalFormat("#0.00");
+    /** Formats numbers to three decimal places. **/
+    private static final NumberFormat threeDPFormatter = new DecimalFormat("#0.000");
 
     /** @return the given number formatted to one decimal place. **/
     public static String format1DP(double value) {
@@ -26,6 +28,11 @@ public class ReportFormatter {
         return twoDPFormatter.format(value);
     }
 
+    /** @return the given number formatted to three decimal places. **/
+    public static String format3DP(double value) {
+        return threeDPFormatter.format(value);
+    }
+
     /** @return a win percentage formatted as a string. **/
     public static String formatWinPercentage(double winPercentage) {
         return format1DP(winPercentage) + "%";
@@ -33,6 +40,9 @@ public class ReportFormatter {
 
     /** @return a duration in milliseconds formatted as a string. **/
     public static String formatMSDuration(double durationMS) {
+        if (durationMS < 0.1)
+            return format3DP(durationMS) + " ms";
+
         return format2DP(durationMS) + " ms";
     }
 
@@ -48,7 +58,7 @@ public class ReportFormatter {
 
     /** @return the mean milliseconds spent per move formatted as a string. **/
     public static String formatMSPerMove(double msPerMove) {
-        return format2DP(msPerMove) + " ms/move";
+        return formatMSDuration(msPerMove) + "/move";
     }
 
     /** @return the mean moves per game formatted as a string. **/

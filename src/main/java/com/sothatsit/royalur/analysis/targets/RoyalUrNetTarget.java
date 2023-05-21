@@ -1,5 +1,8 @@
 package com.sothatsit.royalur.analysis.targets;
 
+import com.sothatsit.royalur.ai.LikelihoodAgent;
+import com.sothatsit.royalur.ai.utility.AlbanReinforcementUtilityFn;
+import com.sothatsit.royalur.ai.utility.CanonicaliseWinsUtilityFn;
 import com.sothatsit.royalur.analysis.AgentStats;
 import com.sothatsit.royalur.analysis.AgentType;
 
@@ -23,27 +26,39 @@ public class RoyalUrNetTarget extends Target {
         AgentStats[] againstExpectimaxDepth3 = runGames(
                 "Testing the RoyalUr.net Hard agent against Expectimax Depth 3",
                 new AgentType[] {
-                        AgentType.ROYALUR_NET_HARD,
-                        AgentType.EXPECTIMAX_DEPTH_3
+//                        AgentType.ROYALUR_NET_HARD,
+                        AgentType.EXPECTIMAX_DEPTH_3,
+                        new AgentType("Likelihood A", args -> new LikelihoodAgent(
+                                new AlbanReinforcementUtilityFn(),
+                                0.09
+                        ))
                 },
-                1000
+                10000
         );
         AgentStats[] againstPandaDepth5 = runGames(
                 "Testing the RoyalUr.net Hard agent against Panda Depth 5",
                 new AgentType[] {
-                        AgentType.ROYALUR_NET_HARD,
-                        AgentType.PANDA_DEPTH_5
+//                        AgentType.ROYALUR_NET_HARD,
+                        AgentType.PANDA_DEPTH_5,
+                        new AgentType("Likelihood B", args -> new LikelihoodAgent(
+                                new AlbanReinforcementUtilityFn(),
+                                0.0055
+                        ))
                 },
                 1000
         );
-        AgentStats[] againstPandaDepth7 = runGames(
-                "Testing the RoyalUr.net Hard agent against Panda Depth 7",
-                new AgentType[] {
-                        AgentType.ROYALUR_NET_HARD,
-                        AgentType.BROWSER_PANDA_DEPTH_7
-                },
-                100
-        );
+//        AgentStats[] againstPandaDepth7 = runGames(
+//                "Testing the RoyalUr.net Hard agent against Panda Depth 7",
+//                new AgentType[] {
+////                        AgentType.ROYALUR_NET_HARD,
+//                        AgentType.BROWSER_PANDA_DEPTH_7,
+//                        new AgentType("Likelihood A", args -> new LikelihoodAgent(
+//                                new CanonicaliseWinsUtilityFn(),
+//                                LikelihoodAgent.calculateDepthThreshold(8)
+//                        ))
+//                },
+//                100
+//        );
 
         return new TargetResult(this) {
             @Override
@@ -55,9 +70,9 @@ public class RoyalUrNetTarget extends Target {
                 System.out.println();
                 System.out.println("**RoyalUr.net Hard vs. Panda Depth 5**");
                 System.out.println(generateAgentWinPercentageTable(againstPandaDepth5));
-                System.out.println();
-                System.out.println("**RoyalUr.net Hard vs. Panda Depth 7**");
-                System.out.println(generateAgentWinPercentageTable(againstPandaDepth7));
+//                System.out.println();
+//                System.out.println("**RoyalUr.net Hard vs. Panda Depth 7**");
+//                System.out.println(generateAgentWinPercentageTable(againstPandaDepth7));
             }
         };
     }
